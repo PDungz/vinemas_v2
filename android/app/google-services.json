@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "428538709237",
+    "project_id": "vinemas-v1",
+    "storage_bucket": "vinemas-v1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428538709237:android:1de0bcb856a92d24e6f1bc",
+        "android_client_info": {
+          "package_name": "com.example.vinemas_v1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiishCQF9OQY6ziDEjCvqQkIy6RT4t73Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
