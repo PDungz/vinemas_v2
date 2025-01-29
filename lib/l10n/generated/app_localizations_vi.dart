@@ -13,7 +13,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_local_language => 'vi_VN';
 
   @override
-  String get keyword_country => 'Vietnamese';
+  String get keyword_country => 'Việt Nam';
 
   @override
   String get keyword_username => 'Tên đăng nhập';

@@ -239,10 +239,14 @@ class $AssetsImagesSocialNetworkGen {
 class Assets {
   Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsAnimationGen animation = $AssetsAnimationGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {
