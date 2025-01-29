@@ -37,7 +37,7 @@ class BodyWidget extends StatelessWidget {
           child: CustomLayoutHorizontal(
             crossAxisAlignment: CrossAxisAlignment.center,
             leftWidget: Text(
-              AppLocalizations.of(context)!.keyword_upcoming,
+              AppLocalizations.of(context)!.keyword_now_in_cinemas,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             rightWidget: InkWell(
