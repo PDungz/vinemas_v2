@@ -4,12 +4,14 @@ part of 'global_bloc.dart';
 class GlobalState extends Equatable {
   final StatusState state;
   final Configuration? configuration;
+  final List<Genres>? genres;
   final Locale? locale;
   final String? errorMsg;
 
   const GlobalState({
     this.state = StatusState.idle,
     this.configuration,
+    this.genres,
     this.locale,
     this.errorMsg,
   });
@@ -18,6 +20,7 @@ class GlobalState extends Equatable {
   List<Object?> get props => [
         state,
         configuration,
+        genres,
         locale,
         errorMsg,
       ];
@@ -25,12 +28,14 @@ class GlobalState extends Equatable {
   GlobalState copyWith({
     StatusState? state,
     Configuration? configuration,
+    List<Genres>? genres,
     Locale? locale,
     String? errorMsg,
   }) {
     return GlobalState(
       state: state ?? this.state,
       configuration: configuration ?? this.configuration,
+      genres: genres ?? this.genres,
       locale: locale ?? this.locale,
       errorMsg: errorMsg ?? this.errorMsg,
     );
