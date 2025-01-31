@@ -16,4 +16,12 @@ class ImageConfig {
     required this.profileSizes,
     required this.stillSizes,
   });
+
+  String getPosterSizes(String parameter) {
+    final String value = posterSizes.firstWhere(
+      (element) => element == parameter,
+      orElse: () => 'original',
+    );
+    return value;
+  }
 }

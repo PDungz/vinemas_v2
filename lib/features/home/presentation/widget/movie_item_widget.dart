@@ -5,13 +5,13 @@ import 'package:vinemas_v1/core/config/app_color.dart';
 class MovieItemWidget extends StatelessWidget {
   final String posterImgPath;
   final String title;
-  final String genre;
+  final String genres;
   final double score;
   const MovieItemWidget({
     super.key,
     required this.posterImgPath,
     required this.title,
-    required this.genre,
+    required this.genres,
     required this.score,
   });
 
@@ -39,12 +39,14 @@ class MovieItemWidget extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.titleSmall,
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(
           height: 4,
         ),
         Text(
-          genre,
+          genres,
+          overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: AppColor.secondaryTextColor,

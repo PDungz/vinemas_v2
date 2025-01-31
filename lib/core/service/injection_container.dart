@@ -13,6 +13,14 @@ import 'package:vinemas_v1/core/global/local_data/shared_preferences/data/dataso
 import 'package:vinemas_v1/core/global/local_data/shared_preferences/data/repository_impl/shared_preference_repository_impl.dart';
 import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/repository/shared_preference_repository.dart';
 import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/usecase/shared_preference_usecase.dart';
+import 'package:vinemas_v1/features/home/data/datasource/now_playing_remote_data_source.dart';
+import 'package:vinemas_v1/features/home/data/datasource/upcoming_remote_data_source.dart';
+import 'package:vinemas_v1/features/home/data/repository_impl/now_playing_repository_impl.dart';
+import 'package:vinemas_v1/features/home/data/repository_impl/upcoming_repository_impl.dart';
+import 'package:vinemas_v1/features/home/domain/repository/now_playing_repository.dart';
+import 'package:vinemas_v1/features/home/domain/repository/upcoming_repository.dart';
+import 'package:vinemas_v1/features/home/domain/usecase/now_playing_usecase.dart';
+import 'package:vinemas_v1/features/home/domain/usecase/upcoming_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -41,6 +49,16 @@ Future<void> initDI() async {
     () => GenresRemoteDataSourceImpl(dio: getIt<DioClient>().dio),
   );
 
+  //* Remote Data Source Upcoming
+  getIt.registerLazySingleton<UpcomingRemoteDataSource>(
+    () => UpcomingRemoteDataSourceImpl(dio: getIt<DioClient>().dio),
+  );
+
+  // * Remote Data Source Now Playing
+  getIt.registerLazySingleton<NowPlayingRemoteDataSource>(
+    () => NowPlayingRemoteDataSourceImpl(dio: getIt<DioClient>().dio),
+  );
+
   //! Repository
   //* Configuration Repository
   getIt.registerLazySingleton<ConfigurationRepository>(
@@ -58,6 +76,16 @@ Future<void> initDI() async {
     () => GenresRepositoryImpl(genresRemoteDataSource: getIt()),
   );
 
+  //* Upcoming Repository
+  getIt.registerLazySingleton<UpcomingRepository>(
+    () => UpcomingRepositoryImpl(upcomingRemoteDataSource: getIt()),
+  );
+
+  //* Now Playing Repository
+  getIt.registerLazySingleton<NowPlayingRepository>(
+    () => NowPlayingRepositoryImpl(nowPlayingRemoteDataSource: getIt()),
+  );
+
   //! Use case
   //* Configuration Use Case
   getIt.registerSingleton<ConfigurationUseCase>(
@@ -72,5 +100,15 @@ Future<void> initDI() async {
   //* Genres Use Case
   getIt.registerSingleton<GenresUseCase>(
     GenresUseCase(getIt()),
+  );
+
+  //* Upcoming Use Case
+  getIt.registerSingleton<UpcomingUseCase>(
+    UpcomingUseCase(getIt()),
+  );
+
+  //* Now Playing Use Case
+  getIt.registerSingleton(
+    NowPlayingUseCase(nowPlayingRepository: getIt()),
   );
 }
