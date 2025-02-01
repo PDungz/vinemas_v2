@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:vinemas_v1/core/config/app_url.dart';
 import 'package:vinemas_v1/core/global/api/genres/data/model/genres_model.dart';
+import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/usecase/shared_preference_usecase.dart';
+import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 
 abstract class GenresRemoteDataSource {
@@ -17,7 +19,12 @@ class GenresRemoteDataSourceImpl implements GenresRemoteDataSource {
   @override
   Future<List<GenresModel>?> getGenres() async {
     try {
-      final response = await dio.get(AppUrl.apiGenresMovieList);
+      final localeString =
+          await getIt<SharedPreferenceUseCase>().getData('language');
+      final response =
+          await dio.get(AppUrl.apiGenresMovieList, queryParameters: {
+        'language': localeString,
+      });
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['genres'];
         return data.map((e) => GenresModel.fromJson(e)).toList();

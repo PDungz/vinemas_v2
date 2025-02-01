@@ -1,4 +1,6 @@
 // ignore: depend_on_referenced_packages
+import 'dart:ui';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +21,17 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
     on<GlobalInitEvent>((event, emit) async {
       try {
         emit(state.copyWith(state: StatusState.loading));
-        final localeString =
+        String? localeString =
             await getIt<SharedPreferenceUseCase>().getData('language');
-        final Locale? locale =
-            localeString != null ? Locale(localeString) : null;
+
+        if (localeString == null) {
+          localeString ??= PlatformDispatcher.instance.locale.languageCode;
+          await getIt<SharedPreferenceUseCase>()
+              .saveData('language', localeString);
+        }
+
+        final Locale locale = Locale(localeString);
+
         final Configuration? configuration =
             await getIt<ConfigurationUseCase>().getConfiguration();
 
