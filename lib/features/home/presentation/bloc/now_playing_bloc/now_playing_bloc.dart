@@ -11,15 +11,15 @@ part 'now_playing_state.dart';
 
 class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
   NowPlayingBloc() : super(NowPlayingInitial()) {
-    on<NowPlayingEvent>(getNowPlaying);
+    on<NowPlayingLoadMoreEvent>(getNowPlaying);
   }
 
   Future<void> getNowPlaying(
-      NowPlayingEvent event, Emitter<NowPlayingState> emit) async {
+      NowPlayingLoadMoreEvent event, Emitter<NowPlayingState> emit) async {
     try {
       emit(NowPlayingLoadedState(state: StatusState.loading));
-      final List<Movie>? nowPlaying =
-          await getIt<NowPlayingUseCase>().getNowPlaying();
+      final List<Movie>? nowPlaying = await getIt<NowPlayingUseCase>()
+          .getNowPlaying(movie: event.movie, page: event.page);
       emit(NowPlayingLoadedState(
           state: StatusState.success, nowPlaying: nowPlaying ?? []));
     } catch (e) {

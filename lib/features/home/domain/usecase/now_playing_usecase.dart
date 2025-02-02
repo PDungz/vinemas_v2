@@ -10,8 +10,8 @@ class NowPlayingUseCase {
   });
 
   Future<List<Movie>?> getNowPlaying(
-      {String language = 'en', int page = 1}) async {
+      {List<Movie>? movie, String language = 'en', int page = 1}) async {
     return await nowPlayingRepository.getNowPlaying(
-        language: language, page: page);
+        movie: movie, language: language, page: page);
   }
 }

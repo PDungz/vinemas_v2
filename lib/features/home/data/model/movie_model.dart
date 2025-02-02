@@ -36,4 +36,22 @@ class MovieModel extends Movie {
       voteCount: json['vote_count'],
     );
   }
+
+  static MovieModel fromEntity(Movie movie) {
+    return MovieModel(
+        adult: movie.adult,
+        backdropPath: movie.backdropPath,
+        genreIds: movie.genreIds,
+        id: movie.id,
+        originalLanguage: movie.originalLanguage,
+        originalTitle: movie.originalTitle,
+        overview: movie.overview,
+        popularity: movie.popularity,
+        posterPath: movie.posterPath,
+        releaseDate: movie.releaseDate,
+        title: movie.title,
+        video: movie.video,
+        voteAverage: movie.voteAverage,
+        voteCount: movie.voteCount);
+  }
 }

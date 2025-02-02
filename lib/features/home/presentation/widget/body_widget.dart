@@ -15,114 +15,147 @@ import 'package:vinemas_v1/features/home/presentation/widget/upcoming_widget.dar
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
-class BodyWidget extends StatelessWidget {
+class BodyWidget extends StatefulWidget {
   const BodyWidget({super.key});
 
   @override
+  _BodyWidgetState createState() => _BodyWidgetState();
+}
+
+class _BodyWidgetState extends State<BodyWidget> {
+  late ScrollController _scrollController;
+  int _currentPage = 1;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      if (!_isLoading) {
+        setState(() {
+          _isLoading = true;
+        });
+
+        final currentState = context.read<NowPlayingBloc>().state;
+
+        if (currentState is NowPlayingLoadedState) {
+          final currentMovies = currentState.nowPlaying ?? [];
+          final nextPage = _currentPage + 1;
+
+          context.read<NowPlayingBloc>().add(
+                NowPlayingLoadMoreEvent(movie: currentMovies, page: nextPage),
+              );
+          _currentPage = nextPage;
+        }
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<UpcomingBloc>(
-          create: (context) => UpcomingBloc()..add(UpcomingLoadEvent()),
-        ),
-        BlocProvider<NowPlayingBloc>(
-          create: (context) => NowPlayingBloc()..add(NowPlayingLoadEvent()),
-        ),
-      ],
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 80,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: BlocBuilder<UpcomingBloc, UpcomingState>(
-              builder: (context, homeState) {
-                if (homeState is UpcomingLoadedState) {
-                  switch (homeState.state) {
-                    case StatusState.loading:
-                      return const Center(child: CircularProgressIndicator());
-                    case StatusState.success:
-                      final upcomingPoster = homeState.upcoming;
-                      return BlocBuilder<GlobalBloc, GlobalState>(
-                        builder: (_, globalState) {
-                          final configuration = globalState.configuration;
-                          if (upcomingPoster != null && configuration != null) {
-                            final listUpcomingMoviesPoster = upcomingPoster
-                                .map((e) =>
-                                    "${configuration.getPosterUrl(e.posterPath, size: PosterSize.w342)}")
-                                .toList();
-                            return UpcomingWidget(
-                              listUpcommingMoviesPoster:
-                                  listUpcomingMoviesPoster,
-                            );
-                          }
-                          return const SizedBox();
-                        },
-                      );
-                    case StatusState.failure:
-                      return Center(
-                        child: Text("Error: ${homeState.errorMsg}"),
-                      );
-                    case StatusState.idle:
-                    default:
-                      return const SizedBox();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+      child: Scrollbar(
+        controller: _scrollController,
+        thumbVisibility: true,
+        thickness: 4,
+        radius: const Radius.circular(8),
+        child: CustomScrollView(
+          controller: _scrollController,
+          primary: false,
+          physics: BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(child: SizedBox(height: 80)),
+            SliverToBoxAdapter(
+              child: BlocBuilder<UpcomingBloc, UpcomingState>(
+                builder: (context, homeState) {
+                  if (homeState is UpcomingLoadedState) {
+                    switch (homeState.state) {
+                      case StatusState.loading:
+                        return const Center(child: CircularProgressIndicator());
+                      case StatusState.success:
+                        final upcomingPoster = homeState.upcoming;
+                        return BlocBuilder<GlobalBloc, GlobalState>(
+                          builder: (_, globalState) {
+                            final configuration = globalState.configuration;
+                            if (upcomingPoster != null &&
+                                configuration != null) {
+                              final listUpcomingMoviesPoster = upcomingPoster
+                                  .map((e) =>
+                                      "${configuration.getPosterUrl(e.posterPath, size: PosterSize.w342)}")
+                                  .toList();
+                              return UpcomingWidget(
+                                  listUpcommingMoviesPoster:
+                                      listUpcomingMoviesPoster);
+                            }
+                            return const SizedBox();
+                          },
+                        );
+                      case StatusState.failure:
+                        return Center(
+                            child: Text("Error: ${homeState.errorMsg}"));
+                      case StatusState.idle:
+                      default:
+                        return const SizedBox();
+                    }
                   }
-                }
-                return const SizedBox();
-              },
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: CustomLayoutHorizontal(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              leftWidget: Text(
-                AppLocalizations.of(context)!.keyword_now_in_cinemas,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              rightWidget: InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {
-                  CustomBottomSheet.show(context, body: Container());
+                  return const SizedBox();
                 },
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: SvgPicture.asset($AssetsIconsGen().iconApp.search),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: CustomLayoutHorizontal(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                leftWidget: Text(
+                  AppLocalizations.of(context)!.keyword_now_in_cinemas,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                rightWidget: InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    CustomBottomSheet.show(context, body: Container());
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: SvgPicture.asset($AssetsIconsGen().iconApp.search),
+                  ),
                 ),
               ),
             ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 8.0, left: 16, right: 16),
-            sliver: BlocBuilder<NowPlayingBloc, NowPlayingState>(
-              builder: (context, homeState) {
-                if (homeState is NowPlayingLoadedState) {
-                  switch (homeState.state) {
-                    case StatusState.loading:
-                      return const SliverToBoxAdapter(
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-
-                    case StatusState.success:
-                      final nowPlaying = homeState.nowPlaying;
-                      return BlocBuilder<GlobalBloc, GlobalState>(
-                        builder: (context, globalState) {
-                          final configuration = globalState.configuration;
-                          final genres = globalState.genres;
-                          if (nowPlaying != null &&
-                              configuration != null &&
-                              genres != null) {
-                            return SliverGrid.builder(
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 8.0, left: 12, right: 12),
+              sliver: BlocBuilder<NowPlayingBloc, NowPlayingState>(
+                builder: (context, homeState) {
+                  if (homeState is NowPlayingLoadedState) {
+                    switch (homeState.state) {
+                      case StatusState.loading:
+                        return const SliverToBoxAdapter(
+                            child: Center(child: CircularProgressIndicator()));
+                      case StatusState.success:
+                        final nowPlaying = homeState.nowPlaying;
+                        return BlocBuilder<GlobalBloc, GlobalState>(
+                          builder: (context, globalState) {
+                            final configuration = globalState.configuration;
+                            final genres = globalState.genres;
+                            if (nowPlaying != null &&
+                                configuration != null &&
+                                genres != null) {
+                              return SliverGrid.builder(
                                 itemCount: nowPlaying.length,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 16,
                                   mainAxisSpacing: 16,
-                                  childAspectRatio: 0.56,
+                                  childAspectRatio: 0.54,
                                 ),
                                 itemBuilder: (context, index) {
                                   final listGenreName =
@@ -132,41 +165,51 @@ class BodyWidget extends StatelessWidget {
                                     posterImgPath:
                                         "${configuration.getPosterUrl(nowPlaying[index].posterPath, size: PosterSize.w342)}",
                                     title: nowPlaying[index].title,
-                                    genres: listGenreName.join(
-                                        ', '), // Replace with dynamic genre if available
+                                    genres: listGenreName.join(', '),
                                     score: nowPlaying[index].voteAverage,
                                   );
-                                });
-                          }
-                          return const SliverToBoxAdapter(
-                            child: SizedBox(),
-                          );
-                        },
-                      );
+                                },
+                              );
+                            }
+                            return const SliverToBoxAdapter(child: SizedBox());
+                          },
+                        );
 
-                    case StatusState.failure:
-                      return SliverToBoxAdapter(
-                        child: Center(
-                          child: Text("Error: ${homeState.errorMsg}"),
-                        ),
-                      );
-
-                    case StatusState.idle:
-                    default:
-                      return const SliverToBoxAdapter(
-                        child: SizedBox(),
-                      );
+                      case StatusState.failure:
+                        return SliverToBoxAdapter(
+                            child: Center(
+                                child: Text("Error: ${homeState.errorMsg}")));
+                      case StatusState.idle:
+                      default:
+                        return const SliverToBoxAdapter(child: SizedBox());
+                    }
                   }
-                }
-                return const SliverToBoxAdapter(
-                  child: SizedBox(),
-                );
-              },
+                  return const SliverToBoxAdapter(child: SizedBox());
+                },
+              ),
             ),
-          ),
-          SliverPadding(padding: EdgeInsets.only(bottom: 16)),
-        ],
+            SliverPadding(padding: EdgeInsets.only(bottom: 16)),
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<NowPlayingBloc>().stream.listen((state) {
+      if (state is NowPlayingLoadedState) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

@@ -28,6 +28,14 @@ class ThemeApp {
       // Scaffold
       scaffoldBackgroundColor: AppColor.primaryColor,
 
+// ScrollbarTheme
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: WidgetStateProperty.all(AppColor.secondaryColor),
+        trackColor: WidgetStateProperty.all(Colors.transparent),
+        radius: const Radius.circular(8),
+        thumbVisibility: WidgetStateProperty.all(true),
+      ),
+
       // AppBarTheme
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColor.secondaryColor,
