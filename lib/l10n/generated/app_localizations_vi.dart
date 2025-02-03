@@ -16,10 +16,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_country => 'Việt Nam';
 
   @override
-  String get keyword_username => 'Tên đăng nhập';
+  String get keyword_username => 'Tên người dùng';
+
+  @override
+  String get keyword_enter_username => 'Nhập tên người dùng của bạn';
 
   @override
   String get keyword_password => 'Mật khẩu';
+
+  @override
+  String get keyword_enter_password => 'Nhập mật khẩu của bạn';
 
   @override
   String get keyword_forgot_password => 'Quên mật khẩu?';
@@ -28,7 +34,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_login => 'Đăng nhập';
 
   @override
-  String get keyword_register => 'Đăng ký';
+  String get keyword_no_account => 'Chưa có tài khoản?';
+
+  @override
+  String get keyword_sign_up => 'Đăng ký';
 
   @override
   String get keyword_or_sigin_with => 'Hoặc đăng nhập bằng';
@@ -248,4 +257,36 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get keyword_recieve_notifications => 'Nhận thông báo';
+
+  @override
+  String get error_validate => 'LỖI_XÁC_THỰC';
+
+  @override
+  String get error_username_required => 'Tên đăng nhập không được để trống';
+
+  @override
+  String get error_username_invalid => 'Please enter a valid email address';
+
+  @override
+  String get error_password_required => 'Mật khẩu không được để trống';
+
+  @override
+  String get error_password_min_length => 'Mật khẩu phải có ít nhất 8 ký tự';
+
+  @override
+  String get error_phone_required => 'Số điện thoại không được để trống';
+
+  @override
+  String get error_phone_invalid_length => 'Số điện thoại phải có 10 chữ số';
+
+  @override
+  String get error_phone_invalid_pattern => 'Số điện thoại chỉ được chứa các chữ số';
+
+  @override
+  String error_field_required(Object fieldName) {
+    return '$fieldName không được để trống';
+  }
+
+  @override
+  String get error_generic_field_required => 'Trường này không được để trống';
 }

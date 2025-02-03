@@ -119,11 +119,23 @@ abstract class AppLocalizations {
   /// **'Username'**
   String get keyword_username;
 
+  /// No description provided for @keyword_enter_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your username'**
+  String get keyword_enter_username;
+
   /// No description provided for @keyword_password.
   ///
   /// In en, this message translates to:
   /// **'Password'**
   String get keyword_password;
+
+  /// No description provided for @keyword_enter_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get keyword_enter_password;
 
   /// No description provided for @keyword_forgot_password.
   ///
@@ -137,11 +149,17 @@ abstract class AppLocalizations {
   /// **'Login'**
   String get keyword_login;
 
-  /// No description provided for @keyword_register.
+  /// No description provided for @keyword_no_account.
   ///
   /// In en, this message translates to:
-  /// **'Register'**
-  String get keyword_register;
+  /// **'Don\'t have an account?'**
+  String get keyword_no_account;
+
+  /// No description provided for @keyword_sign_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get keyword_sign_up;
 
   /// No description provided for @keyword_or_sigin_with.
   ///
@@ -580,6 +598,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recieve notifications'**
   String get keyword_recieve_notifications;
+
+  /// No description provided for @error_validate.
+  ///
+  /// In en, this message translates to:
+  /// **'ERROR_validate'**
+  String get error_validate;
+
+  /// No description provided for @error_username_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Username cannot be empty'**
+  String get error_username_required;
+
+  /// No description provided for @error_username_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get error_username_invalid;
+
+  /// No description provided for @error_password_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Password cannot be empty'**
+  String get error_password_required;
+
+  /// No description provided for @error_password_min_length.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters long'**
+  String get error_password_min_length;
+
+  /// No description provided for @error_phone_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number cannot be empty'**
+  String get error_phone_required;
+
+  /// No description provided for @error_phone_invalid_length.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number must have 10 digits'**
+  String get error_phone_invalid_length;
+
+  /// No description provided for @error_phone_invalid_pattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number must contain only digits'**
+  String get error_phone_invalid_pattern;
+
+  /// No description provided for @error_field_required.
+  ///
+  /// In en, this message translates to:
+  /// **'{fieldName} cannot be empty'**
+  String error_field_required(Object fieldName);
+
+  /// No description provided for @error_generic_field_required.
+  ///
+  /// In en, this message translates to:
+  /// **'This field cannot be empty'**
+  String get error_generic_field_required;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

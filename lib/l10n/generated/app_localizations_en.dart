@@ -19,7 +19,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_username => 'Username';
 
   @override
+  String get keyword_enter_username => 'Enter your username';
+
+  @override
   String get keyword_password => 'Password';
+
+  @override
+  String get keyword_enter_password => 'Enter your password';
 
   @override
   String get keyword_forgot_password => 'Forgot password?';
@@ -28,7 +34,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_login => 'Login';
 
   @override
-  String get keyword_register => 'Register';
+  String get keyword_no_account => 'Don\'t have an account?';
+
+  @override
+  String get keyword_sign_up => 'Sign Up';
 
   @override
   String get keyword_or_sigin_with => 'Or sigin with';
@@ -248,4 +257,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get keyword_recieve_notifications => 'Recieve notifications';
+
+  @override
+  String get error_validate => 'ERROR_validate';
+
+  @override
+  String get error_username_required => 'Username cannot be empty';
+
+  @override
+  String get error_username_invalid => 'Please enter a valid email address';
+
+  @override
+  String get error_password_required => 'Password cannot be empty';
+
+  @override
+  String get error_password_min_length => 'Password must be at least 8 characters long';
+
+  @override
+  String get error_phone_required => 'Phone number cannot be empty';
+
+  @override
+  String get error_phone_invalid_length => 'Phone number must have 10 digits';
+
+  @override
+  String get error_phone_invalid_pattern => 'Phone number must contain only digits';
+
+  @override
+  String error_field_required(Object fieldName) {
+    return '$fieldName cannot be empty';
+  }
+
+  @override
+  String get error_generic_field_required => 'This field cannot be empty';
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vinemas_v1/core/common/extension/color_extension.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/gen/fonts.gen.dart';
 
@@ -15,20 +16,20 @@ class ThemeApp {
 
       // Brightness
       brightness: Brightness.dark,
-      primaryColor: Colors.orange,
+      primaryColor: AppColor.buttonLinerOneColor,
 
       // ColorScheme
       colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: Colors.orange,
+        primarySwatch: AppColor.buttonLinerOneColor.toMaterialColor(),
         brightness: Brightness.dark,
       ).copyWith(
-        secondary: Colors.orangeAccent,
+        secondary: AppColor.buttonLinerOneColor,
       ),
 
       // Scaffold
       scaffoldBackgroundColor: AppColor.primaryColor,
 
-// ScrollbarTheme
+      // ScrollbarTheme
       scrollbarTheme: ScrollbarThemeData(
         thumbColor: WidgetStateProperty.all(AppColor.secondaryColor),
         trackColor: WidgetStateProperty.all(Colors.transparent),
@@ -175,6 +176,79 @@ class ThemeApp {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  static InputDecorationTheme outlineInputTheme(Color primaryColor) {
+    return InputDecorationTheme(
+      filled: true,
+      fillColor: primaryColor.withOpacity(0.8).withOpacity(0.1),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: primaryColor.withOpacity(0.8)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: primaryColor.withOpacity(0.8)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: Colors.deepOrange),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: Colors.red),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: Colors.red),
+      ),
+      hintStyle: TextStyle(
+        color: AppColor.secondaryTextColor.withOpacity(0.7),
+      ),
+      labelStyle: TextStyle(
+        color: primaryColor.withOpacity(0.8),
+      ),
+      suffixStyle: TextStyle(color: primaryColor.withOpacity(0.8)),
+      counterStyle: TextStyle(color: primaryColor.withOpacity(0.8)),
+      prefixStyle: TextStyle(color: primaryColor.withOpacity(0.8)),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 12,
+      ),
+    );
+  }
+
+  static InputDecorationTheme underlineInputTheme(Color primaryColor) {
+    return InputDecorationTheme(
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: primaryColor),
+      ),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: primaryColor),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: primaryColor),
+      ),
+      errorBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: primaryColor),
+      ),
+      focusedErrorBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: primaryColor),
+      ),
+      hintStyle: TextStyle(
+        color: AppColor.secondaryTextColor.withOpacity(0.7),
+      ),
+      labelStyle: TextStyle(
+        color: primaryColor.withOpacity(0.8),
+      ),
+      suffixStyle: TextStyle(color: primaryColor.withOpacity(0.8)),
+      counterStyle: TextStyle(color: primaryColor.withOpacity(0.8)),
+      prefixStyle: TextStyle(color: primaryColor.withOpacity(0.8)),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 12,
       ),
     );
   }

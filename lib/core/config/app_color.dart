@@ -16,4 +16,10 @@ class AppColor {
 
   // Define all the icon colors here
   static const primaryIconColor = Color(0xFF637394);
+
+  // Define notification colors
+  static const successColor = Color(0xFF28A745);
+  static const errorColor = Color(0xFFFF4C4C);
+  static const warningColor = Color(0xFFFFC107);
+  static const infoColor = Color(0xFF17A2B8);
 }

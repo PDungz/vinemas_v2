@@ -28,6 +28,9 @@ class $AssetsIconsGen {
 
   /// Directory path: assets/icons/icon_app
   $AssetsIconsIconAppGen get iconApp => const $AssetsIconsIconAppGen();
+
+  /// Directory path: assets/icons/logo
+  $AssetsIconsLogoGen get logo => const $AssetsIconsLogoGen();
 }
 
 class $AssetsImagesGen {
@@ -160,6 +163,12 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/expand_arrow.svg
   String get expandArrow => 'assets/icons/icon_app/expand_arrow.svg';
 
+  /// File path: assets/icons/icon_app/eye.svg
+  String get eye => 'assets/icons/icon_app/eye.svg';
+
+  /// File path: assets/icons/icon_app/eye_slash.svg
+  String get eyeSlash => 'assets/icons/icon_app/eye_slash.svg';
+
   /// File path: assets/icons/icon_app/forward _arrow.svg
   String get forwardArrow => 'assets/icons/icon_app/forward _arrow.svg';
 
@@ -172,8 +181,14 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/location.svg
   String get location => 'assets/icons/icon_app/location.svg';
 
+  /// File path: assets/icons/icon_app/lock.svg
+  String get lock => 'assets/icons/icon_app/lock.svg';
+
   /// File path: assets/icons/icon_app/logout.svg
   String get logout => 'assets/icons/icon_app/logout.svg';
+
+  /// File path: assets/icons/icon_app/person.svg
+  String get person => 'assets/icons/icon_app/person.svg';
 
   /// File path: assets/icons/icon_app/play.svg
   String get play => 'assets/icons/icon_app/play.svg';
@@ -195,15 +210,30 @@ class $AssetsIconsIconAppGen {
         done,
         enlarge,
         expandArrow,
+        eye,
+        eyeSlash,
         forwardArrow,
         forward,
         language,
         location,
+        lock,
         logout,
+        person,
         play,
         search,
         sort
       ];
+}
+
+class $AssetsIconsLogoGen {
+  const $AssetsIconsLogoGen();
+
+  /// Directory path: assets/icons/logo/pay
+  $AssetsIconsLogoPayGen get pay => const $AssetsIconsLogoPayGen();
+
+  /// Directory path: assets/icons/logo/social_network
+  $AssetsIconsLogoSocialNetworkGen get socialNetwork =>
+      const $AssetsIconsLogoSocialNetworkGen();
 }
 
 class $AssetsImagesFlagGen {
@@ -234,6 +264,43 @@ class $AssetsImagesSocialNetworkGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [facebook, google];
+}
+
+class $AssetsIconsLogoPayGen {
+  const $AssetsIconsLogoPayGen();
+
+  /// File path: assets/icons/logo/pay/american_express_logo.svg
+  String get americanExpressLogo =>
+      'assets/icons/logo/pay/american_express_logo.svg';
+
+  /// File path: assets/icons/logo/pay/apple _pay_logo.svg
+  String get applePayLogo => 'assets/icons/logo/pay/apple _pay_logo.svg';
+
+  /// File path: assets/icons/logo/pay/master_card_logo.svg
+  String get masterCardLogo => 'assets/icons/logo/pay/master_card_logo.svg';
+
+  /// File path: assets/icons/logo/pay/mir_logo.svg
+  String get mirLogo => 'assets/icons/logo/pay/mir_logo.svg';
+
+  /// File path: assets/icons/logo/pay/visa_logo.svg
+  String get visaLogo => 'assets/icons/logo/pay/visa_logo.svg';
+
+  /// List of all assets
+  List<String> get values =>
+      [americanExpressLogo, applePayLogo, masterCardLogo, mirLogo, visaLogo];
+}
+
+class $AssetsIconsLogoSocialNetworkGen {
+  const $AssetsIconsLogoSocialNetworkGen();
+
+  /// File path: assets/icons/logo/social_network/facebook.svg
+  String get facebook => 'assets/icons/logo/social_network/facebook.svg';
+
+  /// File path: assets/icons/logo/social_network/google.svg
+  String get google => 'assets/icons/logo/social_network/google.svg';
+
+  /// List of all assets
+  List<String> get values => [facebook, google];
 }
 
 class Assets {
