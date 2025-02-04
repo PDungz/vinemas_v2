@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:packages/widget/Carousel/custom_carousel.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
 import 'package:packages/widget/Layout/custom_layout_vertical.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
+import 'package:vinemas_v1/core/config/app_router.dart';
+import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
 class UpcomingWidget extends StatelessWidget {
-  const UpcomingWidget({super.key, required this.listUpcommingMoviesPoster});
+  const UpcomingWidget(
+      {super.key,
+      required this.listUpcommingMoviesPoster,
+      required this.listMovie});
 
   final List<String> listUpcommingMoviesPoster;
+  final List<Movie> listMovie;
 
   @override
   Widget build(BuildContext context) => CustomLayoutVertical(
@@ -21,7 +28,8 @@ class UpcomingWidget extends StatelessWidget {
             AppLocalizations.of(context)!.keyword_upcoming,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          rightWidget: InkWell(
+          rightWidget: GestureDetector(
+            onTap: () {},
             child: Text(
               AppLocalizations.of(context)!.keyword_view_all,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -30,8 +38,12 @@ class UpcomingWidget extends StatelessWidget {
             ),
           ),
         ),
-        bottomWidget: CustomCarousel(
-          listItem: listUpcommingMoviesPoster,
+        bottomWidget: CustomCarousel<Movie>(
+          onTap: ({required Movie parameter}) {
+            Get.toNamed(ConfigRoute.about_sessions_page, arguments: parameter);
+          },
+          listItem: listMovie,
+          listUrlImage: listUpcommingMoviesPoster,
         ),
       );
 }

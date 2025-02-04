@@ -66,7 +66,7 @@ class AppBarWidget extends StatelessWidget {
               backgroundColor: AppColor.buttonLinerOneColor,
               label: AppLocalizations.of(context)!.keyword_login,
               onPressed: () {
-                Get.toNamed(ConfigRoute.login);
+                Get.toNamed(ConfigRoute.login_page);
               },
             ),
           ),

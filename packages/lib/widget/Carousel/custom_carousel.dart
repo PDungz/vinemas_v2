@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:packages/Core/config/app_color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class CustomCarousel extends StatefulWidget {
+class CustomCarousel<T> extends StatefulWidget {
   const CustomCarousel({
     super.key,
     required this.listItem,
@@ -16,9 +16,12 @@ class CustomCarousel extends StatefulWidget {
     this.autoPlayAnimationDuration = const Duration(milliseconds: 800),
     this.onPageChanged,
     this.visibleIndicatorCount = 5,
+    required this.onTap,
+    required this.listUrlImage,
   });
 
-  final List<String> listItem;
+  final List<T> listItem;
+  final List<String> listUrlImage;
   final double heightImage;
   final double viewportFraction;
   final double aspectRatio;
@@ -28,12 +31,13 @@ class CustomCarousel extends StatefulWidget {
   final Duration autoPlayAnimationDuration;
   final ValueChanged<int>? onPageChanged;
   final int visibleIndicatorCount;
+  final Function({required T parameter}) onTap;
 
   @override
-  State<CustomCarousel> createState() => _CustomCarouselState();
+  State<CustomCarousel> createState() => _CustomCarouselState<T>();
 }
 
-class _CustomCarouselState extends State<CustomCarousel> {
+class _CustomCarouselState<T> extends State<CustomCarousel<T>> {
   int _currentIndex = 0;
 
   @override
@@ -46,10 +50,12 @@ class _CustomCarouselState extends State<CustomCarousel> {
             final itemIndex = index % widget.listItem.length;
             return ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: InkWell(
-                onTap: () {},
+              child: GestureDetector(
+                onTap: () {
+                  widget.onTap(parameter: widget.listItem[itemIndex]);
+                },
                 child: Image.network(
-                  widget.listItem[itemIndex],
+                  widget.listUrlImage[itemIndex],
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;

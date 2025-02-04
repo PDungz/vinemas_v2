@@ -91,6 +91,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                                       "${configuration.getPosterUrl(e.posterPath, size: PosterSize.w342)}")
                                   .toList();
                               return UpcomingWidget(
+                                  listMovie: upcomingPoster,
                                   listUpcommingMoviesPoster:
                                       listUpcomingMoviesPoster);
                             }

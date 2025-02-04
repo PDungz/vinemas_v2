@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
               }
               return supportedLocales.first;
             },
-            initialRoute: ConfigRoute.splash,
+            initialRoute: ConfigRoute.splash_page,
             getPages: AppGenerateRouter.routes,
           );
         },

@@ -1,26 +1,26 @@
 class ConfigRoute {
   // <---- Splash ---->
-  static const String splash = '/';
+  static const String splash_page = '/';
 
   // <---- Login ---->
-  static const String login = '/login';
+  static const String login_page = '/login';
 
   // <---- Home ---->
-  static const String home = '/home';
+  static const String home_page = '/home';
 
   // <---- About ---->
-  static const String about = '/about';
+  static const String about_sessions_page = '/about_sessions';
 
   // <---- Sessions ---->
-  static const String sessions = '/sessions';
-  static const String overview = '/overview';
+  static const String overview_page = '/overview';
+  static const String seat_reservation_page = '/seat_reservation';
 
   // <---- Pay ---->
-  static const String pay = '/pay';
+  static const String pay_page = '/pay';
 
   // <---- Ticket ---->
-  static const String ticket = '/ticket';
+  static const String ticket_page = '/ticket';
 
   // <---- Profile ---->
-  static const String profile = '/profile';
+  static const String profile_page = '/profile';
 }
