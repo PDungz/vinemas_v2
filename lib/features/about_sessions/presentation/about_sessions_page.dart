@@ -1,32 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:packages/widget/App_bar/custom_app_bar.dart';
+import 'package:packages/widget/Button/custom_button.dart';
+import 'package:packages/widget/Card/custom_card.dart';
 import 'package:packages/widget/Layout/custom_layout.dart';
+import 'package:packages/widget/Page_view/custom_page_view.dart';
+import 'package:packages/widget/Shadow/custom_shadow.dart';
+import 'package:vinemas_v1/core/config/app_color.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/page/about_page.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/page/sessions_page.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/widget/about_sessions_app_bar_widget.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
-import 'package:vinemas_v1/gen/assets.gen.dart';
+import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
-class AboutSessionsPage extends StatelessWidget {
+class AboutSessionsPage extends StatefulWidget {
   const AboutSessionsPage({super.key});
+
+  @override
+  State<AboutSessionsPage> createState() => _AboutSessionsPageState();
+}
+
+class _AboutSessionsPageState extends State<AboutSessionsPage> {
+  int _selectedTabIndex = 0;
+  final PageController _pageController = PageController();
+
+  final List<Widget> _pages = const [
+    AboutPage(),
+    SessionsPage(),
+  ];
+
+  void _onTabSelected(int index) {
+    setState(() => _selectedTabIndex = index);
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final Movie parameter = Get.arguments as Movie;
+
     return CustomLayout(
-        appBar: CustomAppBar(
-          leading: GestureDetector(
-            onTap: () => Get.back(),
-            child: SvgPicture.asset($AssetsIconsGen().iconApp.back),
-          ),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 8.0, right: 12.0, bottom: 8.0),
-            child: Text(
-              parameter.title,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
-          actions: [],
+      appBar: AboutSessionsAppBarWidget(
+          parameter: parameter,
+          selectedTabIndex: _selectedTabIndex,
+          pageController: _pageController,
+          onTabSelected: _onTabSelected),
+      bottomNavigationBar: CustomCard(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        borderRadius: BorderRadius.circular(0.0),
+        backgroundColor: AppColor.secondaryColor,
+        child: CustomShadow(
+          child: CustomButton(
+              label: AppLocalizations.of(context)!.keyword_select_session,
+              onPressed: () {}),
         ),
-        body: Container());
+      ),
+      body: CustomPageView(
+        controller: _pageController,
+        pages: _pages,
+        onPageChanged: (index) {
+          setState(() => _selectedTabIndex = index);
+        },
+        showIndicator: false,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

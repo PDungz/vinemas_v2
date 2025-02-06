@@ -245,6 +245,36 @@ abstract class AppLocalizations {
   /// **'Sessions'**
   String get keyword_sessions;
 
+  /// No description provided for @keyword_certificate.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate'**
+  String get keyword_certificate;
+
+  /// No description provided for @keyword_release.
+  ///
+  /// In en, this message translates to:
+  /// **'Release'**
+  String get keyword_release;
+
+  /// No description provided for @keyword_genre.
+  ///
+  /// In en, this message translates to:
+  /// **'Genre'**
+  String get keyword_genre;
+
+  /// No description provided for @keyword_director.
+  ///
+  /// In en, this message translates to:
+  /// **'Director'**
+  String get keyword_director;
+
+  /// No description provided for @keyword_cast.
+  ///
+  /// In en, this message translates to:
+  /// **'Cast'**
+  String get keyword_cast;
+
   /// No description provided for @keyword_select_session.
   ///
   /// In en, this message translates to:

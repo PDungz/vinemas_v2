@@ -82,6 +82,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_sessions => 'Sessions';
 
   @override
+  String get keyword_certificate => 'Certificate';
+
+  @override
+  String get keyword_release => 'Release';
+
+  @override
+  String get keyword_genre => 'Genre';
+
+  @override
+  String get keyword_director => 'Director';
+
+  @override
+  String get keyword_cast => 'Cast';
+
+  @override
   String get keyword_select_session => 'Select session';
 
   @override

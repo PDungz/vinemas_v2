@@ -9,8 +9,8 @@ import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
-class AppBarWidget extends StatelessWidget {
-  const AppBarWidget({super.key});
+class HomeAppBarWidget extends StatelessWidget {
+  const HomeAppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) => CustomAppBar(

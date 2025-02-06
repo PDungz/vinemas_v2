@@ -4,7 +4,7 @@ import 'package:packages/Core/config/app_color.dart';
 class CustomShadow extends StatelessWidget {
   final Widget child;
   final double borderRadius;
-  final Color shadowColor;
+  final Color? shadowColor;
   final double blurRadius;
   final Offset shadowOffset;
   final double spreadRadius;
@@ -13,7 +13,7 @@ class CustomShadow extends StatelessWidget {
     super.key,
     required this.child,
     this.borderRadius = 8.0,
-    this.shadowColor = AppColor.buttonLinerOneColor,
+    this.shadowColor,
     this.blurRadius = 12.0,
     this.shadowOffset = const Offset(0, 1),
     this.spreadRadius = 0.0,
@@ -35,7 +35,8 @@ class CustomShadow extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
-                  color: shadowColor.withOpacity(0.4),
+                  color: shadowColor ??
+                      AppColor.buttonLinerOneColor.withOpacity(0.4),
                   blurRadius: blurRadius,
                   offset: shadowOffset,
                   spreadRadius: spreadRadius,

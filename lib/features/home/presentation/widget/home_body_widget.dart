@@ -15,14 +15,14 @@ import 'package:vinemas_v1/features/home/presentation/widget/upcoming_widget.dar
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
-class BodyWidget extends StatefulWidget {
-  const BodyWidget({super.key});
+class HomeBodyWidget extends StatefulWidget {
+  const HomeBodyWidget({super.key});
 
   @override
-  _BodyWidgetState createState() => _BodyWidgetState();
+  _HomeBodyWidgetState createState() => _HomeBodyWidgetState();
 }
 
-class _BodyWidgetState extends State<BodyWidget> {
+class _HomeBodyWidgetState extends State<HomeBodyWidget> {
   late ScrollController _scrollController;
   int _currentPage = 1;
   bool _isLoading = false;

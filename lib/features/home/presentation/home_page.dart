@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:packages/widget/Layout/custom_layout.dart';
 import 'package:vinemas_v1/features/home/presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/bloc/upcoming_bloc/upcoming_bloc.dart';
-import 'package:vinemas_v1/features/home/presentation/widget/app_bar_widget.dart';
-import 'package:vinemas_v1/features/home/presentation/widget/body_widget.dart';
+import 'package:vinemas_v1/features/home/presentation/widget/home_app_bar_widget.dart';
+import 'package:vinemas_v1/features/home/presentation/widget/home_body_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,8 +22,8 @@ class HomePage extends StatelessWidget {
         ),
       ],
       child: CustomLayout(
-      appBar: AppBarWidget(),
-      body: BodyWidget(),
+        appBar: HomeAppBarWidget(),
+        body: HomeBodyWidget(),
       ),
     );
   }

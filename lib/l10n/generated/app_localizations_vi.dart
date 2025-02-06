@@ -82,6 +82,21 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_sessions => 'Suất chiếu';
 
   @override
+  String get keyword_certificate => 'Gắn nhãn';
+
+  @override
+  String get keyword_release => 'Phát hành';
+
+  @override
+  String get keyword_genre => 'Thể loại';
+
+  @override
+  String get keyword_director => 'Đạo diễn';
+
+  @override
+  String get keyword_cast => 'Diễn viên';
+
+  @override
   String get keyword_select_session => 'Chọn suất chiếu';
 
   @override
