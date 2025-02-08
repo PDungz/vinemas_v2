@@ -6,10 +6,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vinemas_v1/core/common/enum/status_state.dart';
 import 'package:vinemas_v1/core/global/api/configuration/domain/entity/configuration.dart';
-import 'package:vinemas_v1/core/global/api/configuration/domain/usecase/configuration_usecase.dart';
+import 'package:vinemas_v1/core/global/api/configuration/domain/use_case/configuration_use_case.dart';
 import 'package:vinemas_v1/core/global/api/genres/domain/entity/genres.dart';
-import 'package:vinemas_v1/core/global/api/genres/domain/usecase/genres_usecase.dart';
-import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/usecase/shared_preference_usecase.dart';
+import 'package:vinemas_v1/core/global/api/genres/domain/use_case/genres_use_case.dart';
+import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/use_case/shared_preference_use_case.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 

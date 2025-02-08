@@ -163,6 +163,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                                       genres.convertGenreIdsToNames(
                                           nowPlaying[index].genreIds);
                                   return MovieItemWidget(
+                                    movie: nowPlaying[index],
                                     posterImgPath:
                                         "${configuration.getPosterUrl(nowPlaying[index].posterPath, size: PosterSize.w342)}",
                                     title: nowPlaying[index].title,

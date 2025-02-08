@@ -4,7 +4,7 @@ import 'package:vinemas_v1/core/common/enum/status_state.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
-import 'package:vinemas_v1/features/home/domain/usecase/upcoming_usecase.dart';
+import 'package:vinemas_v1/features/home/domain/use_case/upcoming_use_case.dart';
 
 part 'upcoming_event.dart';
 part 'upcoming_state.dart';

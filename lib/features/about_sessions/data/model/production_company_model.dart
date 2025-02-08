@@ -10,10 +10,10 @@ class ProductionCompanyModel extends ProductionCompany {
 
   factory ProductionCompanyModel.fromJson(Map<String, dynamic> json) {
     return ProductionCompanyModel(
-      id: json['id'],
-      logoPath: json['logo_path'],
-      name: json['logoPath'],
-      originCountry: json['origin_country'],
+      id: json['id'] ?? 0,
+      logoPath: json['logo_path'] ?? '',
+      name: json['logo_path'] ?? '',
+      originCountry: json['origin_country'] ?? '',
     );
   }
 }

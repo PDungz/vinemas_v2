@@ -23,9 +23,11 @@ class _AboutSessionsPageState extends State<AboutSessionsPage> {
   int _selectedTabIndex = 0;
   final PageController _pageController = PageController();
 
-  final List<Widget> _pages = const [
-    AboutPage(),
-    SessionsPage(),
+  final List<Widget> _pages = [
+    AboutPage(
+      movie: Get.arguments as Movie,
+    ),
+    const SessionsPage(),
   ];
 
   void _onTabSelected(int index) {

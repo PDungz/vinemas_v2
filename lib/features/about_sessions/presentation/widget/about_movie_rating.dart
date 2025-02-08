@@ -40,7 +40,7 @@ class AboutMovieRating extends StatelessWidget {
             children: [
               Text(kinoposik),
               Text(
-                'Kinoposik',
+                'Vote',
                 style: Theme.of(context)
                     .textTheme
                     .titleSmall

@@ -8,7 +8,7 @@ class ProductionCountryModel extends ProductionCountry {
 
   factory ProductionCountryModel.fromJson(Map<String, dynamic> json) {
     return ProductionCountryModel(
-      iso31661: json['iso31661'],
+      iso31661: json['iso_3166_1'],
       name: json['name'],
     );
   }

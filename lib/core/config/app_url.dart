@@ -40,8 +40,9 @@ class AppUrl {
   static String movieAlternativeTitles(int movieId) =>
       '${dotenv.env['API_MOVIE_ALTERNATIVE_TITLES']}'
           .replaceAll('{movie_id}', movieId.toString());
-  static String movieImages(int movieId) => '${dotenv.env['API_MOVIE_IMAGES']}'
-      .replaceAll('{movie_id}', movieId.toString());
+  static String movieImages(String movieId) =>
+      '${dotenv.env['API_MOVIE_IMAGES']}'
+          .replaceAll('{movie_id}', movieId.toString());
   static String movieRecommendations(int movieId) =>
       '${dotenv.env['API_MOVIE_RECOMMENDATIONS']}'
           .replaceAll('{movie_id}', movieId.toString());
@@ -59,6 +60,10 @@ class AppUrl {
   static String movieWatchProviders(int movieId) =>
       '${dotenv.env['API_MOVIE_WATCH_PROVIDERS']}'
           .replaceAll('{movie_id}', movieId.toString());
+
+  // API CAST
+  static String movieCast(int movieId) => '${dotenv.env['API_MOVIE_CAST']}'
+      .replaceAll('{movie_id}', movieId.toString());
 
   // API SEARCH
   static String get apiSearchCollection =>

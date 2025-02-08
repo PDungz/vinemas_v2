@@ -4,38 +4,42 @@ import 'package:vinemas_v1/core/config/app_url.dart';
 import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/use_case/shared_preference_use_case.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
-import 'package:vinemas_v1/features/about_sessions/data/model/movie_detail_model.dart';
+import 'package:vinemas_v1/features/about_sessions/data/model/video_model.dart';
 
-abstract class MovieDetailRemoteDataSource {
-  Future<MovieDetailModel?> getMovieDetail(
+abstract class VideoRemoteDataSource {
+  Future<List<VideoModel>?> getVideo(
       {required int movieId, String language = 'en'});
 }
 
-class MovieDetailRemoteDataSourceImpl implements MovieDetailRemoteDataSource {
+class VideoRemoteDataSourceImpl implements VideoRemoteDataSource {
   final Dio dio;
 
-  MovieDetailRemoteDataSourceImpl({
+  VideoRemoteDataSourceImpl({
     required this.dio,
   });
 
   @override
-  Future<MovieDetailModel?> getMovieDetail(
+  Future<List<VideoModel>?> getVideo(
       {required int movieId, String language = 'en'}) async {
-    final localLanguage =
+    final String localLanguage =
         await getIt<SharedPreferenceUseCase>().getData('language') ?? language;
+
     try {
       final response = await dio.get(
-        AppUrl.movieDetails(movieId),
+        AppUrl.movieVideos(movieId),
         queryParameters: {
           'language': localLanguage,
         },
       );
 
-      if (response.data != null && response.statusCode == 200) {
-        return MovieDetailModel.fromJson(response.data);
+      if (response.statusCode == 200 &&
+          response.data != null &&
+          response.data['results'] is List) {
+        final List<dynamic> data = response.data['results'];
+        return data.map((json) => VideoModel.fromJson(json)).toList();
       }
     } catch (e) {
-      printE("Error in MovieDetailRemoteDatasourceImpl: $e");
+      printE("Error in VideoRemoteDatasourceImpl: $e");
     }
     return null;
   }

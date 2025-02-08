@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dio/dio.dart';
 import 'package:vinemas_v1/core/config/app_url.dart';
-import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/usecase/shared_preference_usecase.dart';
+import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/use_case/shared_preference_use_case.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/home/data/model/movie_model.dart';

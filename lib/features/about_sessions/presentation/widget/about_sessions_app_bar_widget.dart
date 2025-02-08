@@ -28,10 +28,11 @@ class AboutSessionsAppBarWidget extends StatelessWidget {
         child: SvgPicture.asset($AssetsIconsGen().iconApp.back),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(top: 8.0, right: 12.0, bottom: 8.0),
+        padding: const EdgeInsets.only(top: 12.0, right: 12.0, bottom: 2.0),
         child: Text(
           parameter.title,
-          style: Theme.of(context).textTheme.titleLarge,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
         ),
       ),
       bottom: PreferredSize(
