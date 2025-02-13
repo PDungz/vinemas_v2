@@ -33,6 +33,7 @@ class CustomTextField extends StatefulWidget {
   final Color? borderColor;
   final Color? hintTextColor;
   final TextStyle? hintStyle; // New hint style property
+  final TextAlign textAlign;
 
   const CustomTextField({
     super.key,
@@ -65,6 +66,7 @@ class CustomTextField extends StatefulWidget {
     this.borderColor,
     this.hintTextColor,
     this.hintStyle, // New hint style parameter
+    this.textAlign = TextAlign.left,
     required this.primaryColor,
   });
 
@@ -144,6 +146,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           onChanged: widget.onChanged,
           onFieldSubmitted: widget.onSubmitted,
           validator: widget.validator,
+          textAlign: widget.textAlign,
           style: widget.textStyle?.copyWith(color: widget.textColor) ??
               TextStyle(
                   color: widget.textColor ?? theme.textTheme.bodyLarge?.color),

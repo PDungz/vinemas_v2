@@ -7,7 +7,7 @@ extension GenderExtension on Gender {
         return 1;
       case Gender.male:
         return 2;
-      case Gender.unknown:
+      default:
         return 0;
     }
   }

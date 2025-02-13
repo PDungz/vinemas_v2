@@ -9,7 +9,7 @@ abstract class AboutState extends Equatable {
 class AboutInitial extends AboutState {}
 
 class MovieDetailState extends AboutState {
-  final StatusState state;
+  final ProcessStatus state;
   final MovieDetail? movieDetail;
   final List<Video>? video;
   final MovieCastCrew? movieCastCrew;
@@ -33,7 +33,7 @@ class MovieDetailState extends AboutState {
       ];
 
   MovieDetailState copyWith({
-    StatusState? state,
+    ProcessStatus? state,
     MovieDetail? movieDetail,
     List<Video>? video,
     MovieCastCrew? movieCastCrew,

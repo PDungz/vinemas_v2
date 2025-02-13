@@ -2,14 +2,14 @@
 part of 'global_bloc.dart';
 
 class GlobalState extends Equatable {
-  final StatusState state;
+  final ProcessStatus state;
   final Configuration? configuration;
   final List<Genres>? genres;
   final Locale? locale;
   final String? errorMsg;
 
   const GlobalState({
-    this.state = StatusState.idle,
+    this.state = ProcessStatus.idle,
     this.configuration,
     this.genres,
     this.locale,
@@ -26,7 +26,7 @@ class GlobalState extends Equatable {
       ];
 
   GlobalState copyWith({
-    StatusState? state,
+    ProcessStatus? state,
     Configuration? configuration,
     List<Genres>? genres,
     Locale? locale,

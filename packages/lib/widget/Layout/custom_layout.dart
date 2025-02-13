@@ -9,6 +9,7 @@ class CustomLayout extends StatelessWidget {
     this.floatingActionButtonLocation,
     this.drawer,
     this.bottomNavigationBar,
+    this.backgroundWidget,
   });
 
   final Widget appBar;
@@ -17,12 +18,15 @@ class CustomLayout extends StatelessWidget {
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget? drawer;
   final Widget? bottomNavigationBar;
+  final Widget? backgroundWidget; // Nền tuỳ chỉnh
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
           child: Stack(
             children: [
+              if (backgroundWidget != null)
+                Positioned.fill(child: backgroundWidget!), // Nền ở dưới cùng
               if (drawer != null)
                 Positioned(
                   left: 0,

@@ -9,12 +9,12 @@ abstract class UpcomingState extends Equatable {
 class UpcomingInitial extends UpcomingState {}
 
 class UpcomingLoadedState extends UpcomingState {
-  final StatusState state;
+  final ProcessStatus state;
   final List<Movie>? upcoming;
   final String? errorMsg;
 
   UpcomingLoadedState({
-    this.state = StatusState.idle,
+    this.state = ProcessStatus.idle,
     this.upcoming,
     this.errorMsg,
   });
@@ -27,7 +27,7 @@ class UpcomingLoadedState extends UpcomingState {
       ];
 
   UpcomingLoadedState copyWith({
-    StatusState? state,
+    ProcessStatus? state,
     List<Movie>? upcoming,
     String? errorMsg,
   }) {

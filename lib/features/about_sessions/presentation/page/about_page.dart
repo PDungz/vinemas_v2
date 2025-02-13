@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:packages/widget/Layout/custom_layout_label_value.dart';
 import 'package:packages/widget/Text/custom_text.dart';
-import 'package:vinemas_v1/core/common/enum/status_state.dart';
+import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/about_bloc/about_bloc.dart';
@@ -29,11 +29,11 @@ class AboutPage extends StatelessWidget {
               builder: (context, aboutState) {
                 if (aboutState is MovieDetailState) {
                   switch (aboutState.state) {
-                    case StatusState.loading:
+                    case ProcessStatus.loading:
                       return Center(
                         child: CircularProgressIndicator(),
                       );
-                    case StatusState.success:
+                    case ProcessStatus.success:
                       final video = aboutState.video;
                       if (video != null && video.isNotEmpty) {
                         return YoutubePlayer(
@@ -51,9 +51,9 @@ class AboutPage extends StatelessWidget {
                         );
                       }
                       return SizedBox();
-                    case StatusState.failure:
+                    case ProcessStatus.failure:
                       return Center(child: Text("Error: ${aboutState.state}"));
-                    case StatusState.idle:
+                    case ProcessStatus.idle:
                     default:
                       return SizedBox();
                   }
@@ -65,11 +65,11 @@ class AboutPage extends StatelessWidget {
               builder: (context, aboutState) {
                 if (aboutState is MovieDetailState) {
                   switch (aboutState.state) {
-                    case StatusState.loading:
+                    case ProcessStatus.loading:
                       return Center(
                         child: CircularProgressIndicator(),
                       );
-                    case StatusState.success:
+                    case ProcessStatus.success:
                       final movieDetail = aboutState.movieDetail;
                       if (movieDetail != null) {
                         final listGenres = aboutState.movieDetail?.genres
@@ -224,9 +224,9 @@ class AboutPage extends StatelessWidget {
                         );
                       }
                       return SizedBox();
-                    case StatusState.failure:
+                    case ProcessStatus.failure:
                       return Center(child: Text("Error: ${aboutState.state}"));
-                    case StatusState.idle:
+                    case ProcessStatus.idle:
                     default:
                       return SizedBox();
                   }

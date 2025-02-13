@@ -28,6 +28,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_enter_password => 'Enter your password';
 
   @override
+  String get keyword_confirm_password => 'Confirm password';
+
+  @override
+  String get keyword_enter_confirm_password => 'Enter your confirm password';
+
+  @override
   String get keyword_forgot_password => 'Forgot password?';
 
   @override
@@ -40,7 +46,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_sign_up => 'Sign Up';
 
   @override
-  String get keyword_or_sigin_with => 'Or sigin with';
+  String get keyword_or_sign_in_with => 'Or sigin with';
+
+  @override
+  String get keyword_verify_now => 'Verify Now';
+
+  @override
+  String get keyword_enter_verification_code => 'Enter verification code';
+
+  @override
+  String get keyword_don_t_your_receive_any_code => 'Don\'t you receive any code?';
+
+  @override
+  String get keyword_resend_code => 'Resend Code';
 
   @override
   String get keyword_access_to_purchased_tickets => 'Access to purchased tickets';
@@ -208,7 +226,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_phone_number => 'Phone number';
 
   @override
+  String get keyword_enter_phone_number => 'Enter your phone number';
+
+  @override
   String get keyword_email => 'Email';
+
+  @override
+  String get keyword_enter_email => 'Enter your email';
 
   @override
   String get keyword_your_tickets => 'Your tickets';
@@ -242,6 +266,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get keyword_full_name => 'Full name';
+
+  @override
+  String get keyword_enter_full_name => 'Enter your full name';
 
   @override
   String get keyword_date_of_birth => 'Date of birth';
@@ -304,4 +331,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error_generic_field_required => 'This field cannot be empty';
+
+  @override
+  String get error_verification_error_all_fields => 'All fields must be filled correctly!';
 }

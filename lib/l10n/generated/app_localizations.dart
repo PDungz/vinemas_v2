@@ -137,6 +137,18 @@ abstract class AppLocalizations {
   /// **'Enter your password'**
   String get keyword_enter_password;
 
+  /// No description provided for @keyword_confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get keyword_confirm_password;
+
+  /// No description provided for @keyword_enter_confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your confirm password'**
+  String get keyword_enter_confirm_password;
+
   /// No description provided for @keyword_forgot_password.
   ///
   /// In en, this message translates to:
@@ -161,11 +173,35 @@ abstract class AppLocalizations {
   /// **'Sign Up'**
   String get keyword_sign_up;
 
-  /// No description provided for @keyword_or_sigin_with.
+  /// No description provided for @keyword_or_sign_in_with.
   ///
   /// In en, this message translates to:
   /// **'Or sigin with'**
-  String get keyword_or_sigin_with;
+  String get keyword_or_sign_in_with;
+
+  /// No description provided for @keyword_verify_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Now'**
+  String get keyword_verify_now;
+
+  /// No description provided for @keyword_enter_verification_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter verification code'**
+  String get keyword_enter_verification_code;
+
+  /// No description provided for @keyword_don_t_your_receive_any_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t you receive any code?'**
+  String get keyword_don_t_your_receive_any_code;
+
+  /// No description provided for @keyword_resend_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code'**
+  String get keyword_resend_code;
 
   /// No description provided for @keyword_access_to_purchased_tickets.
   ///
@@ -497,11 +533,23 @@ abstract class AppLocalizations {
   /// **'Phone number'**
   String get keyword_phone_number;
 
+  /// No description provided for @keyword_enter_phone_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get keyword_enter_phone_number;
+
   /// No description provided for @keyword_email.
   ///
   /// In en, this message translates to:
   /// **'Email'**
   String get keyword_email;
+
+  /// No description provided for @keyword_enter_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get keyword_enter_email;
 
   /// No description provided for @keyword_your_tickets.
   ///
@@ -568,6 +616,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Full name'**
   String get keyword_full_name;
+
+  /// No description provided for @keyword_enter_full_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full name'**
+  String get keyword_enter_full_name;
 
   /// No description provided for @keyword_date_of_birth.
   ///
@@ -688,6 +742,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This field cannot be empty'**
   String get error_generic_field_required;
+
+  /// No description provided for @error_verification_error_all_fields.
+  ///
+  /// In en, this message translates to:
+  /// **'All fields must be filled correctly!'**
+  String get error_verification_error_all_fields;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

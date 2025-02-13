@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vinemas_v1/features/login/presentation/widget/form_widget.dart';
+import 'package:get/get.dart';
+import 'package:packages/widget/Button/custom_icon_button.dart';
+import 'package:packages/widget/Layout/custom_layout.dart';
+import 'package:vinemas_v1/core/config/app_color.dart';
+import 'package:vinemas_v1/core/config/app_router.dart';
+import 'package:vinemas_v1/features/login/presentation/widget/form_login_widget.dart';
 import 'package:vinemas_v1/features/login/presentation/widget/other_sign_in_widget.dart';
-import 'package:vinemas_v1/features/login/presentation/widget/sign_up_widget.dart';
+import 'package:vinemas_v1/features/login/presentation/widget/sign_up_login_widget.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 
 class LoginPage extends StatelessWidget {
@@ -12,36 +17,67 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: CustomLayout(
+          appBar: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 32.0),
-                  child: SizedBox(
-                    child: SvgPicture.asset(
-                      $AssetsSvgGen().appIcon,
-                      height: 128,
-                    ),
-                  ),
+                CustomIconButton(
+                  onPressed: () => Get.back(),
+                  shape: BoxShape.circle,
+                  backgroundColor: AppColor.secondaryColor,
+                  svgPath: $AssetsIconsGen().iconApp.back,
                 ),
-                Column(
+                CustomIconButton(
+                  onPressed: () => Get.toNamed(ConfigRoute.homePage),
+                  shape: BoxShape.circle,
+                  backgroundColor: AppColor.secondaryColor,
+                  svgPath: $AssetsIconsGen().iconApp.home,
+                ),
+              ],
+            ),
+          ),
+          body: Padding(
+            padding: EdgeInsets.only(top: 42),
+            child: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    FormWidget(
-                        onTap: (
-                            {required String username,
-                            required String password}) {},
-                        isLoading: false,
-                        messager: ""),
-                    SizedBox(height: 12),
-                    OtherSignInWidget(onGoogle: () {}, onFacebook: () {}),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24.0),
+                      child: SizedBox(
+                        child: SvgPicture.asset(
+                          $AssetsSvgGen().appIcon,
+                          height: 128,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 42),
+                      child: Column(
+                        children: [
+                          FormLoginWidget(
+                              onTap: (
+                                  {required String username,
+                                  required String password}) {},
+                              isLoading: false,
+                              message: ""),
+                          SizedBox(height: 12),
+                          OtherSignInWidget(onGoogle: () {}, onFacebook: () {}),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 32),
+                      child: SignUpLoginWidget(),
+                    ),
                   ],
                 ),
-                SignUpWidget(),
-              ],
+              ),
             ),
           ),
         ),

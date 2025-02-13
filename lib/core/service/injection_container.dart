@@ -33,6 +33,10 @@ import 'package:vinemas_v1/features/home/domain/repository/now_playing_repositor
 import 'package:vinemas_v1/features/home/domain/repository/upcoming_repository.dart';
 import 'package:vinemas_v1/features/home/domain/use_case/now_playing_use_case.dart';
 import 'package:vinemas_v1/features/home/domain/use_case/upcoming_use_case.dart';
+import 'package:vinemas_v1/features/login/data/data_source/user_remote_data_source.dart';
+import 'package:vinemas_v1/features/login/data/repository_impl/user_repository_impl.dart';
+import 'package:vinemas_v1/features/login/domain/repository/user_repository.dart';
+import 'package:vinemas_v1/features/login/domain/use_case/user_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -86,6 +90,11 @@ Future<void> initDI() async {
     () => CastRemoteDataSourceImpl(dio: getIt<DioClient>().dio),
   );
 
+  // * Remote Data User
+  getIt.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSourceImpl(),
+  );
+
   //! Repository
   //* Configuration Repository
   getIt.registerLazySingleton<ConfigurationRepository>(
@@ -128,6 +137,11 @@ Future<void> initDI() async {
     () => CastRepositoryImpl(castRemoteDataSource: getIt()),
   );
 
+  //* User Repository
+  getIt.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(userRemoteDataSource: getIt()),
+  );
+
   //! Use case
   //* Configuration Use Case
   getIt.registerSingleton<ConfigurationUseCase>(
@@ -164,4 +178,7 @@ Future<void> initDI() async {
 
   //* Cast Use Case
   getIt.registerSingleton(CastUseCase(castRepository: getIt()));
+
+  //* User Use Case
+  getIt.registerSingleton(UserUseCase(userRepository: getIt()));
 }

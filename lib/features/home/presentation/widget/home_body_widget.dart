@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:packages/widget/Bottom_sheet/custom_bottom_sheet.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
 import 'package:vinemas_v1/core/common/enum/configuration.dart';
-import 'package:vinemas_v1/core/common/enum/status_state.dart';
+import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/common/extension/configuration_extension.dart';
 import 'package:vinemas_v1/core/common/extension/genres_extension.dart';
 import 'package:vinemas_v1/core/global/global_bloc/global_bloc.dart';
@@ -19,6 +19,7 @@ class HomeBodyWidget extends StatefulWidget {
   const HomeBodyWidget({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeBodyWidgetState createState() => _HomeBodyWidgetState();
 }
 
@@ -77,9 +78,9 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                 builder: (context, homeState) {
                   if (homeState is UpcomingLoadedState) {
                     switch (homeState.state) {
-                      case StatusState.loading:
+                      case ProcessStatus.loading:
                         return const Center(child: CircularProgressIndicator());
-                      case StatusState.success:
+                      case ProcessStatus.success:
                         final upcomingPoster = homeState.upcoming;
                         return BlocBuilder<GlobalBloc, GlobalState>(
                           builder: (_, globalState) {
@@ -98,10 +99,10 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                             return const SizedBox();
                           },
                         );
-                      case StatusState.failure:
+                      case ProcessStatus.failure:
                         return Center(
                             child: Text("Error: ${homeState.errorMsg}"));
-                      case StatusState.idle:
+                      case ProcessStatus.idle:
                       default:
                         return const SizedBox();
                     }
@@ -137,10 +138,10 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                 builder: (context, homeState) {
                   if (homeState is NowPlayingLoadedState) {
                     switch (homeState.state) {
-                      case StatusState.loading:
+                      case ProcessStatus.loading:
                         return const SliverToBoxAdapter(
                             child: Center(child: CircularProgressIndicator()));
-                      case StatusState.success:
+                      case ProcessStatus.success:
                         final nowPlaying = homeState.nowPlaying;
                         return BlocBuilder<GlobalBloc, GlobalState>(
                           builder: (context, globalState) {
@@ -177,11 +178,11 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                           },
                         );
 
-                      case StatusState.failure:
+                      case ProcessStatus.failure:
                         return SliverToBoxAdapter(
                             child: Center(
                                 child: Text("Error: ${homeState.errorMsg}")));
-                      case StatusState.idle:
+                      case ProcessStatus.idle:
                       default:
                         return const SliverToBoxAdapter(child: SizedBox());
                     }

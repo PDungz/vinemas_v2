@@ -66,7 +66,7 @@ class HomeAppBarWidget extends StatelessWidget {
               backgroundColor: AppColor.buttonLinerOneColor,
               label: AppLocalizations.of(context)!.keyword_login,
               onPressed: () {
-                Get.toNamed(ConfigRoute.login_page);
+                Get.toNamed(ConfigRoute.loginPage);
               },
             ),
           ),

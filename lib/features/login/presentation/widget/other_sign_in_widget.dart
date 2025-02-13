@@ -8,41 +8,40 @@ class OtherSignInWidget extends StatelessWidget {
   final Function() onGoogle;
   final Function() onFacebook;
 
-  const OtherSignInWidget({super.key, required this.onGoogle, required this.onFacebook});
+  const OtherSignInWidget(
+      {super.key, required this.onGoogle, required this.onFacebook});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Text(
-                            AppLocalizations.of(context)!.keyword_or_sigin_with,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(color: AppColor.secondaryTextColor),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SocialNetworkWidget(
-                                onTap: onGoogle,
-                                socialNetworkWidget:
-                                    $AssetsImagesSocialNetworkGen().google.path,
-                                title: "Google"),
-                            SizedBox(width: 24),
-                            SocialNetworkWidget(
-                                onTap:onFacebook,
-                                socialNetworkWidget:
-                                    $AssetsImagesSocialNetworkGen()
-                                        .facebook
-                                        .path,
-                                title: "Facebook"),
-                          ],
-                        )
-                      ],
-                    );
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 12, bottom: 16),
+          child: Text(
+            AppLocalizations.of(context)!.keyword_or_sign_in_with,
+            style: Theme.of(context)
+                .textTheme
+                .labelLarge
+                ?.copyWith(color: AppColor.secondaryTextColor),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SocialNetworkWidget(
+                onTap: onGoogle,
+                socialNetworkWidget:
+                    $AssetsImagesSocialNetworkGen().google.path,
+                title: "Google"),
+            SizedBox(width: 24),
+            SocialNetworkWidget(
+                onTap: onFacebook,
+                socialNetworkWidget:
+                    $AssetsImagesSocialNetworkGen().facebook.path,
+                title: "Facebook"),
+          ],
+        )
+      ],
+    );
   }
 }

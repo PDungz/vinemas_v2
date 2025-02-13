@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:vinemas_v1/core/config/app_color.dart';
+import 'package:packages/widget/Layout/custom_layout.dart';
+
 import 'package:vinemas_v1/features/home/presentation/home_page.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 
@@ -25,31 +24,16 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Container(
-              color: AppColor.secondaryColor.withOpacity(0.8),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      $AssetsSvgGen().appIcon,
-                      width: 120,
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "VINEMAS",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+    return CustomLayout(
+      backgroundWidget: Image.asset(
+        $AssetsImagesBackgroundGen().splash.path,
+        fit: BoxFit.fill,
+      ),
+      appBar: SizedBox(),
+      body: Center(
+        child: SvgPicture.asset(
+          $AssetsSvgGen().appIcon,
+          width: 120,
         ),
       ),
     );

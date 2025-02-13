@@ -3,8 +3,9 @@ import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+// ignore: unnecessary_import
 import 'package:flutter/material.dart';
-import 'package:vinemas_v1/core/common/enum/status_state.dart';
+import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/global/api/configuration/domain/entity/configuration.dart';
 import 'package:vinemas_v1/core/global/api/configuration/domain/use_case/configuration_use_case.dart';
 import 'package:vinemas_v1/core/global/api/genres/domain/entity/genres.dart';
@@ -20,7 +21,7 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
   GlobalBloc() : super(GlobalState()) {
     on<GlobalInitEvent>((event, emit) async {
       try {
-        emit(state.copyWith(state: StatusState.loading));
+        emit(state.copyWith(state: ProcessStatus.loading));
         String? localeString =
             await getIt<SharedPreferenceUseCase>().getData('language');
 
@@ -37,7 +38,7 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
 
         final List<Genres>? genres = await getIt<GenresUseCase>().getGenres();
         emit(state.copyWith(
-          state: StatusState.success,
+          state: ProcessStatus.success,
           configuration: configuration,
           genres: genres,
           locale: locale,
@@ -45,11 +46,11 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
       } catch (e) {
         printE("[GlobalBloc] error: $e");
         emit(state.copyWith(
-          state: StatusState.failure,
+          state: ProcessStatus.failure,
           errorMsg: e.toString(),
         ));
       } finally {
-        emit(state.copyWith(state: StatusState.idle));
+        emit(state.copyWith(state: ProcessStatus.idle));
       }
     });
   }

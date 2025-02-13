@@ -24,7 +24,7 @@ class MovieItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(ConfigRoute.about_sessions_page, arguments: movie);
+        Get.toNamed(ConfigRoute.aboutSessionsPage, arguments: movie);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

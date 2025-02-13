@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 class FormatDateTime {
@@ -31,7 +32,9 @@ class FormatDateTime {
     try {
       return DateFormat('dd/MM/yyyy').parse(dateString);
     } catch (e) {
-      print('Error parsing date: $e');
+      if (kDebugMode) {
+        print('Error parsing date: $e');
+      }
       return null;
     }
   }
@@ -42,7 +45,9 @@ class FormatDateTime {
       final date = DateFormat('yyyy-MM-dd').parse(dateString);
       return DateFormat('dd/MM/yyyy').format(date);
     } catch (e) {
-      print('Error converting date: $e');
+      if (kDebugMode) {
+        print('Error converting date: $e');
+      }
       return '';
     }
   }

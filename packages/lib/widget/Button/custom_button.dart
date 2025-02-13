@@ -14,6 +14,7 @@ class CustomButton extends StatelessWidget {
   final Color? iconColor;
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
+  final Color? overlayColor;
 
   const CustomButton({
     super.key,
@@ -30,6 +31,7 @@ class CustomButton extends StatelessWidget {
     this.iconColor,
     this.padding,
     this.backgroundColor,
+    this.overlayColor = Colors.white,
   });
 
   @override
@@ -54,6 +56,9 @@ class CustomButton extends StatelessWidget {
                 vertical: 12, horizontal: 16), // Default padding
         backgroundColor: backgroundColor ??
             Theme.of(context).primaryColor, // Use theme color by default
+        //
+        splashFactory: InkRipple.splashFactory,
+        overlayColor: overlayColor,
       ),
       child: isLoading
           ? const CircularProgressIndicator(

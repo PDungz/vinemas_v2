@@ -40,7 +40,7 @@ class UpcomingWidget extends StatelessWidget {
         ),
         bottomWidget: CustomCarousel<Movie>(
           onTap: ({required Movie parameter}) {
-            Get.toNamed(ConfigRoute.about_sessions_page, arguments: parameter);
+            Get.toNamed(ConfigRoute.aboutSessionsPage, arguments: parameter);
           },
           listItem: listMovie,
           listUrlImage: listUpcommingMoviesPoster,

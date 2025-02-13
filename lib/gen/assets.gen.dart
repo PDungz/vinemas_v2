@@ -36,6 +36,10 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/background
+  $AssetsImagesBackgroundGen get background =>
+      const $AssetsImagesBackgroundGen();
+
   /// Directory path: assets/images/flag
   $AssetsImagesFlagGen get flag => const $AssetsImagesFlagGen();
 
@@ -175,6 +179,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/forward.svg
   String get forward => 'assets/icons/icon_app/forward.svg';
 
+  /// File path: assets/icons/icon_app/home.svg
+  String get home => 'assets/icons/icon_app/home.svg';
+
   /// File path: assets/icons/icon_app/language.svg
   String get language => 'assets/icons/icon_app/language.svg';
 
@@ -214,6 +221,7 @@ class $AssetsIconsIconAppGen {
         eyeSlash,
         forwardArrow,
         forward,
+        home,
         language,
         location,
         lock,
@@ -234,6 +242,21 @@ class $AssetsIconsLogoGen {
   /// Directory path: assets/icons/logo/social_network
   $AssetsIconsLogoSocialNetworkGen get socialNetwork =>
       const $AssetsIconsLogoSocialNetworkGen();
+}
+
+class $AssetsImagesBackgroundGen {
+  const $AssetsImagesBackgroundGen();
+
+  /// File path: assets/images/background/Cover.png
+  AssetGenImage get cover =>
+      const AssetGenImage('assets/images/background/Cover.png');
+
+  /// File path: assets/images/background/Splash.png
+  AssetGenImage get splash =>
+      const AssetGenImage('assets/images/background/Splash.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [cover, splash];
 }
 
 class $AssetsImagesFlagGen {
@@ -304,7 +327,7 @@ class $AssetsIconsLogoSocialNetworkGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const String aEnv = '.env';
   static const $AssetsAnimationGen animation = $AssetsAnimationGen();
@@ -349,7 +372,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {

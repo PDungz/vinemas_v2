@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vinemas_v1/core/common/enum/status_state.dart';
+import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
@@ -17,15 +17,15 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
   Future<void> getNowPlaying(
       NowPlayingLoadMoreEvent event, Emitter<NowPlayingState> emit) async {
     try {
-      emit(NowPlayingLoadedState(state: StatusState.loading));
+      emit(NowPlayingLoadedState(state: ProcessStatus.loading));
       final List<Movie>? nowPlaying = await getIt<NowPlayingUseCase>()
           .getNowPlaying(movie: event.movie, page: event.page);
       emit(NowPlayingLoadedState(
-          state: StatusState.success, nowPlaying: nowPlaying ?? []));
+          state: ProcessStatus.success, nowPlaying: nowPlaying ?? []));
     } catch (e) {
       printE("[Get Now Playing Bloc] error: $e");
       emit(NowPlayingLoadedState(
-        state: StatusState.failure,
+        state: ProcessStatus.failure,
         errorMsg: e.toString(),
       ));
     }

@@ -8,12 +8,12 @@ abstract class NowPlayingState extends Equatable {
 class NowPlayingInitial extends NowPlayingState {}
 
 class NowPlayingLoadedState extends NowPlayingState {
-  final StatusState state;
+  final ProcessStatus state;
   final List<Movie>? nowPlaying;
   final String? errorMsg;
 
   NowPlayingLoadedState({
-    this.state = StatusState.idle,
+    this.state = ProcessStatus.idle,
     this.nowPlaying,
     this.errorMsg,
   });
@@ -26,7 +26,7 @@ class NowPlayingLoadedState extends NowPlayingState {
       ];
 
   NowPlayingLoadedState copyWith({
-    StatusState? state,
+    ProcessStatus? state,
     List<Movie>? nowPlaying,
     String? errorMsg,
   }) {

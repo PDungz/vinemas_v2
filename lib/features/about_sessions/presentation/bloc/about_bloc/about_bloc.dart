@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vinemas_v1/core/common/enum/status_state.dart';
+import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/movie_cast_crew.dart';
@@ -21,7 +21,7 @@ class AboutBloc extends Bloc<AboutEvent, AboutState> {
   Future<void> getMovieDetail(
       MovieDetailEvent event, Emitter<AboutState> emit) async {
     try {
-      emit(MovieDetailState(state: StatusState.loading));
+      emit(MovieDetailState(state: ProcessStatus.loading));
       final List<Video>? video =
           await getIt<VideoUseCase>().getVideo(movieId: event.movieId);
       final MovieCastCrew? movieCastCrew =
@@ -30,7 +30,7 @@ class AboutBloc extends Bloc<AboutEvent, AboutState> {
           .getMovieDetail(movieId: event.movieId);
       emit(
         MovieDetailState(
-          state: StatusState.success,
+          state: ProcessStatus.success,
           movieDetail: movieDetail,
           movieCastCrew: movieCastCrew,
           video: video,
@@ -39,7 +39,7 @@ class AboutBloc extends Bloc<AboutEvent, AboutState> {
     } catch (e) {
       printE("[Get Movie Detail Bloc] error: $e");
       emit(MovieDetailState(
-        state: StatusState.failure,
+        state: ProcessStatus.failure,
         errorMsg: e.toString(),
       ));
     }

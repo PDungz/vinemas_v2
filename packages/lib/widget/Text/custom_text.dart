@@ -43,6 +43,7 @@ class CustomText extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomTextState createState() => _CustomTextState();
 }
 

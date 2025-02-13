@@ -28,6 +28,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_enter_password => 'Nhập mật khẩu của bạn';
 
   @override
+  String get keyword_confirm_password => 'Xác nhận mật khẩu';
+
+  @override
+  String get keyword_enter_confirm_password => 'Nhập mật khẩu xác nhận';
+
+  @override
   String get keyword_forgot_password => 'Quên mật khẩu?';
 
   @override
@@ -40,7 +46,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_sign_up => 'Đăng ký';
 
   @override
-  String get keyword_or_sigin_with => 'Hoặc đăng nhập bằng';
+  String get keyword_or_sign_in_with => 'Hoặc đăng nhập bằng';
+
+  @override
+  String get keyword_verify_now => 'Xác minh ngay';
+
+  @override
+  String get keyword_enter_verification_code => 'Nhập mã xác minh';
+
+  @override
+  String get keyword_don_t_your_receive_any_code => 'Bạn không nhận được mã?';
+
+  @override
+  String get keyword_resend_code => 'Gửi lại mã';
 
   @override
   String get keyword_access_to_purchased_tickets => 'Truy cập vé đã mua';
@@ -208,7 +226,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_phone_number => 'Số điện thoại';
 
   @override
+  String get keyword_enter_phone_number => 'Nhập số điện thoại của bạn';
+
+  @override
   String get keyword_email => 'Email';
+
+  @override
+  String get keyword_enter_email => 'Nhập email của bạn';
 
   @override
   String get keyword_your_tickets => 'Vé của bạn';
@@ -242,6 +266,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get keyword_full_name => 'Họ và tên';
+
+  @override
+  String get keyword_enter_full_name => 'Nhập họ và tên của bạn';
 
   @override
   String get keyword_date_of_birth => 'Ngày sinh';
@@ -304,4 +331,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get error_generic_field_required => 'Trường này không được để trống';
+
+  @override
+  String get error_verification_error_all_fields => 'Tất cả các trường phải được điền chính xác!';
 }
