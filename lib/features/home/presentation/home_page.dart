@@ -5,6 +5,7 @@ import 'package:vinemas_v1/features/home/presentation/bloc/now_playing_bloc/now_
 import 'package:vinemas_v1/features/home/presentation/bloc/upcoming_bloc/upcoming_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/widget/home_app_bar_widget.dart';
 import 'package:vinemas_v1/features/home/presentation/widget/home_body_widget.dart';
+import 'package:vinemas_v1/features/login/presentation/bloc/bloc/user_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,6 +20,9 @@ class HomePage extends StatelessWidget {
         BlocProvider<NowPlayingBloc>(
           create: (context) => NowPlayingBloc()
             ..add(NowPlayingLoadMoreEvent(movie: [], page: 1)),
+        ),
+        BlocProvider<UserBloc>(
+          create: (context) => UserBloc()..add(isUserLoggedInEvent()),
         ),
       ],
       child: CustomLayout(
