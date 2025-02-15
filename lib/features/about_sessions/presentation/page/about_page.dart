@@ -36,10 +36,15 @@ class AboutPage extends StatelessWidget {
                     case ProcessStatus.success:
                       final video = aboutState.video;
                       if (video != null && video.isNotEmpty) {
+                        final youtubeId = video.firstWhere(
+                          (element) =>
+                              element.type == 'Teaser' ||
+                              element.type == 'Trailer',
+                        );
                         return YoutubePlayer(
                           controller: YoutubePlayerController(
                             initialVideoId: YoutubePlayer.convertUrlToId(
-                                "https://www.youtube.com/watch?v=${video[0].key}")!,
+                                "https://www.youtube.com/watch?v=${youtubeId.key}")!,
                             flags: const YoutubePlayerFlags(
                               autoPlay: false,
                               mute: false,

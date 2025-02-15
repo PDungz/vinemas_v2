@@ -34,9 +34,24 @@ class VideoRemoteDataSourceImpl implements VideoRemoteDataSource {
 
       if (response.statusCode == 200 &&
           response.data != null &&
-          response.data['results'] is List) {
+          response.data['results'] is List &&
+          response.data['results'].length > 0) {
         final List<dynamic> data = response.data['results'];
         return data.map((json) => VideoModel.fromJson(json)).toList();
+      } else {
+        final response = await dio.get(
+          AppUrl.movieVideos(movieId),
+          queryParameters: {
+            'language': 'en',
+          },
+        );
+        if (response.statusCode == 200 &&
+            response.data != null &&
+            response.data['results'] is List &&
+            response.data['results'].length > 0) {
+          final List<dynamic> data = response.data['results'];
+          return data.map((json) => VideoModel.fromJson(json)).toList();
+        }
       }
     } catch (e) {
       printE("Error in VideoRemoteDatasourceImpl: $e");

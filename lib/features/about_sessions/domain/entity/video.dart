@@ -5,7 +5,7 @@ class Video {
   final String name;
   final String key;
   final String site;
-  final String type;
+  late final String type;
   final bool official;
   final String publishedAt;
   final String id;
