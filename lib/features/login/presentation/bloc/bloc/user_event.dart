@@ -39,6 +39,32 @@ class UserRegisterWithEmailPasswordEvent extends UserEvent {
   }
 }
 
+class UserLoginWithEmailPasswordEvent extends UserEvent {
+  final String email;
+  final String password;
+
+  UserLoginWithEmailPasswordEvent({
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  List<Object?> get props => [
+        email,
+        password,
+      ];
+
+  UserLoginWithEmailPasswordEvent copyWith({
+    String? email,
+    String? password,
+  }) {
+    return UserLoginWithEmailPasswordEvent(
+      email: email ?? this.email,
+      password: password ?? this.password,
+    );
+  }
+}
+
 class SendOtpEvent extends UserEvent {
   final String phoneNumber;
   SendOtpEvent({
@@ -55,4 +81,16 @@ class SendOtpEvent extends UserEvent {
       phoneNumber: phoneNumber ?? this.phoneNumber,
     );
   }
+}
+
+// ignore: camel_case_types
+class isUserLoggedInEvent extends UserEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+// ignore: camel_case_types
+class logoutEvent extends UserEvent {
+  @override
+  List<Object?> get props => [];
 }

@@ -298,7 +298,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_language => 'Ngôn ngữ';
 
   @override
-  String get keyword_recieve_notifications => 'Nhận thông báo';
+  String get keyword_receive_notifications => 'Recieve notifications';
 
   @override
   String get error_validate => 'LỖI_XÁC_THỰC';
@@ -334,4 +334,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get error_verification_error_all_fields => 'Tất cả các trường phải được điền chính xác!';
+
+  @override
+  String get error_password_not_match => 'Mật khẩu không khớp';
 }

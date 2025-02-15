@@ -36,6 +36,32 @@ class UserRegisterWithEmailPasswordState extends UserState {
   }
 }
 
+class UserLoginWithEmailPasswordState extends UserState {
+  final ProcessStatus processStatus;
+  final String? message;
+
+  UserLoginWithEmailPasswordState({
+    this.processStatus = ProcessStatus.idle,
+    this.message,
+  });
+
+  @override
+  List<Object?> get props => [
+        processStatus,
+        message,
+      ];
+
+  UserLoginWithEmailPasswordState copyWith({
+    ProcessStatus? processStatus,
+    String? message,
+  }) {
+    return UserLoginWithEmailPasswordState(
+      processStatus: processStatus ?? this.processStatus,
+      message: message ?? this.message,
+    );
+  }
+}
+
 class SendOtpState extends UserState {
   final ProcessStatus processStatus;
   final String? phoneNumber;
@@ -58,6 +84,57 @@ class SendOtpState extends UserState {
     return SendOtpState(
       processStatus: processStatus ?? this.processStatus,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      message: message ?? this.message,
+    );
+  }
+}
+
+// ignore: camel_case_types
+class isUserLoggedInState extends UserState {
+  final bool? isUserLoggedIn;
+  final ProcessStatus processStatus;
+
+  isUserLoggedInState({
+    this.isUserLoggedIn,
+    this.processStatus = ProcessStatus.idle,
+  });
+
+  @override
+  List<Object?> get props => [isUserLoggedIn];
+
+  isUserLoggedInState copyWith({
+    bool? isUserLoggedIn,
+    ProcessStatus? processStatus,
+  }) {
+    return isUserLoggedInState(
+      isUserLoggedIn: isUserLoggedIn ?? this.isUserLoggedIn,
+      processStatus: processStatus ?? this.processStatus,
+    );
+  }
+}
+
+// ignore: camel_case_types
+class logoutState extends UserState {
+  final ProcessStatus processStatus;
+  final String? message;
+
+  logoutState({
+    this.processStatus = ProcessStatus.idle,
+    this.message,
+  });
+
+  @override
+  List<Object?> get props => [
+        processStatus,
+        message,
+      ];
+
+  logoutState copyWith({
+    ProcessStatus? processStatus,
+    String? message,
+  }) {
+    return logoutState(
+      processStatus: processStatus ?? this.processStatus,
       message: message ?? this.message,
     );
   }

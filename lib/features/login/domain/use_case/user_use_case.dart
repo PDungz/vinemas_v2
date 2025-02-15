@@ -22,6 +22,16 @@ class UserUseCase {
         user: user, email: email, password: password, onPressed: onPressed);
   }
 
+  Future<void> loginWithEmailPassword(
+      {required String email,
+      required String password,
+      required void Function(
+              {required String message, required ProcessStatus status})
+          onPressed}) async {
+    return await userRepository.loginWithEmailPassword(
+        email: email, password: password, onPressed: onPressed);
+  }
+
   Future<void> createUserInfo(
       {required String userId,
       required User user,
@@ -58,5 +68,16 @@ class UserUseCase {
         sendCodeOTP: sendCodeOTP,
         verificationId: verificationId,
         onPressed: onPressed);
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    return await userRepository.isUserLoggedIn();
+  }
+
+  Future<void> logout(
+      {required void Function(
+              {required String message, required ProcessStatus status})
+          onPressed}) async {
+    return await userRepository.logout(onPressed: onPressed);
   }
 }

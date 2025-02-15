@@ -17,6 +17,15 @@ abstract class UserRemoteDataSource {
         onPressed,
   });
 
+  /// Logs in a user using [email] and [password].
+  Future<void> loginWithEmailPassword({
+    required String email,
+    required String password,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  });
+
   Future<void> createUserInfo({
     required String userId,
     required UserModel user,
@@ -29,6 +38,16 @@ abstract class UserRemoteDataSource {
     required File imageFile,
     required String storagePath,
     required String userId,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  });
+
+  /// Checks if a user is currently logged in.
+  Future<bool> isUserLoggedIn();
+
+  /// Logs out the currently authenticated user.
+  Future<void> logout({
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
@@ -172,6 +191,86 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       );
       printE('Failed to upload profile image - Remote Data Source Impl: $e');
       return null;
+    }
+  }
+
+  @override
+  Future<void> loginWithEmailPassword({
+    required String email,
+    required String password,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    try {
+      // Thực hiện đăng nhập với email và mật khẩu
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      if (userCredential.user != null) {
+        onPressed(
+          message: "Login successful",
+          status: ProcessStatus.success,
+        );
+        printS(
+            'User logged in successfully - loginWithEmailPassword Remote Data Source Impl');
+      } else {
+        onPressed(
+          message: "Login failed. Please try again.",
+          status: ProcessStatus.failure,
+        );
+        printE('Login failed - Remote Data Source Impl');
+      }
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = "Login failed";
+      if (e.code == 'user-not-found') {
+        errorMessage = "No user found for that email.";
+      } else if (e.code == 'wrong-password') {
+        errorMessage = "Wrong password provided for that user.";
+      }
+      onPressed(
+        message: errorMessage,
+        status: ProcessStatus.failure,
+      );
+      printE(
+          'loginWithEmailPassword failed - Remote Data Source Impl: ${e.message}');
+    } catch (e) {
+      onPressed(
+        message: "An unexpected error occurred",
+        status: ProcessStatus.failure,
+      );
+      printE(
+          'An unexpected error occurred - loginWithEmailPassword Remote Data Source Impl: $e');
+    }
+  }
+
+  @override
+  Future<bool> isUserLoggedIn() async {
+    User? user = _auth.currentUser;
+    return user != null;
+  }
+
+  @override
+  Future<void> logout({
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    try {
+      await _auth.signOut();
+      onPressed(
+        message: "Logout successful",
+        status: ProcessStatus.success,
+      );
+      printS('User logged out successfully - Remote Data Source Impl');
+    } catch (e) {
+      onPressed(
+        message: "Logout failed",
+        status: ProcessStatus.failure,
+      );
+      printE('Logout failed - Remote Data Source Impl: $e');
     }
   }
 }

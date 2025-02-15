@@ -298,7 +298,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_language => 'Language';
 
   @override
-  String get keyword_recieve_notifications => 'Recieve notifications';
+  String get keyword_receive_notifications => 'Recieve notifications';
 
   @override
   String get error_validate => 'ERROR_validate';
@@ -334,4 +334,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error_verification_error_all_fields => 'All fields must be filled correctly!';
+
+  @override
+  String get error_password_not_match => 'Passwords do not match';
 }

@@ -677,11 +677,11 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get keyword_language;
 
-  /// No description provided for @keyword_recieve_notifications.
+  /// No description provided for @keyword_receive_notifications.
   ///
   /// In en, this message translates to:
   /// **'Recieve notifications'**
-  String get keyword_recieve_notifications;
+  String get keyword_receive_notifications;
 
   /// No description provided for @error_validate.
   ///
@@ -748,6 +748,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All fields must be filled correctly!'**
   String get error_verification_error_all_fields;
+
+  /// No description provided for @error_password_not_match.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get error_password_not_match;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -60,29 +60,35 @@ class CustomButton extends StatelessWidget {
         splashFactory: InkRipple.splashFactory,
         overlayColor: overlayColor,
       ),
-      child: isLoading
-          ? const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (icon != null)
-                  Icon(
-                    icon,
-                    color: iconColor ??
-                        Theme.of(context)
-                            .iconTheme
-                            .color, // Use theme icon color by default
-                    size: iconSize,
-                  ),
-                if (icon != null) const SizedBox(width: 8),
-                Text(
-                  label,
-                  style: buttonTextStyle, // Use the text style
-                ),
-              ],
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (isLoading)
+            SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
             ),
+          if (icon != null && !isLoading)
+            Icon(
+              icon,
+              color: iconColor ??
+                  Theme.of(context)
+                      .iconTheme
+                      .color, // Use theme icon color by default
+              size: iconSize,
+            ),
+          if (icon != null && !isLoading) const SizedBox(width: 8),
+          if (!isLoading)
+            Text(
+              label,
+              style: buttonTextStyle, // Use the text style
+            ),
+        ],
+      ),
     );
   }
 }

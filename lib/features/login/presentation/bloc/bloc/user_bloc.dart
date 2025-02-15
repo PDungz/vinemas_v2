@@ -16,6 +16,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     );
     on<SendOtpEvent>(sendCodeOTP);
     on<UserRegisterWithEmailPasswordEvent>(registerWithEmailPassword);
+    on<UserLoginWithEmailPasswordEvent>(loginWithEmailPassword);
+    on<isUserLoggedInEvent>(isUserLoggedIn);
+    on<logoutEvent>(logout);
   }
 
   Future<void> registerWithEmailPassword(
@@ -39,6 +42,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserRegisterWithEmailPasswordState(
           message: 'An unexpected error occurred',
           processStatus: ProcessStatus.failure));
+    }
+  }
+
+  Future<void> loginWithEmailPassword(
+      UserLoginWithEmailPasswordEvent event, Emitter<UserState> emit) async {
+    try {
+      emit(UserLoginWithEmailPasswordState(
+          processStatus: ProcessStatus.loading));
+      await getIt<UserUseCase>().loginWithEmailPassword(
+        email: event.email,
+        password: event.password,
+        onPressed: ({required message, required status}) {
+          emit(UserLoginWithEmailPasswordState(
+            message: message,
+            processStatus: status,
+          ));
+        },
+      );
+    } catch (e) {
+      emit(
+        UserLoginWithEmailPasswordState(
+            message: 'An unexpected error occurred',
+            processStatus: ProcessStatus.failure),
+      );
     }
   }
 
@@ -66,6 +93,41 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         processStatus: ProcessStatus.failure,
         message: "An error occurred: $e",
       ));
+    }
+  }
+
+  Future<void> isUserLoggedIn(
+      isUserLoggedInEvent event, Emitter<UserState> emit) async {
+    try {
+      emit(isUserLoggedInState(processStatus: ProcessStatus.loading));
+      final isUserLoggedIn = await getIt<UserUseCase>().isUserLoggedIn();
+
+      emit(isUserLoggedInState(
+          isUserLoggedIn: isUserLoggedIn,
+          processStatus: ProcessStatus.success));
+    } catch (e) {
+      emit(isUserLoggedInState(
+        isUserLoggedIn: false,
+        processStatus: ProcessStatus.success,
+      ));
+    }
+  }
+
+  Future<void> logout(logoutEvent event, Emitter<UserState> emit) async {
+    try {
+      emit(logoutState(processStatus: ProcessStatus.loading));
+      await getIt<UserUseCase>().logout(
+        onPressed: ({required message, required status}) {
+          emit(logoutState(processStatus: status, message: message));
+        },
+      );
+    } catch (e) {
+      emit(
+        logoutState(
+          processStatus: ProcessStatus.failure,
+          message: '$e',
+        ),
+      );
     }
   }
 }

@@ -97,7 +97,7 @@
   "keyword_save": "Save",
   "keyword_settings": "Settings",
   "keyword_language": "Language",
-  "keyword_recieve_notifications": "Recieve notifications",
+  "keyword_receive_notifications": "Recieve notifications",
   "error_validate": "ERROR_validate",
   "error_username_required": "Username cannot be empty",
   "error_username_invalid": "Please enter a valid email address",
@@ -108,5 +108,6 @@
   "error_phone_invalid_pattern": "Phone number must contain only digits",
   "error_field_required": "{fieldName} cannot be empty",
   "error_generic_field_required": "This field cannot be empty",
-  "error_verification_error_all_fields": "All fields must be filled correctly!"
+  "error_verification_error_all_fields": "All fields must be filled correctly!",
+  "error_password_not_match": "Passwords do not match"
 }

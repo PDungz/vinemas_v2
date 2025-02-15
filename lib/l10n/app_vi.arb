@@ -108,5 +108,6 @@
   "error_phone_invalid_pattern": "Số điện thoại chỉ được chứa các chữ số",
   "error_field_required": "{fieldName} không được để trống",
   "error_generic_field_required": "Trường này không được để trống",
-  "error_verification_error_all_fields": "Tất cả các trường phải được điền chính xác!"
+  "error_verification_error_all_fields": "Tất cả các trường phải được điền chính xác!",
+  "error_password_not_match": "Mật khẩu không khớp"
 }

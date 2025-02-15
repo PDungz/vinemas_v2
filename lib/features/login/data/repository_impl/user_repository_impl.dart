@@ -75,9 +75,9 @@ class UserRepositoryImpl implements UserRepository {
       required String password,
       required void Function(
               {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement loginWithEmailPassword
-    throw UnimplementedError();
+          onPressed}) async {
+    return await userRemoteDataSource.loginWithEmailPassword(
+        email: email, password: password, onPressed: onPressed);
   }
 
   @override
@@ -110,18 +110,16 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<bool> isUserLoggedIn() {
-    // TODO: implement isUserLoggedIn
-    throw UnimplementedError();
+  Future<bool> isUserLoggedIn() async {
+    return await userRemoteDataSource.isUserLoggedIn();
   }
 
   @override
   Future<void> logout(
       {required void Function(
               {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement logout
-    throw UnimplementedError();
+          onPressed}) async {
+    return await userRemoteDataSource.logout(onPressed: onPressed);
   }
 
   @override

@@ -60,12 +60,7 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 42),
                       child: Column(
                         children: [
-                          FormLoginWidget(
-                              onTap: (
-                                  {required String username,
-                                  required String password}) {},
-                              isLoading: false,
-                              message: ""),
+                          FormLoginWidget(),
                           SizedBox(height: 12),
                           OtherSignInWidget(onGoogle: () {}, onFacebook: () {}),
                         ],
