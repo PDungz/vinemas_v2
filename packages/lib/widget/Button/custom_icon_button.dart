@@ -8,14 +8,16 @@ class CustomIconButton extends StatelessWidget {
   final Color? iconColor;
   final Color backgroundColor;
   final Color? borderColor;
+  final double verticalPadding;
+  final double horizontalPadding;
   final double borderRadius;
   final double elevation;
   final BoxShape shape;
-
-  // Điều chỉnh hiệu ứng khi nhấn
   final Color splashColor;
   final Color highlightColor;
   final Color hoverColor;
+  final Color?
+      iconBackgroundColor; // Thêm màu nền cho icon (mặc định là không có)
 
   const CustomIconButton({
     super.key,
@@ -23,7 +25,7 @@ class CustomIconButton extends StatelessWidget {
     required this.onPressed,
     this.size = 24.0,
     this.iconColor,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor = Colors.transparent,
     this.borderColor,
     this.borderRadius = 8.0,
     this.elevation = 2.0,
@@ -31,6 +33,9 @@ class CustomIconButton extends StatelessWidget {
     this.splashColor = Colors.transparent,
     this.highlightColor = Colors.transparent,
     this.hoverColor = Colors.transparent,
+    this.verticalPadding = 8,
+    this.horizontalPadding = 12,
+    this.iconBackgroundColor, // Mặc định không có màu nền cho icon
   });
 
   @override
@@ -59,11 +64,21 @@ class CustomIconButton extends StatelessWidget {
         child: Container(
           width: size + 16,
           height: size + 16,
+          padding: EdgeInsets.symmetric(
+              vertical: verticalPadding, horizontal: horizontalPadding),
           alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: iconBackgroundColor ??
+                Colors.transparent, // Áp dụng màu nền cho icon
+            shape: shape,
+            borderRadius: shape == BoxShape.rectangle
+                ? BorderRadius.circular(borderRadius)
+                : null,
+          ),
           child: SvgPicture.asset(
             svgPath,
-            width: size,
-            height: size,
+            width: size + 16,
+            height: size + 16,
             // ignore: deprecated_member_use
             color: iconColor,
           ),
