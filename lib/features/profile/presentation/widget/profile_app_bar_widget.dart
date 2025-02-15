@@ -17,7 +17,7 @@ class ProfileAppBarWidget extends StatelessWidget {
         listener: (context, state) {
           if (state is logoutState &&
               state.processStatus == ProcessStatus.success) {
-            Get.toNamed(ConfigRoute.loginPage);
+            Get.offAndToNamed(ConfigRoute.loginPage);
           } else {
             Get.toNamed(ConfigRoute.profilePage);
           }
