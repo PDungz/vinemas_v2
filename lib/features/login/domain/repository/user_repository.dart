@@ -15,15 +15,25 @@ abstract class UserRepository {
         onPressed,
   });
 
-  /// Registers a new user using Google authentication.
-  Future<void> registerWithGoogle({
+  /// Logs in a user using [email] and [password].
+  Future<void> loginWithEmailPassword({
+    required String email,
+    required String password,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
   });
 
-  /// Registers a new user using Facebook authentication.
-  Future<void> registerWithFacebook({
+  /// Logs in a user using Google authentication.
+  Future<void> loginWithGoogle({
+    required User user,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  });
+
+  /// Logs in a user using Facebook authentication.
+  Future<void> loginWithFacebook({
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
@@ -70,29 +80,6 @@ abstract class UserRepository {
   Future<void> loginWithPhoneNumber({
     required String phoneNumber,
     required String password,
-    required void Function(
-            {required String message, required ProcessStatus status})
-        onPressed,
-  });
-
-  /// Logs in a user using [email] and [password].
-  Future<void> loginWithEmailPassword({
-    required String email,
-    required String password,
-    required void Function(
-            {required String message, required ProcessStatus status})
-        onPressed,
-  });
-
-  /// Logs in a user using Google authentication.
-  Future<void> loginWithGoogle({
-    required void Function(
-            {required String message, required ProcessStatus status})
-        onPressed,
-  });
-
-  /// Logs in a user using Facebook authentication.
-  Future<void> loginWithFacebook({
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,

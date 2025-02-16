@@ -8,7 +8,6 @@ import 'package:vinemas_v1/core/global/global_bloc/global_bloc.dart';
 import 'package:vinemas_v1/core/router/app_generate_router.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/theme/theme_app.dart';
-import 'package:vinemas_v1/features/login/presentation/bloc/bloc/user_bloc.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
 void main() async {
@@ -22,9 +21,6 @@ void main() async {
       providers: [
         BlocProvider<GlobalBloc>(
           create: (_) => GlobalBloc()..add(GlobalInitEvent()),
-        ),
-        BlocProvider<UserBloc>(
-          create: (_) => UserBloc(), // Thêm UserBloc tại đây
         ),
       ],
       child: const MyApp(),

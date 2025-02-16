@@ -14,8 +14,8 @@ class DioClient {
     dio = Dio();
     dio.options = BaseOptions(
       baseUrl: AppUrl.apiHost + AppUrl.versionApi,
-      receiveTimeout: Duration(seconds: 8),
-      connectTimeout: Duration(seconds: 8),
+      receiveTimeout: Duration(seconds: 20),
+      connectTimeout: Duration(seconds: 20),
     );
     dio.interceptors.add(LoggingInterceptor());
     dio.interceptors.add(TokenInterceptor());

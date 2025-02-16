@@ -1,3 +1,4 @@
+import 'package:vinemas_v1/core/common/enum/gender.dart';
 import 'package:vinemas_v1/core/common/extension/gender_extension.dart';
 import 'package:vinemas_v1/features/login/domain/entity/user.dart';
 
@@ -11,6 +12,26 @@ class UserModel extends User {
     super.gender,
     super.address,
   });
+
+  UserModel copyWith({
+    String? avatarUrl,
+    String? fullName,
+    DateTime? dateOfBirth,
+    String? phoneNumber,
+    String? email,
+    Gender? gender,
+    String? address,
+  }) {
+    return UserModel(
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      fullName: fullName ?? this.fullName,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      gender: gender ?? this.gender,
+      address: address ?? this.address,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

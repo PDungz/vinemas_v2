@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/login/data/model/user_model.dart';
@@ -17,10 +19,25 @@ abstract class UserRemoteDataSource {
         onPressed,
   });
 
+  /// Logs in a user using Google authentication.
+  Future<void> loginWithGoogle({
+    required UserModel user,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  });
+
   /// Logs in a user using [email] and [password].
   Future<void> loginWithEmailPassword({
     required String email,
     required String password,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  });
+
+  /// Logs in a user using Facebook authentication.
+  Future<void> loginWithFacebook({
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
@@ -58,6 +75,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FacebookAuth _facebookAuth = FacebookAuth.instance;
 
   @override
   Future<void> registerWithEmailPassword({
@@ -116,6 +135,71 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       );
       printE('An unexpected error occurred  - Remote Data Source Impl: $e');
       return;
+    }
+  }
+
+  @override
+  Future<void> loginWithGoogle({
+    required UserModel user,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser == null) {
+        onPressed(
+          message: "Google Sign-In was canceled.",
+          status: ProcessStatus.failure,
+        );
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        final String userId = userCredential.user!.uid;
+        final String email = userCredential.user!.email ?? '';
+
+        // Cập nhật email vào model user
+        String fullName = 'user${DateTime.now()}';
+        user = user.copyWith(fullName: fullName, email: email);
+
+        // Lưu thông tin user vào Firestore
+        await createUserInfo(
+          userId: userId,
+          user: user,
+          onPressed: onPressed,
+        );
+
+        onPressed(
+          message: "Google login successful",
+          status: ProcessStatus.success,
+        );
+        printS("Google login successful - Remote Data Source Impl");
+      }
+    } on FirebaseAuthException catch (e) {
+      onPressed(
+        message: e.message ?? "Google login failed",
+        status: ProcessStatus.failure,
+      );
+      printE("Google login failed - Remote Data Source Impl: ${e.message}");
+    } catch (e) {
+      onPressed(
+        message: "An unexpected error occurred",
+        status: ProcessStatus.failure,
+      );
+      printE("An unexpected error occurred - Google login: $e");
     }
   }
 
@@ -247,6 +331,72 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
+  Future<void> loginWithFacebook({
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    try {
+      final LoginResult result =
+          await _facebookAuth.login(permissions: ['public_profile', 'email']);
+
+      if (result.status == LoginStatus.success) {
+        final AccessToken accessToken = result.accessToken!;
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(accessToken.token);
+
+        UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
+
+        if (userCredential.user != null) {
+          final String userId = userCredential.user!.uid;
+          // Cập nhật email vào model user
+          String fullName = 'user${DateTime.now()}';
+
+          // Tạo user model
+          UserModel user = UserModel(
+            fullName: fullName,
+            email: userCredential.user!.email ?? '',
+            avatarUrl: userCredential.user!.photoURL ?? '',
+          );
+
+          // Lưu thông tin user vào Firestore
+          await createUserInfo(
+            userId: userId,
+            user: user,
+            onPressed: onPressed,
+          );
+
+          onPressed(
+            message: "Facebook login successful",
+            status: ProcessStatus.success,
+          );
+          printS("Facebook login successful - Remote Data Source Impl");
+        }
+      } else {
+        onPressed(
+          message: "Facebook login failed: ${result.message}",
+          status: ProcessStatus.failure,
+        );
+        printE(
+            "Facebook login failed - Remote Data Source Impl: ${result.message}");
+      }
+    } on FirebaseAuthException catch (e) {
+      onPressed(
+        message: e.message ?? "Facebook login failed",
+        status: ProcessStatus.failure,
+      );
+      printE("Facebook login failed - Remote Data Source Impl: ${e.message}");
+    } catch (e) {
+      onPressed(
+        message: "An unexpected error occurred",
+        status: ProcessStatus.failure,
+      );
+      printE("An unexpected error occurred - Facebook login: $e");
+    }
+  }
+
+  @override
   Future<bool> isUserLoggedIn() async {
     User? user = _auth.currentUser;
     return user != null;
@@ -259,7 +409,15 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         onPressed,
   }) async {
     try {
+      // Đăng xuất khỏi Google (nếu đang dùng Google Sign-In)
+      await _googleSignIn.signOut();
+
+      // Đăng xuất khỏi Facebook (nếu đang dùng Facebook Sign-In)
+      await _facebookAuth.logOut();
+
+      // Đăng xuất khỏi Firebase (nếu đang dùng Firebase)
       await _auth.signOut();
+
       onPressed(
         message: "Logout successful",
         status: ProcessStatus.success,

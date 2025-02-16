@@ -10,6 +10,8 @@ class CustomLayout extends StatelessWidget {
     this.drawer,
     this.bottomNavigationBar,
     this.backgroundWidget,
+    this.isLoading = false,
+    this.loadingOverlayColor = Colors.black54,
   });
 
   final Widget appBar;
@@ -19,6 +21,8 @@ class CustomLayout extends StatelessWidget {
   final Widget? drawer;
   final Widget? bottomNavigationBar;
   final Widget? backgroundWidget; // Nền tuỳ chỉnh
+  final bool isLoading; // Trạng thái loading
+  final Color loadingOverlayColor; // Màu nền mờ
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -54,6 +58,16 @@ class CustomLayout extends StatelessWidget {
                   left: 0,
                   right: 0,
                   child: bottomNavigationBar!,
+                ),
+              if (isLoading)
+                Positioned.fill(
+                  child: Container(
+                    color: loadingOverlayColor
+                        .withOpacity(0.5), // Màu nền mờ tuỳ chỉnh
+                    child: const Center(
+                      child: CircularProgressIndicator(), // Hiển thị loading
+                    ),
+                  ),
                 ),
             ],
           ),

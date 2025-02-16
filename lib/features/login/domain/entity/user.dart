@@ -31,4 +31,6 @@ class User extends Equatable {
         gender,
         address,
       ];
+
+
 }

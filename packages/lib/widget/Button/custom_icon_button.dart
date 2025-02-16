@@ -33,8 +33,8 @@ class CustomIconButton extends StatelessWidget {
     this.splashColor = Colors.transparent,
     this.highlightColor = Colors.transparent,
     this.hoverColor = Colors.transparent,
-    this.verticalPadding = 8,
-    this.horizontalPadding = 12,
+    this.verticalPadding = 4,
+    this.horizontalPadding = 8,
     this.iconBackgroundColor, // Mặc định không có màu nền cho icon
   });
 

@@ -32,6 +32,25 @@ class UserUseCase {
         email: email, password: password, onPressed: onPressed);
   }
 
+  /// Logs in a user using Google authentication.
+  Future<void> loginWithGoogle({
+    required User user,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    return await userRepository.loginWithGoogle(
+        user: user, onPressed: onPressed);
+  }
+
+  /// Logs in a user using Facebook authentication.
+  Future<void> loginWithFacebook(
+      {required void Function(
+              {required String message, required ProcessStatus status})
+          onPressed}) async {
+    return await userRepository.loginWithFacebook(onPressed: onPressed);
+  }
+
   Future<void> createUserInfo(
       {required String userId,
       required User user,

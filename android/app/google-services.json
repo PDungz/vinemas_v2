@@ -12,7 +12,20 @@
           "package_name": "com.example.vinemas_v1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "428538709237-2ik80t1ftkh4tn5efcg2h20go345obh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vinemas_v1",
+            "certificate_hash": "040480af7d8b2b076d3d26f15927e122a95b0862"
+          }
+        },
+        {
+          "client_id": "428538709237-ofgpeetsools8h978ltevb9f2vdummut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDiishCQF9OQY6ziDEjCvqQkIy6RT4t73Y"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428538709237-ofgpeetsools8h978ltevb9f2vdummut.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "428538709237-2ph60jpho3f8fp7fjtc68lj25c70p2jd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vinemasV1"
+              }
+            }
+          ]
         }
       }
     }

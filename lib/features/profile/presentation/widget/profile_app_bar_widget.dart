@@ -17,7 +17,7 @@ class ProfileAppBarWidget extends StatelessWidget {
         listener: (context, state) {
           if (state is logoutState &&
               state.processStatus == ProcessStatus.success) {
-            Get.offAndToNamed(ConfigRoute.loginPage);
+            Get.offAllNamed(ConfigRoute.loginPage);
           } else {
             Get.toNamed(ConfigRoute.profilePage);
           }
@@ -26,7 +26,6 @@ class ProfileAppBarWidget extends StatelessWidget {
           leading: CustomIconButton(
             svgPath: $AssetsIconsGen().iconApp.back,
             onPressed: () => Get.back(),
-            size: 30,
             elevation: 0,
           ),
           title: Row(
@@ -46,7 +45,6 @@ class ProfileAppBarWidget extends StatelessWidget {
                     BlocProvider.of<UserBloc>(context).add(logoutEvent());
                   },
                   svgPath: $AssetsIconsGen().iconApp.logout,
-                  size: 30,
                   elevation: 0,
                 );
               },

@@ -31,6 +31,17 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<void> loginWithGoogle({
+    required User user,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    return await userRemoteDataSource.loginWithGoogle(
+        user: UserModel.fromEntity(user), onPressed: onPressed);
+  }
+
+  @override
   Future<void> createUserInfo(
       {required String userId,
       required User user,
@@ -52,24 +63,6 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> registerWithFacebook(
-      {required void Function(
-              {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement registerWithFacebook
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> registerWithGoogle(
-      {required void Function(
-              {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement registerWithGoogle
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> loginWithEmailPassword(
       {required String email,
       required String password,
@@ -84,18 +77,8 @@ class UserRepositoryImpl implements UserRepository {
   Future<void> loginWithFacebook(
       {required void Function(
               {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement loginWithFacebook
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> loginWithGoogle(
-      {required void Function(
-              {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement loginWithGoogle
-    throw UnimplementedError();
+          onPressed}) async {
+    return await userRemoteDataSource.loginWithFacebook(onPressed: onPressed);
   }
 
   @override

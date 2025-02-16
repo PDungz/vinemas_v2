@@ -62,6 +62,30 @@ class UserLoginWithEmailPasswordState extends UserState {
   }
 }
 
+// ignore: camel_case_types
+class loginWithThirdPartyState extends UserState {
+  final ProcessStatus processStatus;
+  final String? message;
+
+  loginWithThirdPartyState({
+    this.processStatus = ProcessStatus.idle,
+    this.message,
+  });
+
+  @override
+  List<Object?> get props => [processStatus, message];
+
+  loginWithThirdPartyState copyWith({
+    ProcessStatus? processStatus,
+    String? message,
+  }) {
+    return loginWithThirdPartyState(
+      processStatus: processStatus ?? this.processStatus,
+      message: message ?? this.message,
+    );
+  }
+}
+
 class SendOtpState extends UserState {
   final ProcessStatus processStatus;
   final String? phoneNumber;

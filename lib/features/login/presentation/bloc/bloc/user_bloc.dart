@@ -10,6 +10,7 @@ part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
+  final _userUserCase = getIt<UserUseCase>();
   UserBloc() : super(UserInitial()) {
     on<UserInitialEvent>(
       (event, emit) {},
@@ -17,6 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<SendOtpEvent>(sendCodeOTP);
     on<UserRegisterWithEmailPasswordEvent>(registerWithEmailPassword);
     on<UserLoginWithEmailPasswordEvent>(loginWithEmailPassword);
+    on<loginWithThirdPartyEvent>(loginWithThirdParty);
     on<isUserLoggedInEvent>(isUserLoggedIn);
     on<logoutEvent>(logout);
   }
@@ -27,7 +29,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserRegisterWithEmailPasswordState(
           processStatus: ProcessStatus.loading));
 
-      await getIt<UserUseCase>().registerWithEmailPassword(
+      await _userUserCase.registerWithEmailPassword(
         user: event.user,
         email: event.email,
         password: event.password,
@@ -50,7 +52,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       emit(UserLoginWithEmailPasswordState(
           processStatus: ProcessStatus.loading));
-      await getIt<UserUseCase>().loginWithEmailPassword(
+      await _userUserCase.loginWithEmailPassword(
         email: event.email,
         password: event.password,
         onPressed: ({required message, required status}) {
@@ -69,13 +71,47 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
+  Future<void> loginWithThirdParty(
+      loginWithThirdPartyEvent event, Emitter<UserState> emit) async {
+    try {
+      emit(loginWithThirdPartyState(processStatus: ProcessStatus.loading));
+
+      if (event.method == 'google') {
+        await _userUserCase.loginWithGoogle(
+          user: User(email: ''),
+          onPressed: ({required message, required status}) {
+            emit(loginWithThirdPartyState(
+              message: message,
+              processStatus: status,
+            ));
+          },
+        );
+      }
+      if (event.method == 'facebook') {
+        await _userUserCase.loginWithFacebook(
+          onPressed: ({required message, required status}) {
+            emit(loginWithThirdPartyState(
+              message: message,
+              processStatus: status,
+            ));
+          },
+        );
+      }
+    } catch (e) {
+      emit(loginWithThirdPartyState(
+        message: '$e',
+        processStatus: ProcessStatus.failure,
+      ));
+    }
+  }
+
   Future<void> sendCodeOTP(SendOtpEvent event, Emitter<UserState> emit) async {
     try {
       emit(SendOtpState(processStatus: ProcessStatus.loading));
 
       final completer = Completer<void>(); // Tạo Completer để đợi callback
 
-      await getIt<UserUseCase>().sendCodeOTP(
+      await _userUserCase.sendCodeOTP(
         phoneNumber: event.phoneNumber,
         verificationId: "",
         onPressed: ({required message, required status}) {
@@ -100,7 +136,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       isUserLoggedInEvent event, Emitter<UserState> emit) async {
     try {
       emit(isUserLoggedInState(processStatus: ProcessStatus.loading));
-      final isUserLoggedIn = await getIt<UserUseCase>().isUserLoggedIn();
+      final isUserLoggedIn = await _userUserCase.isUserLoggedIn();
 
       emit(isUserLoggedInState(
           isUserLoggedIn: isUserLoggedIn,
@@ -116,7 +152,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> logout(logoutEvent event, Emitter<UserState> emit) async {
     try {
       emit(logoutState(processStatus: ProcessStatus.loading));
-      await getIt<UserUseCase>().logout(
+      await _userUserCase.logout(
         onPressed: ({required message, required status}) {
           emit(logoutState(processStatus: status, message: message));
         },

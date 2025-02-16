@@ -146,6 +146,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/back.svg
   String get back => 'assets/icons/icon_app/back.svg';
 
+  /// File path: assets/icons/icon_app/bell.svg
+  String get bell => 'assets/icons/icon_app/bell.svg';
+
   /// File path: assets/icons/icon_app/calendar.svg
   String get calendar => 'assets/icons/icon_app/calendar.svg';
 
@@ -210,6 +213,7 @@ class $AssetsIconsIconAppGen {
   List<String> get values => [
         add,
         back,
+        bell,
         calendar,
         clock,
         close,

@@ -39,6 +39,30 @@ class UserRegisterWithEmailPasswordEvent extends UserEvent {
   }
 }
 
+// ignore: camel_case_types
+class loginWithThirdPartyEvent extends UserEvent {
+  final String method;
+  final User user;
+
+  loginWithThirdPartyEvent({
+    required this.method,
+    required this.user,
+  });
+
+  @override
+  List<Object?> get props => [method, user];
+
+  loginWithThirdPartyEvent copyWith({
+    String? method,
+    User? user,
+  }) {
+    return loginWithThirdPartyEvent(
+      method: method ?? this.method,
+      user: user ?? this.user,
+    );
+  }
+}
+
 class UserLoginWithEmailPasswordEvent extends UserEvent {
   final String email;
   final String password;
