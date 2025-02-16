@@ -7,8 +7,9 @@ import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/features/login/presentation/bloc/bloc/user_bloc.dart';
 import 'package:vinemas_v1/features/login/presentation/widget/form_sign_up_widget.dart';
-import 'package:vinemas_v1/features/login/presentation/widget/title_sign_up_widget.dart';
+import 'package:vinemas_v1/features/login/presentation/widget/form_title_widget.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
+import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -45,12 +46,14 @@ class SignUpPage extends StatelessWidget {
               padding: EdgeInsets.only(top: 32),
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.only(top: 40, right: 20, left: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      TitleSignUpWidget(),
+                      FormTitleWidget(
+                          svgPath: $AssetsSvgGen().logo,
+                          title: AppLocalizations.of(context)!.keyword_sign_up),
                       FormSignUpWidget(),
                     ],
                   ),

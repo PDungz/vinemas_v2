@@ -163,3 +163,30 @@ class logoutState extends UserState {
     );
   }
 }
+
+// ignore: camel_case_types
+class resetPasswordState extends UserState {
+  final ProcessStatus processStatus;
+  final String? message;
+
+  resetPasswordState({
+    this.processStatus = ProcessStatus.idle,
+    this.message,
+  });
+
+  @override
+  List<Object?> get props => [
+        processStatus,
+        message,
+      ];
+
+  resetPasswordState copyWith({
+    ProcessStatus? processStatus,
+    String? message,
+  }) {
+    return resetPasswordState(
+      processStatus: processStatus ?? this.processStatus,
+      message: message ?? this.message,
+    );
+  }
+}

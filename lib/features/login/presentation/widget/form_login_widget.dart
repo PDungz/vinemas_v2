@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:packages/Core/common/enum/text_form_field.dart';
 import 'package:packages/widget/Button/custom_button.dart';
 import 'package:packages/widget/Shadow/custom_shadow.dart';
+import 'package:packages/widget/Snackbar/custom_snackbar.dart';
 import 'package:packages/widget/Text_field/custom_text_field.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
@@ -46,9 +47,28 @@ class _FormLoginWidgetState extends State<FormLoginWidget> {
   Widget build(BuildContext context) {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
-        if (state is UserLoginWithEmailPasswordState &&
-            state.processStatus == ProcessStatus.success) {
-          Get.toNamed(ConfigRoute.homePage);
+        if (state is UserLoginWithEmailPasswordState) {
+          if (state.processStatus == ProcessStatus.success ||
+              state.processStatus == ProcessStatus.failure) {
+            CustomSnackbar.show(
+              title: 'Notification',
+              message: state.message ?? "",
+              iconPath: $AssetsIconsGen().iconApp.bell,
+              iconColor: AppColor.primaryTextColor,
+              backgroundColor: state.processStatus == ProcessStatus.success
+                  ? Colors.green
+                  : Colors.red,
+              snackPosition: SnackPosition.TOP, // Hiển thị từ trên xuống
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              borderRadius: 10,
+              duration: const Duration(seconds: 2),
+              isDismissible: true,
+              forwardAnimationCurve: Curves.easeOutBack,
+            ); // Hiệu ứng xuất hiện)
+          }
+          if (state.processStatus == ProcessStatus.success) {
+            Get.toNamed(ConfigRoute.homePage);
+          }
         }
       },
       child: BlocBuilder<UserBloc, UserState>(
@@ -72,9 +92,9 @@ class _FormLoginWidgetState extends State<FormLoginWidget> {
                   textInputAction: TextInputAction.next,
                   validator: Validators.email(
                     requiredError:
-                        AppLocalizations.of(context)!.error_username_required,
+                        AppLocalizations.of(context)!.error_email_required,
                     errorText:
-                        AppLocalizations.of(context)!.error_username_invalid,
+                        AppLocalizations.of(context)!.error_email_invalid,
                   ).call,
                 ),
                 SizedBox(height: 20),
@@ -100,25 +120,13 @@ class _FormLoginWidgetState extends State<FormLoginWidget> {
                               .error_password_required)
                       .call,
                 ),
-                SizedBox(height: 12),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 12),
-                  child: Text(
-                      state is UserLoginWithEmailPasswordState
-                          ? state.message ?? ''
-                          : '',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: state is UserLoginWithEmailPasswordState &&
-                                  state.processStatus == ProcessStatus.success
-                              ? AppColor.successColor
-                              : AppColor.errorColor)),
-                ),
+                SizedBox(height: 16),
                 Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () => Get.toNamed(ConfigRoute.forgotPasswordPage),
                     child: Text(
-                      AppLocalizations.of(context)!.keyword_forgot_password,
+                      '${AppLocalizations.of(context)!.keyword_forgot_password}?',
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -126,7 +134,7 @@ class _FormLoginWidgetState extends State<FormLoginWidget> {
                     ),
                   ),
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: 16),
                 CustomShadow(
                   blurRadius: 20,
                   child: CustomButton(

@@ -74,6 +74,16 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<void> resetPassword(
+      {required String email,
+      required void Function(
+              {required String message, required ProcessStatus status})
+          onPressed}) async {
+    return await userRemoteDataSource.resetPassword(
+        email: email, onPressed: onPressed);
+  }
+
+  @override
   Future<void> loginWithFacebook(
       {required void Function(
               {required String message, required ProcessStatus status})
@@ -103,16 +113,6 @@ class UserRepositoryImpl implements UserRepository {
               {required String message, required ProcessStatus status})
           onPressed}) async {
     return await userRemoteDataSource.logout(onPressed: onPressed);
-  }
-
-  @override
-  Future<void> resetPassword(
-      {required String email,
-      required void Function(
-              {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
   }
 
   @override

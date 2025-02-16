@@ -89,6 +89,28 @@ class UserLoginWithEmailPasswordEvent extends UserEvent {
   }
 }
 
+// ignore: camel_case_types
+class resetPasswordEvent extends UserEvent {
+  final String email;
+
+  resetPasswordEvent({
+    required this.email,
+  });
+
+  @override
+  List<Object?> get props => [
+        email,
+      ];
+
+  resetPasswordEvent copyWith({
+    String? email,
+  }) {
+    return resetPasswordEvent(
+      email: email ?? this.email,
+    );
+  }
+}
+
 class SendOtpEvent extends UserEvent {
   final String phoneNumber;
   SendOtpEvent({

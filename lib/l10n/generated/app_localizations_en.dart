@@ -34,7 +34,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_enter_confirm_password => 'Enter your confirm password';
 
   @override
-  String get keyword_forgot_password => 'Forgot password?';
+  String get keyword_forgot_password => 'Forgot password';
+
+  @override
+  String get keyword_forgot_password_des => 'Please enter your email account to send the link verification to reset your password';
+
+  @override
+  String get keyword_reset_password => 'Reset password';
 
   @override
   String get keyword_login => 'Login';
@@ -304,10 +310,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_validate => 'ERROR_validate';
 
   @override
-  String get error_username_required => 'Username cannot be empty';
+  String get error_email_required => 'Email cannot be empty';
 
   @override
-  String get error_username_invalid => 'Please enter a valid email address';
+  String get error_email_invalid => 'Please enter a valid email address';
 
   @override
   String get error_password_required => 'Password cannot be empty';

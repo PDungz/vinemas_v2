@@ -32,6 +32,17 @@ class UserUseCase {
         email: email, password: password, onPressed: onPressed);
   }
 
+  /// Sends a password reset email to the provided [email].
+  Future<void> resetPassword({
+    required String email,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    return await userRepository.resetPassword(
+        email: email, onPressed: onPressed);
+  }
+
   /// Logs in a user using Google authentication.
   Future<void> loginWithGoogle({
     required User user,

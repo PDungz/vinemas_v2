@@ -36,6 +36,14 @@ abstract class UserRemoteDataSource {
         onPressed,
   });
 
+  /// Sends a password reset email to the provided [email].
+  Future<void> resetPassword({
+    required String email,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  });
+
   /// Logs in a user using Facebook authentication.
   Future<void> loginWithFacebook({
     required void Function(
@@ -135,6 +143,45 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       );
       printE('An unexpected error occurred  - Remote Data Source Impl: $e');
       return;
+    }
+  }
+
+  @override
+  Future<void> resetPassword({
+    required String email,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+
+      onPressed(
+        message: "Password reset email sent successfully",
+        status: ProcessStatus.success,
+      );
+      printS('Password reset email sent - Remote Data Source Impl');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        onPressed(
+          message: "No user found for this email",
+          status: ProcessStatus.failure,
+        );
+      } else {
+        onPressed(
+          message: e.message ?? "Failed to send password reset email",
+          status: ProcessStatus.failure,
+        );
+      }
+      printE(
+          'Failed to send password reset email - Remote Data Source Impl: ${e.message}');
+    } catch (e) {
+      onPressed(
+        message: "An unexpected error occurred",
+        status: ProcessStatus.failure,
+      );
+      printE(
+          'Unexpected error during password reset - Remote Data Source Impl: $e');
     }
   }
 

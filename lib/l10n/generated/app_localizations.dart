@@ -152,8 +152,20 @@ abstract class AppLocalizations {
   /// No description provided for @keyword_forgot_password.
   ///
   /// In en, this message translates to:
-  /// **'Forgot password?'**
+  /// **'Forgot password'**
   String get keyword_forgot_password;
+
+  /// No description provided for @keyword_forgot_password_des.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email account to send the link verification to reset your password'**
+  String get keyword_forgot_password_des;
+
+  /// No description provided for @keyword_reset_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get keyword_reset_password;
 
   /// No description provided for @keyword_login.
   ///
@@ -689,17 +701,17 @@ abstract class AppLocalizations {
   /// **'ERROR_validate'**
   String get error_validate;
 
-  /// No description provided for @error_username_required.
+  /// No description provided for @error_email_required.
   ///
   /// In en, this message translates to:
-  /// **'Username cannot be empty'**
-  String get error_username_required;
+  /// **'Email cannot be empty'**
+  String get error_email_required;
 
-  /// No description provided for @error_username_invalid.
+  /// No description provided for @error_email_invalid.
   ///
   /// In en, this message translates to:
   /// **'Please enter a valid email address'**
-  String get error_username_invalid;
+  String get error_email_invalid;
 
   /// No description provided for @error_password_required.
   ///

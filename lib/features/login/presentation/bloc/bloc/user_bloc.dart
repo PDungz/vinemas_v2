@@ -17,6 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     );
     on<SendOtpEvent>(sendCodeOTP);
     on<UserRegisterWithEmailPasswordEvent>(registerWithEmailPassword);
+    on<resetPasswordEvent>(resetPassword);
     on<UserLoginWithEmailPasswordEvent>(loginWithEmailPassword);
     on<loginWithThirdPartyEvent>(loginWithThirdParty);
     on<isUserLoggedInEvent>(isUserLoggedIn);
@@ -65,6 +66,29 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } catch (e) {
       emit(
         UserLoginWithEmailPasswordState(
+            message: 'An unexpected error occurred',
+            processStatus: ProcessStatus.failure),
+      );
+    }
+  }
+
+  Future<void> resetPassword(
+      resetPasswordEvent event, Emitter<UserState> emit) async {
+    try {
+      emit(UserLoginWithEmailPasswordState(
+          processStatus: ProcessStatus.loading));
+      await _userUserCase.resetPassword(
+        email: event.email,
+        onPressed: ({required message, required status}) {
+          emit(resetPasswordState(
+            message: message,
+            processStatus: status,
+          ));
+        },
+      );
+    } catch (e) {
+      emit(
+        resetPasswordState(
             message: 'An unexpected error occurred',
             processStatus: ProcessStatus.failure),
       );

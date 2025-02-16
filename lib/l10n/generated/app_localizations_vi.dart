@@ -34,7 +34,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_enter_confirm_password => 'Nhập mật khẩu xác nhận';
 
   @override
-  String get keyword_forgot_password => 'Quên mật khẩu?';
+  String get keyword_forgot_password => 'Quên mật khẩu';
+
+  @override
+  String get keyword_forgot_password_des => 'Vui lòng nhập email của bạn để gửi liên kết xác minh đặt lại mật khẩu';
+
+  @override
+  String get keyword_reset_password => 'Đặt lại mật khẩu';
 
   @override
   String get keyword_login => 'Đăng nhập';
@@ -304,10 +310,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override
-  String get error_username_required => 'Tên đăng nhập không được để trống';
+  String get error_email_required => 'Email không được để trống';
 
   @override
-  String get error_username_invalid => 'Please enter a valid email address';
+  String get error_email_invalid => 'Vui lòng nhập địa chỉ email hợp lệ';
 
   @override
   String get error_password_required => 'Mật khẩu không được để trống';

@@ -103,9 +103,9 @@ class _FormSignUpWidgetState extends State<FormSignUpWidget> {
                   textInputAction: TextInputAction.next,
                   validator: Validators.email(
                     requiredError:
-                        AppLocalizations.of(context)!.error_username_required,
+                        AppLocalizations.of(context)!.error_email_required,
                     errorText:
-                        AppLocalizations.of(context)!.error_username_invalid,
+                        AppLocalizations.of(context)!.error_email_invalid,
                   ).call,
                 ),
                 SizedBox(height: 20),

@@ -1,6 +1,5 @@
 {
   "vi": [
-    "keyword_receive_notifications",
-    "error_username_invalid"
+    "keyword_receive_notifications"
   ]
 }
