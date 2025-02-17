@@ -17,16 +17,35 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
   Future<void> getNowPlaying(
       NowPlayingLoadMoreEvent event, Emitter<NowPlayingState> emit) async {
     try {
-      emit(NowPlayingLoadedState(state: ProcessStatus.loading));
-      final List<Movie>? nowPlaying = await getIt<NowPlayingUseCase>()
-          .getNowPlaying(movie: event.movie, page: event.page);
+      final currentState = state;
+      List<Movie> existingMovies = [];
+
+      if (currentState is NowPlayingLoadedState) {
+        existingMovies = List.from(currentState.nowPlaying ?? []);
+
+        // Cập nhật trạng thái là đang load thêm dữ liệu
+        emit(currentState.copyWith(loadingMore: true));
+      }
+
+      final List<Movie>? newMovies =
+          await getIt<NowPlayingUseCase>().getNowPlaying(page: event.page);
+
+      if (newMovies != null && newMovies.isNotEmpty) {
+        existingMovies.addAll(newMovies);
+      }
+
       emit(NowPlayingLoadedState(
-          state: ProcessStatus.success, nowPlaying: nowPlaying ?? []));
+        state: ProcessStatus.success,
+        nowPlaying: existingMovies,
+        loadingMore: false, // Load xong thì tắt loading
+      ));
     } catch (e) {
       printE("[Get Now Playing Bloc] error: $e");
       emit(NowPlayingLoadedState(
         state: ProcessStatus.failure,
         errorMsg: e.toString(),
+        nowPlaying: (state as NowPlayingLoadedState?)?.nowPlaying,
+        loadingMore: false, // Nếu lỗi cũng phải tắt loading
       ));
     }
   }

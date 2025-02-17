@@ -31,8 +31,8 @@ class ThemeApp {
 
       // ScrollbarTheme
       scrollbarTheme: ScrollbarThemeData(
-        thumbColor: WidgetStateProperty.all(AppColor.secondaryColor),
-        trackColor: WidgetStateProperty.all(Colors.transparent),
+        thumbColor: WidgetStateProperty.all(AppColor.buttonLinerOneColor),
+        trackColor: WidgetStateProperty.all(AppColor.buttonLinerOneColor),
         radius: const Radius.circular(8),
         thumbVisibility: WidgetStateProperty.all(true),
       ),

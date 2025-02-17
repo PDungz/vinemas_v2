@@ -12,8 +12,8 @@ class NowPlayingRepositoryImpl implements NowPlayingRepository {
 
   @override
   Future<List<Movie>?> getNowPlaying(
-      {List<Movie>? movie, String language = 'en', int page = 1}) async {
+      {String language = 'en', int page = 1}) async {
     return nowPlayingRemoteDataSource.getNowPlaying(
-        movie: movie, language: language, page: page);
+        language: language, page: page);
   }
 }

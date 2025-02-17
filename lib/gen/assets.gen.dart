@@ -143,6 +143,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/add.svg
   String get add => 'assets/icons/icon_app/add.svg';
 
+  /// File path: assets/icons/icon_app/angle_up.svg
+  String get angleUp => 'assets/icons/icon_app/angle_up.svg';
+
   /// File path: assets/icons/icon_app/back.svg
   String get back => 'assets/icons/icon_app/back.svg';
 
@@ -175,6 +178,9 @@ class $AssetsIconsIconAppGen {
 
   /// File path: assets/icons/icon_app/eye_slash.svg
   String get eyeSlash => 'assets/icons/icon_app/eye_slash.svg';
+
+  /// File path: assets/icons/icon_app/filter.svg
+  String get filter => 'assets/icons/icon_app/filter.svg';
 
   /// File path: assets/icons/icon_app/forward _arrow.svg
   String get forwardArrow => 'assets/icons/icon_app/forward _arrow.svg';
@@ -212,6 +218,7 @@ class $AssetsIconsIconAppGen {
   /// List of all assets
   List<String> get values => [
         add,
+        angleUp,
         back,
         bell,
         calendar,
@@ -223,6 +230,7 @@ class $AssetsIconsIconAppGen {
         expandArrow,
         eye,
         eyeSlash,
+        filter,
         forwardArrow,
         forward,
         home,

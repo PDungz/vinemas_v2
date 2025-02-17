@@ -8,6 +8,8 @@ class CustomIconButton extends StatelessWidget {
   final Color? iconColor;
   final Color backgroundColor;
   final Color? borderColor;
+  final double hight;
+  final double width;
   final double verticalPadding;
   final double horizontalPadding;
   final double borderRadius;
@@ -33,6 +35,8 @@ class CustomIconButton extends StatelessWidget {
     this.splashColor = Colors.transparent,
     this.highlightColor = Colors.transparent,
     this.hoverColor = Colors.transparent,
+    this.hight = 42,
+    this.width = 42,
     this.verticalPadding = 4,
     this.horizontalPadding = 8,
     this.iconBackgroundColor, // Mặc định không có màu nền cho icon
@@ -62,8 +66,8 @@ class CustomIconButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
         child: Container(
-          width: size + 16,
-          height: size + 16,
+          width: hight,
+          height: width,
           padding: EdgeInsets.symmetric(
               vertical: verticalPadding, horizontal: horizontalPadding),
           alignment: Alignment.center,

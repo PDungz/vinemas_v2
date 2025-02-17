@@ -5,11 +5,9 @@ import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/use_
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/home/data/model/movie_model.dart';
-import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 
 abstract class NowPlayingRemoteDataSource {
   Future<List<MovieModel>?> getNowPlaying({
-    List<Movie>? movie,
     String language,
     int page,
   });
@@ -22,7 +20,6 @@ class NowPlayingRemoteDataSourceImpl implements NowPlayingRemoteDataSource {
 
   @override
   Future<List<MovieModel>?> getNowPlaying({
-    List<Movie>? movie,
     String language = 'en',
     int page = 1,
   }) async {
@@ -41,17 +38,11 @@ class NowPlayingRemoteDataSourceImpl implements NowPlayingRemoteDataSource {
       );
 
       if (response.data != null && response.data['results'] is List) {
-        final newMovies = (response.data['results'] as List)
-            .map((json) => MovieModel.fromJson(json))
-            .toList();
-
-        final existingMovies =
-            movie?.map((m) => MovieModel.fromEntity(m)).toList() ?? [];
-
-        final updatedMovies = existingMovies..addAll(newMovies);
-        return updatedMovies;
+        final List<dynamic> data = response.data['results'];
+        return data.map((json) => MovieModel.fromJson(json)).toList();
       } else {
         printE("Invalid data format in API response.");
+        return [];
       }
     } catch (e, stackTrace) {
       printE("Error in NowPlayingRemoteDataSourceImpl: $e");
