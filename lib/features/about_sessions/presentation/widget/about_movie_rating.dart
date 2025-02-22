@@ -4,10 +4,10 @@ import 'package:vinemas_v1/core/config/app_color.dart';
 
 class AboutMovieRating extends StatelessWidget {
   const AboutMovieRating(
-      {super.key, required this.imdb, required this.kinoposik});
+      {super.key, required this.widgetLeft, required this.widgetRight});
 
-  final String imdb;
-  final String kinoposik;
+  final Widget widgetLeft;
+  final Widget widgetRight;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class AboutMovieRating extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              Text(imdb),
+              widgetLeft  ,
               Text(
                 'IMDB',
                 style: Theme.of(context)
@@ -38,7 +38,7 @@ class AboutMovieRating extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              Text(kinoposik),
+              widgetRight,
               Text(
                 'Vote',
                 style: Theme.of(context)
