@@ -307,6 +307,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_receive_notifications => 'Recieve notifications';
 
   @override
+  String get keyword_more => 'See more';
+
+  @override
+  String get keyword_collapse => 'collapse';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

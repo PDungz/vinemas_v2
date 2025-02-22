@@ -100,6 +100,8 @@
   "keyword_settings": "Cài đặt",
   "keyword_language": "Ngôn ngữ",
   "keyword_recieve_notifications": "Nhận thông báo",
+  "keyword_more": "Xem thêm",
+  "keyword_collapse": "Thu gọn",
   "error_validate": "LỖI_XÁC_THỰC",
   "error_email_required": "Email không được để trống",
   "error_email_invalid": "Vui lòng nhập địa chỉ email hợp lệ",

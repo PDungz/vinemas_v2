@@ -695,6 +695,18 @@ abstract class AppLocalizations {
   /// **'Recieve notifications'**
   String get keyword_receive_notifications;
 
+  /// No description provided for @keyword_more.
+  ///
+  /// In en, this message translates to:
+  /// **'See more'**
+  String get keyword_more;
+
+  /// No description provided for @keyword_collapse.
+  ///
+  /// In en, this message translates to:
+  /// **'collapse'**
+  String get keyword_collapse;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

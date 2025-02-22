@@ -9,10 +9,12 @@ class CustomLayoutHorizontal extends StatelessWidget {
     this.verticalPadding = 8,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.spaceWith = 0,
   });
 
   final Widget leftWidget;
   final Widget rightWidget;
+  final double spaceWith;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final double horizontalPadding;
@@ -28,7 +30,7 @@ class CustomLayoutHorizontal extends StatelessWidget {
         crossAxisAlignment: crossAxisAlignment,
         children: [
           leftWidget,
-          Spacer(),
+          if (spaceWith > 0) SizedBox(width: spaceWith),
           rightWidget,
         ],
       ),

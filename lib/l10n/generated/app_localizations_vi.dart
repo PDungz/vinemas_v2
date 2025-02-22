@@ -307,6 +307,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_receive_notifications => 'Recieve notifications';
 
   @override
+  String get keyword_more => 'Xem thêm';
+
+  @override
+  String get keyword_collapse => 'Thu gọn';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

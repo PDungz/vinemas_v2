@@ -73,7 +73,9 @@ Widget _buildUpcomingWidget({
     CustomLayoutVertical(
       verticalPadding: 0,
       horizontalPadding: 0,
+      spaceHeight: 10,
       topWidget: CustomLayoutHorizontal(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         verticalPadding: 0,
         leftWidget: Text(

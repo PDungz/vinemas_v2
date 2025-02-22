@@ -155,6 +155,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/calendar.svg
   String get calendar => 'assets/icons/icon_app/calendar.svg';
 
+  /// File path: assets/icons/icon_app/circle_xmark.svg
+  String get circleXmark => 'assets/icons/icon_app/circle_xmark.svg';
+
   /// File path: assets/icons/icon_app/clock.svg
   String get clock => 'assets/icons/icon_app/clock.svg';
 
@@ -181,6 +184,9 @@ class $AssetsIconsIconAppGen {
 
   /// File path: assets/icons/icon_app/filter.svg
   String get filter => 'assets/icons/icon_app/filter.svg';
+
+  /// File path: assets/icons/icon_app/filter_regular.svg
+  String get filterRegular => 'assets/icons/icon_app/filter_regular.svg';
 
   /// File path: assets/icons/icon_app/forward _arrow.svg
   String get forwardArrow => 'assets/icons/icon_app/forward _arrow.svg';
@@ -222,6 +228,7 @@ class $AssetsIconsIconAppGen {
         back,
         bell,
         calendar,
+        circleXmark,
         clock,
         close,
         compress,
@@ -231,6 +238,7 @@ class $AssetsIconsIconAppGen {
         eye,
         eyeSlash,
         filter,
+        filterRegular,
         forwardArrow,
         forward,
         home,

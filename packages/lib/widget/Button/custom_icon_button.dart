@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomIconButton extends StatelessWidget {
-  final String svgPath;
+class CustomIconButton extends StatefulWidget {
+  final String svgPathUp;
+  final String? svgPathDown; // Có thể null
   final VoidCallback onPressed;
   final double size;
   final Color? iconColor;
   final Color backgroundColor;
   final Color? borderColor;
-  final double hight;
+  final double height;
   final double width;
   final double verticalPadding;
   final double horizontalPadding;
@@ -18,12 +19,12 @@ class CustomIconButton extends StatelessWidget {
   final Color splashColor;
   final Color highlightColor;
   final Color hoverColor;
-  final Color?
-      iconBackgroundColor; // Thêm màu nền cho icon (mặc định là không có)
+  final Color? iconBackgroundColor;
 
   const CustomIconButton({
     super.key,
-    required this.svgPath,
+    required this.svgPathUp,
+    this.svgPathDown,
     required this.onPressed,
     this.size = 24.0,
     this.iconColor,
@@ -35,56 +36,73 @@ class CustomIconButton extends StatelessWidget {
     this.splashColor = Colors.transparent,
     this.highlightColor = Colors.transparent,
     this.hoverColor = Colors.transparent,
-    this.hight = 42,
+    this.height = 42,
     this.width = 42,
     this.verticalPadding = 4,
     this.horizontalPadding = 8,
-    this.iconBackgroundColor, // Mặc định không có màu nền cho icon
+    this.iconBackgroundColor,
   });
+
+  @override
+  _CustomIconButtonState createState() => _CustomIconButtonState();
+}
+
+class _CustomIconButtonState extends State<CustomIconButton> {
+  bool _isPressed = false;
+
+  void _toggleIcon() {
+    if (widget.svgPathDown != null) {
+      setState(() {
+        _isPressed = !_isPressed;
+      });
+    }
+    widget.onPressed();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: backgroundColor,
-      shape: shape == BoxShape.circle
+      color: widget.backgroundColor,
+      shape: widget.shape == BoxShape.circle
           ? const CircleBorder()
           : RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-              side: borderColor != null
-                  ? BorderSide(color: borderColor!)
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              side: widget.borderColor != null
+                  ? BorderSide(color: widget.borderColor!)
                   : BorderSide.none,
             ),
-      elevation: elevation,
+      elevation: widget.elevation,
       child: InkWell(
-        onTap: onPressed,
-        splashColor: splashColor,
-        highlightColor: highlightColor,
-        hoverColor: hoverColor,
-        customBorder: shape == BoxShape.circle
+        onTap: _toggleIcon,
+        splashColor: widget.splashColor,
+        highlightColor: widget.highlightColor,
+        hoverColor: widget.hoverColor,
+        customBorder: widget.shape == BoxShape.circle
             ? const CircleBorder()
             : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
               ),
         child: Container(
-          width: hight,
-          height: width,
+          width: widget.height,
+          height: widget.width,
           padding: EdgeInsets.symmetric(
-              vertical: verticalPadding, horizontal: horizontalPadding),
+              vertical: widget.verticalPadding,
+              horizontal: widget.horizontalPadding),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: iconBackgroundColor ??
-                Colors.transparent, // Áp dụng màu nền cho icon
-            shape: shape,
-            borderRadius: shape == BoxShape.rectangle
-                ? BorderRadius.circular(borderRadius)
+            color: widget.iconBackgroundColor ?? Colors.transparent,
+            shape: widget.shape,
+            borderRadius: widget.shape == BoxShape.rectangle
+                ? BorderRadius.circular(widget.borderRadius)
                 : null,
           ),
           child: SvgPicture.asset(
-            svgPath,
-            width: size + 16,
-            height: size + 16,
-            // ignore: deprecated_member_use
-            color: iconColor,
+            _isPressed && widget.svgPathDown != null
+                ? widget.svgPathDown!
+                : widget.svgPathUp,
+            width: widget.size + 16,
+            height: widget.size + 16,
+            color: widget.iconColor,
           ),
         ),
       ),

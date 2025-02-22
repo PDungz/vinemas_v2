@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:packages/Core/config/app_color.dart';
 
-class CustomBottomSheet extends StatelessWidget {
+class CustomBottomSheet extends StatefulWidget {
   final Widget? header;
   final Widget body;
   final double maxHeight;
@@ -9,7 +9,7 @@ class CustomBottomSheet extends StatelessWidget {
   final bool isDismissible;
   final VoidCallback? onClose;
   final Color backgroundColor;
-  final Color barrierColor; // Thêm thuộc tính barrierColor
+  final Color barrierColor;
 
   const CustomBottomSheet({
     super.key,
@@ -20,7 +20,7 @@ class CustomBottomSheet extends StatelessWidget {
     this.isDismissible = true,
     this.onClose,
     this.backgroundColor = AppColor.primaryColor,
-    this.barrierColor = Colors.black54, // Giá trị mặc định cho overlay
+    this.barrierColor = Colors.black54,
   });
 
   static void show(
@@ -32,14 +32,14 @@ class CustomBottomSheet extends StatelessWidget {
     bool isDismissible = true,
     VoidCallback? onClose,
     Color backgroundColor = AppColor.primaryColor,
-    Color barrierColor = Colors.black54, // Cho phép truyền barrierColor
+    Color barrierColor = Colors.black54,
   }) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       isDismissible: isDismissible,
-      barrierColor: barrierColor, // Sử dụng barrierColor được truyền vào
+      barrierColor: barrierColor,
       builder: (context) => CustomBottomSheet(
         header: header,
         body: body,
@@ -54,16 +54,21 @@ class CustomBottomSheet extends StatelessWidget {
   }
 
   @override
+  State<CustomBottomSheet> createState() => _CustomBottomSheetState();
+}
+
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
+  @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: minHeight,
-      minChildSize: minHeight,
-      maxChildSize: maxHeight,
+      initialChildSize: widget.minHeight,
+      minChildSize: widget.minHeight,
+      maxChildSize: widget.maxHeight,
       expand: false,
       builder: (context, scrollController) {
         return Container(
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: widget.backgroundColor,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             boxShadow: [
               BoxShadow(
@@ -74,13 +79,14 @@ class CustomBottomSheet extends StatelessWidget {
             ],
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Header hoặc drag handle
-              if (header != null)
+              // Header
+              if (widget.header != null)
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: header,
+                  child: widget.header,
                 )
               else
                 Container(
@@ -92,25 +98,25 @@ class CustomBottomSheet extends StatelessWidget {
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-              // Nút đóng nếu có
-              if (onClose != null)
+
+              // Nút đóng
+              if (widget.onClose != null)
                 Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () {
                       Navigator.pop(context);
-                      if (onClose != null) {
-                        onClose!();
-                      }
+                      widget.onClose?.call();
                     },
                   ),
                 ),
-              // Nội dung chính
+
+              // Nội dung chính (scrollable)
               Expanded(
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: body,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: widget.body,
                 ),
               ),
             ],

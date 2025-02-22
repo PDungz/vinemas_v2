@@ -24,7 +24,7 @@ class ProfileAppBarWidget extends StatelessWidget {
         },
         child: CustomAppBar(
           leading: CustomIconButton(
-            svgPath: $AssetsIconsGen().iconApp.back,
+            svgPathUp: $AssetsIconsGen().iconApp.back,
             onPressed: () => Get.back(),
             elevation: 0,
           ),
@@ -44,7 +44,7 @@ class ProfileAppBarWidget extends StatelessWidget {
                   onPressed: () {
                     BlocProvider.of<UserBloc>(context).add(logoutEvent());
                   },
-                  svgPath: $AssetsIconsGen().iconApp.logout,
+                  svgPathUp: $AssetsIconsGen().iconApp.logout,
                   elevation: 0,
                 );
               },

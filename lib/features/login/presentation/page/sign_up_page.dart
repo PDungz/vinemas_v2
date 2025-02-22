@@ -31,13 +31,13 @@ class SignUpPage extends StatelessWidget {
                     onPressed: () => Get.back(),
                     shape: BoxShape.circle,
                     backgroundColor: AppColor.secondaryColor,
-                    svgPath: $AssetsIconsGen().iconApp.back,
+                    svgPathUp: $AssetsIconsGen().iconApp.back,
                   ),
                   CustomIconButton(
                     onPressed: () => Get.toNamed(ConfigRoute.homePage),
                     shape: BoxShape.circle,
                     backgroundColor: AppColor.secondaryColor,
-                    svgPath: $AssetsIconsGen().iconApp.home,
+                    svgPathUp: $AssetsIconsGen().iconApp.home,
                   ),
                 ],
               ),
@@ -52,7 +52,7 @@ class SignUpPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       FormTitleWidget(
-                          svgPath: $AssetsSvgGen().logo,
+                          svgPathUp: $AssetsSvgGen().logo,
                           title: AppLocalizations.of(context)!.keyword_sign_up),
                       FormSignUpWidget(),
                     ],

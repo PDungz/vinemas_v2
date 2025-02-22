@@ -6,12 +6,12 @@ import 'package:vinemas_v1/core/config/app_color.dart';
 class FormTitleWidget extends StatelessWidget {
   const FormTitleWidget({
     super.key,
-    this.svgPath,
+    this.svgPathUp,
     required this.title,
     this.description,
   });
 
-  final String? svgPath;
+  final String? svgPathUp;
   final String title;
   final String? description;
 
@@ -28,10 +28,10 @@ class FormTitleWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              svgPath != null
+              svgPathUp != null
                   ? SizedBox(
                       child: SvgPicture.asset(
-                        svgPath ?? '',
+                        svgPathUp ?? '',
                       ),
                     )
                   : SizedBox(),

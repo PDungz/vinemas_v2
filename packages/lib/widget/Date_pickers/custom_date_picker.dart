@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:packages/Core/common/enum/text_form_field.dart';
+import 'package:packages/Core/utils/format_datetime.dart';
 import 'package:packages/gen/assets.gen.dart';
-import 'package:packages/widget/Button/custom_icon_button.dart';
 
-class CustomTextField extends StatefulWidget {
+class CustomDatePicker extends StatefulWidget {
   final String? label;
   final String hint;
-  final String? svgPrefixIcon;
-  final String? svgSuffixIcon;
-  final String? svgSuffixIconToggled;
   final Color primaryColor;
-  final VoidCallback? onSuffixIconTap;
   final TextEditingController controller;
   final FocusNode focusNode;
-  final TextInputType keyboardType;
   final bool obscureText;
   final int? maxLength;
   final TextCapitalization textCapitalization;
@@ -36,19 +31,14 @@ class CustomTextField extends StatefulWidget {
   final Color? hintTextColor;
   final TextStyle? hintStyle;
   final TextAlign textAlign;
-  final bool showClearButton; // New property
+  final bool readOnly; // Thêm thuộc tính readOnly
 
-  const CustomTextField({
+  const CustomDatePicker({
     super.key,
     this.label,
     required this.hint,
     required this.controller,
     required this.focusNode,
-    this.svgPrefixIcon,
-    this.svgSuffixIcon,
-    this.svgSuffixIconToggled,
-    this.onSuffixIconTap,
-    this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.maxLength,
     this.textCapitalization = TextCapitalization.none,
@@ -71,42 +61,19 @@ class CustomTextField extends StatefulWidget {
     this.hintStyle,
     this.textAlign = TextAlign.left,
     required this.primaryColor,
-    this.showClearButton = false, // New parameter default true
+    this.readOnly = true, // Khởi tạo readOnly
   });
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomDatePicker> createState() => _CustomDatePickerState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
-  late bool _obscureText;
-  late bool _hasText;
-
+class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   void initState() {
+    // Gán ngày hiện tại vào controller khi widget được khởi tạo
+    widget.controller.text = FormatDateTime.formatToDDMMYYYY(DateTime.now());
     super.initState();
-    _obscureText = widget.obscureText;
-    _hasText = widget.controller.text.isNotEmpty;
-    widget.controller.addListener(_textChanged);
-  }
-
-  void _textChanged() {
-    setState(() {
-      _hasText = widget.controller.text.isNotEmpty;
-    });
-  }
-
-  void toggleVisibility() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
-  void clearText() {
-    widget.controller.clear();
-    setState(() {
-      _hasText = false;
-    });
   }
 
   InputBorder getBorder(Color color, double width) {
@@ -122,6 +89,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
         );
       case BorderType.none:
         return InputBorder.none;
+    }
+  }
+
+  // Function to open date picker and update the TextFormField
+  void _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null) {
+      setState(() {
+        // Format the picked date to display in the text field
+        widget.controller.text = FormatDateTime.formatToDDMMYYYY(picked);
+      });
     }
   }
 
@@ -161,8 +145,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         TextFormField(
           controller: widget.controller,
           focusNode: widget.focusNode,
-          keyboardType: widget.keyboardType,
-          obscureText: _obscureText,
+          keyboardType: TextInputType.datetime,
           maxLength: widget.maxLength,
           textCapitalization: widget.textCapitalization,
           enabled: widget.isEnabled,
@@ -181,35 +164,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 TextStyle(
                     color: widget.hintTextColor ?? theme.hintColor,
                     fontWeight: FontWeight.normal),
-            prefixIcon: widget.svgPrefixIcon != null
-                ? Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: SvgPicture.asset(widget.svgPrefixIcon!),
-                  )
-                : null,
-            suffixIcon: widget.showClearButton && _hasText
-                ? CustomIconButton(
-                    elevation: 0,
-                    verticalPadding: 16,
-                    horizontalPadding: 16,
-                    svgPathUp: $AssetsIconsGen().iconApp.circleXmark,
-                    onPressed: clearText)
-                : (widget.svgSuffixIcon != null
-                    ? GestureDetector(
-                        onTap: widget.obscureText
-                            ? toggleVisibility
-                            : widget.onSuffixIconTap,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: SvgPicture.asset(
-                            _obscureText
-                                ? widget.svgSuffixIcon!
-                                : widget.svgSuffixIconToggled ??
-                                    widget.svgSuffixIcon!,
-                          ),
-                        ),
-                      )
-                    : null),
+            suffixIcon: GestureDetector(
+              onTap: () => _selectDate(context), // Show date picker on tap
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: SvgPicture.asset($AssetsIconsGen().iconApp.calendar),
+              ),
+            ),
             border: border,
             focusedBorder: focusedBorder,
             enabledBorder: enabledBorder,
@@ -219,6 +180,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             filled: widget.isFilled,
             counterText: '',
           ),
+          readOnly: widget.readOnly, // Không cho phép nhập liệu trực tiếp
         ),
       ],
     );

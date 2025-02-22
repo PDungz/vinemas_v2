@@ -5,7 +5,7 @@ import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
 import 'package:vinemas_v1/features/home/presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/widget/now_playing_widget.dart';
-import 'package:vinemas_v1/features/home/presentation/widget/search_now_playing_widget.dart';
+import 'package:vinemas_v1/features/home/presentation/page/search_now_playing_page.dart';
 import 'package:vinemas_v1/features/home/presentation/widget/upcoming_widget.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
@@ -91,13 +91,18 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                 const SliverToBoxAdapter(child: SizedBox(height: 80)),
                 const SliverToBoxAdapter(child: UpcomingWidget()),
                 SliverToBoxAdapter(
-                  child: CustomLayoutHorizontal(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    leftWidget: Text(
-                      AppLocalizations.of(context)!.keyword_now_in_cinemas,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                  child: BlocProvider<NowPlayingBloc>(
+                    create: (context) => NowPlayingBloc()
+                      ..add(NowPlayingSearchLoadMoreEvent(movie: [], page: 1)),
+                    child: CustomLayoutHorizontal(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      leftWidget: Text(
+                        AppLocalizations.of(context)!.keyword_now_in_cinemas,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      rightWidget: SearchNowPlayingWidget(),
                     ),
-                    rightWidget: SearchNowPlayingWidget(),
                   ),
                 ),
                 SliverPadding(
@@ -131,7 +136,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
               backgroundColor: Theme.of(context).primaryColor,
               horizontalPadding: 10,
               iconColor: AppColor.primaryTextColor,
-              svgPath: $AssetsIconsGen().iconApp.angleUp,
+              svgPathUp: $AssetsIconsGen().iconApp.angleUp,
             ),
           ),
       ],

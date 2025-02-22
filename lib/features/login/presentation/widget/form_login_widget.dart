@@ -96,6 +96,7 @@ class _FormLoginWidgetState extends State<FormLoginWidget> {
                     errorText:
                         AppLocalizations.of(context)!.error_email_invalid,
                   ).call,
+                  showClearButton: true,
                 ),
                 SizedBox(height: 20),
                 CustomTextField(
