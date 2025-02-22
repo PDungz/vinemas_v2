@@ -115,7 +115,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
               // Nội dung chính (scrollable)
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: widget.body,
                 ),
               ),

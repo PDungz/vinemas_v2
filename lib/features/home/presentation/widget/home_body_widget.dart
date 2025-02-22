@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:packages/Core/config/app_color.dart';
+import 'package:packages/widget/Bottom_sheet/custom_bottom_sheet.dart';
 import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
 import 'package:vinemas_v1/features/home/presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
@@ -91,17 +92,29 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                 const SliverToBoxAdapter(child: SizedBox(height: 80)),
                 const SliverToBoxAdapter(child: UpcomingWidget()),
                 SliverToBoxAdapter(
-                  child: BlocProvider<NowPlayingBloc>(
-                    create: (context) => NowPlayingBloc()
-                      ..add(NowPlayingSearchLoadMoreEvent(movie: [], page: 1)),
-                    child: CustomLayoutHorizontal(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      leftWidget: Text(
-                        AppLocalizations.of(context)!.keyword_now_in_cinemas,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      rightWidget: SearchNowPlayingWidget(),
+                  child: CustomLayoutHorizontal(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    leftWidget: Text(
+                      AppLocalizations.of(context)!.keyword_now_in_cinemas,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    rightWidget: CustomIconButton(
+                      elevation: 0,
+                      verticalPadding: 2,
+                      svgPathUp: $AssetsIconsGen().iconApp.search,
+                      onPressed: () {
+                        CustomBottomSheet.show(context,
+                            minHeight: 0.8,
+                            body: BlocProvider<NowPlayingBloc>(
+                              create: (context) => NowPlayingBloc()
+                                ..add(NowPlayingSearchLoadMoreEvent(
+                                    movie: [], page: 1)),
+                              child: SizedBox(
+                                  width: double.infinity,
+                                  child: SearchNowPlayingPage()),
+                            ));
+                      },
                     ),
                   ),
                 ),

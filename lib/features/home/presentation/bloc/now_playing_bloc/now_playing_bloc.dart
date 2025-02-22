@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
@@ -62,6 +63,11 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
       if (currentState is NowPlayingSearchLoadedState) {
         existingMovies = List.from(currentState.nowPlaying ?? []);
 
+        // Nếu có keySearch thì reset danh sách cũ
+        if (event.keySearch != null && event.keySearch!.isNotEmpty) {
+          existingMovies.clear();
+        }
+
         // Cập nhật trạng thái là đang load thêm dữ liệu
         emit(currentState.copyWith(loadingMore: true));
       }
@@ -73,12 +79,10 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
 
       if (newMovies != null && newMovies.isNotEmpty) {
         List<Movie> filteredMovies = newMovies.where((movie) {
-          // Lọc theo danh sách thể loại (genreIds)
           bool matchesGenre = event.genreIds == null ||
               event.genreIds!.isEmpty ||
               movie.genreIds.any((id) => event.genreIds!.contains(id));
 
-          // Lọc theo ngày phát hành (fromDate và toDate)
           DateTime? releaseDate = DateTime.tryParse(movie.releaseDate);
           bool matchesDate = true;
           if (releaseDate != null) {
@@ -91,17 +95,19 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
             }
           }
 
-          // Lọc theo từ khóa tìm kiếm (keySearch)
           bool matchesSearch = event.keySearch == null ||
               event.keySearch!.isEmpty ||
-              movie.title
-                  .toLowerCase()
-                  .contains(event.keySearch!.toLowerCase());
-
+              removeDiacritics(movie.title.toLowerCase())
+                  .contains(removeDiacritics(event.keySearch!.toLowerCase()));
           return matchesGenre && matchesDate && matchesSearch;
         }).toList();
 
-        existingMovies.addAll(filteredMovies);
+        // Nếu có keySearch thì chỉ giữ kết quả search, không gộp với danh sách cũ
+        if (event.keySearch != null && event.keySearch!.isNotEmpty) {
+          existingMovies = filteredMovies;
+        } else {
+          existingMovies.addAll(filteredMovies);
+        }
       }
 
       emit(NowPlayingSearchLoadedState(
@@ -115,7 +121,7 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
         state: ProcessStatus.failure,
         errorMsg: e.toString(),
         nowPlaying: (state as NowPlayingSearchLoadedState?)?.nowPlaying,
-        loadingMore: false, // Nếu lỗi cũng phải tắt loading
+        loadingMore: false,
       ));
     }
   }

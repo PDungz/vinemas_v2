@@ -11,7 +11,8 @@ class NowPlayingLoadedState extends NowPlayingState {
   final ProcessStatus state;
   final List<Movie>? nowPlaying;
   final String? errorMsg;
-  final bool loadingMore; // Thêm biến này để kiểm tra có đang tải thêm dữ liệu không
+  final bool
+      loadingMore; // Thêm biến này để kiểm tra có đang tải thêm dữ liệu không
 
   NowPlayingLoadedState({
     this.state = ProcessStatus.idle,
@@ -42,11 +43,13 @@ class NowPlayingLoadedState extends NowPlayingState {
     );
   }
 }
+
 class NowPlayingSearchLoadedState extends NowPlayingState {
   final ProcessStatus state;
   final List<Movie>? nowPlaying;
   final String? errorMsg;
-  final bool loadingMore; // Thêm biến này để kiểm tra có đang tải thêm dữ liệu không
+  final bool
+      loadingMore; // Thêm biến này để kiểm tra có đang tải thêm dữ liệu không
 
   NowPlayingSearchLoadedState({
     this.state = ProcessStatus.idle,

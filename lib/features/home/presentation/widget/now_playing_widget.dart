@@ -64,7 +64,7 @@ class NowPlayingWidget extends StatelessWidget {
               return const SliverToBoxAdapter(child: SizedBox());
           }
         }
-        return const SliverToBoxAdapter(child: SizedBox());
+        return NowPlayingLoadingWidget();
       },
     );
   }
