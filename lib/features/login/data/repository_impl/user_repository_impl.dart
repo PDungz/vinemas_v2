@@ -16,7 +16,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> registerWithEmailPassword({
-    required User user,
+    required UserEntity user,
     required String email,
     required String password,
     required void Function(
@@ -32,7 +32,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> loginWithGoogle({
-    required User user,
+    required UserEntity user,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
@@ -44,7 +44,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> createUserInfo(
       {required String userId,
-      required User user,
+      required UserEntity user,
       required void Function(
               {required String message, required ProcessStatus status})
           onPressed}) async {
@@ -54,12 +54,15 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> updateUserInfo(
-      {required User user,
+      {required UserEntity user,
+      required File? imageFile,
       required void Function(
               {required String message, required ProcessStatus status})
-          onPressed}) {
-    // TODO: implement updateUserInfo
-    throw UnimplementedError();
+          onPressed}) async {
+    return await userRemoteDataSource.updateUserInfo(
+        user: UserModel.fromEntity(user),
+        imageFile: imageFile,
+        onPressed: onPressed);
   }
 
   @override
@@ -138,17 +141,27 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<String?> uploadUserImage({
-    required File imageFile,
+  Future<String?> uploadImage({
+    required File? imageFile,
     required String storagePath,
     required String userId,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
   }) async =>
-      await userRemoteDataSource.uploadProfileImage(
+      await userRemoteDataSource.uploadImage(
           imageFile: imageFile,
           storagePath: storagePath,
           userId: userId,
           onPressed: onPressed);
+
+  @override
+  Future<void> getUserInfo(
+      {required void Function({
+        required UserEntity? user,
+        required String message,
+        required ProcessStatus status,
+      }) onPressed}) async {
+    return await userRemoteDataSource.getUserInfo(onPressed: onPressed);
+  }
 }

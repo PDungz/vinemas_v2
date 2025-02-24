@@ -2,6 +2,7 @@
 part of 'global_bloc.dart';
 
 class GlobalState extends Equatable {
+  final bool? isVietnamese;
   final ProcessStatus state;
   final Configuration? configuration;
   final List<Genres>? genres;
@@ -9,6 +10,7 @@ class GlobalState extends Equatable {
   final String? errorMsg;
 
   const GlobalState({
+    this.isVietnamese = true,
     this.state = ProcessStatus.idle,
     this.configuration,
     this.genres,
@@ -18,6 +20,7 @@ class GlobalState extends Equatable {
 
   @override
   List<Object?> get props => [
+        isVietnamese,
         state,
         configuration,
         genres,
@@ -26,6 +29,7 @@ class GlobalState extends Equatable {
       ];
 
   GlobalState copyWith({
+    bool? isVietnamese,
     ProcessStatus? state,
     Configuration? configuration,
     List<Genres>? genres,
@@ -33,6 +37,7 @@ class GlobalState extends Equatable {
     String? errorMsg,
   }) {
     return GlobalState(
+      isVietnamese: isVietnamese ?? this.isVietnamese,
       state: state ?? this.state,
       configuration: configuration ?? this.configuration,
       genres: genres ?? this.genres,

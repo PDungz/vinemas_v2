@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:vinemas_v1/core/common/enum/gender.dart';
 
-class User extends Equatable {
+class UserEntity extends Equatable {
   final String? avatarUrl;
   final String? fullName;
   final DateTime? dateOfBirth;
@@ -11,7 +11,7 @@ class User extends Equatable {
   final Gender? gender;
   final String? address;
 
-  const User({
+  const UserEntity({
     this.avatarUrl,
     this.fullName,
     this.dateOfBirth,
@@ -32,5 +32,23 @@ class User extends Equatable {
         address,
       ];
 
-
+  UserEntity copyWith({
+    String? avatarUrl,
+    String? fullName,
+    DateTime? dateOfBirth,
+    String? phoneNumber,
+    String? email,
+    Gender? gender,
+    String? address,
+  }) {
+    return UserEntity(
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      fullName: fullName ?? this.fullName,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      gender: gender ?? this.gender,
+      address: address ?? this.address,
+    );
+  }
 }

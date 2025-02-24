@@ -25,3 +25,15 @@ class GetSharedPreferenceEvent extends GlobalEvent {
   @override
   List<Object?> get props => [key];
 }
+
+
+class LanguageEvent extends GlobalEvent {
+  final String language;
+  LanguageEvent({
+    required this.language,
+  });
+
+  @override
+  List<Object?> get props => [language];
+}
+

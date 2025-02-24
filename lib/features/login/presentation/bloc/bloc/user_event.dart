@@ -11,7 +11,7 @@ class UserInitialEvent extends UserEvent {
 class UserRegisterWithEmailPasswordEvent extends UserEvent {
   final String email;
   final String password;
-  final User user;
+  final UserEntity user;
 
   UserRegisterWithEmailPasswordEvent({
     required this.email,
@@ -29,7 +29,7 @@ class UserRegisterWithEmailPasswordEvent extends UserEvent {
   UserRegisterWithEmailPasswordEvent copyWith({
     String? email,
     String? password,
-    User? user,
+    UserEntity? user,
   }) {
     return UserRegisterWithEmailPasswordEvent(
       email: email ?? this.email,
@@ -42,7 +42,7 @@ class UserRegisterWithEmailPasswordEvent extends UserEvent {
 // ignore: camel_case_types
 class loginWithThirdPartyEvent extends UserEvent {
   final String method;
-  final User user;
+  final UserEntity user;
 
   loginWithThirdPartyEvent({
     required this.method,
@@ -54,7 +54,7 @@ class loginWithThirdPartyEvent extends UserEvent {
 
   loginWithThirdPartyEvent copyWith({
     String? method,
-    User? user,
+    UserEntity? user,
   }) {
     return loginWithThirdPartyEvent(
       method: method ?? this.method,

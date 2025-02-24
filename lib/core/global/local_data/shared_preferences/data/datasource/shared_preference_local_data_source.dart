@@ -6,6 +6,7 @@ abstract class SharedPreferenceLocalDataSource {
   Future<dynamic> getData(String key);
   Future<void> removeData(String key);
   Future<void> clearData();
+  Future<void> updateData(String key, dynamic newValue);
 }
 
 class SharedPreferenceLocalDataSourceImpl
@@ -66,6 +67,16 @@ class SharedPreferenceLocalDataSourceImpl
       printS("[SharedPreferenceLocalDataSourceImpl] clearData");
     } catch (e) {
       printE("[SharedPreferenceLocalDataSourceImpl] clearData - Error: $e");
+    }
+  }
+
+  @override
+  Future<void> updateData(String key, dynamic newValue) async {
+    final sharePreference = await SharedPreferences.getInstance();
+    if (sharePreference.containsKey(key)) {
+      await saveData(key, newValue);
+    } else {
+      throw Exception("Key not found: $key");
     }
   }
 }

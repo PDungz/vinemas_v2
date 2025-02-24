@@ -28,4 +28,9 @@ class SharedPreferenceRepositoryImpl implements SharedPreferenceRepository {
   Future<void> clearData() async {
     await sharedPreferenceLocalDataSource.clearData();
   }
+
+  @override
+  Future<void> updateData(String key, dynamic newValue) async {
+    await sharedPreferenceLocalDataSource.updateData(key, newValue);
+  }
 }

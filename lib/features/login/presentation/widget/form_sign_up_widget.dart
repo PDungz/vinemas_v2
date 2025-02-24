@@ -189,7 +189,7 @@ class _FormSignUpWidgetState extends State<FormSignUpWidget> {
                       if (_formKey.currentState?.validate() ?? false) {
                         BlocProvider.of<UserBloc>(context).add(
                           UserRegisterWithEmailPasswordEvent(
-                            user: User(
+                            user: UserEntity(
                                 fullName: _fullNameController.text,
                                 email: _emailController.text),
                             email: _emailController.text,

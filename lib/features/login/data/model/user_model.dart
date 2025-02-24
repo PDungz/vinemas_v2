@@ -2,7 +2,7 @@ import 'package:vinemas_v1/core/common/enum/gender.dart';
 import 'package:vinemas_v1/core/common/extension/gender_extension.dart';
 import 'package:vinemas_v1/features/login/domain/entity/user.dart';
 
-class UserModel extends User {
+class UserModel extends UserEntity {
   const UserModel({
     super.avatarUrl,
     super.fullName,
@@ -45,7 +45,7 @@ class UserModel extends User {
     };
   }
 
-  static UserModel fromEntity(User user) {
+  static UserModel fromEntity(UserEntity user) {
     return UserModel(
       avatarUrl: user.avatarUrl,
       fullName: user.fullName,

@@ -155,6 +155,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/calendar.svg
   String get calendar => 'assets/icons/icon_app/calendar.svg';
 
+  /// File path: assets/icons/icon_app/camera.svg
+  String get camera => 'assets/icons/icon_app/camera.svg';
+
   /// File path: assets/icons/icon_app/circle_xmark.svg
   String get circleXmark => 'assets/icons/icon_app/circle_xmark.svg';
 
@@ -228,6 +231,7 @@ class $AssetsIconsIconAppGen {
         back,
         bell,
         calendar,
+        camera,
         circleXmark,
         clock,
         close,

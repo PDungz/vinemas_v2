@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/login/data/model/user_model.dart';
+import 'package:vinemas_v1/features/login/domain/entity/user.dart';
 
 abstract class UserRemoteDataSource {
   Future<void> registerWithEmailPassword({
@@ -59,13 +60,31 @@ abstract class UserRemoteDataSource {
         onPressed,
   });
 
-  Future<String?> uploadProfileImage({
-    required File imageFile,
+  /// Updates user information in the database.
+  Future<void> updateUserInfo({
+    required UserModel user,
+    required File? imageFile,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  });
+
+  Future<String?> uploadImage({
+    required File? imageFile,
     required String storagePath,
     required String userId,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
+  });
+
+  /// Get user information in the database.
+  Future<void> getUserInfo({
+    required void Function({
+      required UserEntity? user,
+      required String message,
+      required ProcessStatus status,
+    }) onPressed,
   });
 
   /// Checks if a user is currently logged in.
@@ -289,14 +308,23 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<String?> uploadProfileImage({
-    required File imageFile,
+  Future<String?> uploadImage({
+    required File? imageFile,
     required String storagePath,
     required String userId,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
   }) async {
+    if (imageFile == null) {
+      onPressed(
+        message: "No image selected",
+        status: ProcessStatus.failure,
+      );
+      printE('No image selected - Remote Data Source Impl');
+      return null;
+    }
+
     try {
       String filePath =
           '$storagePath/$userId/${DateTime.now().millisecondsSinceEpoch}';
@@ -444,6 +472,66 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
+  Future<void> updateUserInfo({
+    required UserModel user,
+    required File? imageFile,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    try {
+      // Lấy thông tin người dùng hiện tại từ Firebase Authentication
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser == null) {
+        onPressed(
+          message: "User is not logged in",
+          status: ProcessStatus.failure,
+        );
+        printE("User is not logged in - Remote Data Source Impl");
+        return;
+      }
+
+      String uid = currentUser.uid;
+
+      // Kiểm tra xem người dùng có tồn tại trong Firestore không
+      DocumentReference userRef = _firestore.collection('users').doc(uid);
+      DocumentSnapshot userDoc = await userRef.get();
+
+      if (!userDoc.exists) {
+        onPressed(
+          message: "User does not exist",
+          status: ProcessStatus.failure,
+        );
+        printE("User does not exist - Remote Data Source Impl");
+        return;
+      }
+
+      String urlImageUser = await uploadImage(
+              imageFile: imageFile,
+              storagePath: 'imageUser',
+              userId: uid,
+              onPressed: onPressed) ??
+          '';
+      user = user.copyWith(avatarUrl: urlImageUser);
+      // Cập nhật thông tin người dùng
+      await userRef.update(user.toMap());
+
+      onPressed(
+        message: "User info updated successfully",
+        status: ProcessStatus.success,
+      );
+      printS("User info updated successfully - Remote Data Source Impl");
+    } catch (e) {
+      onPressed(
+        message: "Failed to update user info",
+        status: ProcessStatus.failure,
+      );
+      printE("Failed to update user info - Remote Data Source Impl: $e");
+    }
+  }
+
+  @override
   Future<bool> isUserLoggedIn() async {
     User? user = _auth.currentUser;
     return user != null;
@@ -476,6 +564,69 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         status: ProcessStatus.failure,
       );
       printE('Logout failed - Remote Data Source Impl: $e');
+    }
+  }
+
+  @override
+  Future<void> getUserInfo({
+    required void Function(
+            {required UserEntity? user,
+            required String message,
+            required ProcessStatus status})
+        onPressed,
+  }) async {
+    try {
+      // Lấy user hiện tại từ FirebaseAuth
+      User? currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        onPressed(
+          user: null,
+          message: "No logged-in user found",
+          status: ProcessStatus.failure,
+        );
+        printE("No logged-in user found - Remote Data Source Impl");
+        return;
+      }
+
+      // Truy vấn Firestore để lấy thông tin user
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(currentUser.uid).get();
+
+      if (!userDoc.exists) {
+        onPressed(
+          user: null,
+          message: "User info not found in database",
+          status: ProcessStatus.failure,
+        );
+        printE("User info not found - Remote Data Source Impl");
+        return;
+      }
+
+      // Chuyển đổi dữ liệu Firestore thành UserModel
+      UserModel user =
+          UserModel.fromJson(userDoc.data() as Map<String, dynamic>);
+
+      onPressed(
+        user: UserEntity(
+          avatarUrl: user.avatarUrl,
+          fullName: user.fullName,
+          dateOfBirth: user.dateOfBirth,
+          phoneNumber: user.phoneNumber,
+          email: user.email,
+          address: user.address,
+          gender: user.gender,
+        ),
+        message: "User info retrieved successfully",
+        status: ProcessStatus.success,
+      );
+      printS("User info retrieved successfully - Remote Data Source Impl");
+    } catch (e) {
+      onPressed(
+        user: null,
+        message: "Failed to retrieve user info",
+        status: ProcessStatus.failure,
+      );
+      printE("Failed to retrieve user info - Remote Data Source Impl: $e");
     }
   }
 }

@@ -7,7 +7,7 @@ import 'package:vinemas_v1/features/login/domain/entity/user.dart';
 abstract class UserRepository {
   /// Registers a new user using email and password.
   Future<void> registerWithEmailPassword({
-    required User user,
+    required UserEntity user,
     required String email,
     required String password,
     required void Function(
@@ -26,7 +26,7 @@ abstract class UserRepository {
 
   /// Logs in a user using Google authentication.
   Future<void> loginWithGoogle({
-    required User user,
+    required UserEntity user,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
@@ -42,15 +42,25 @@ abstract class UserRepository {
   /// Creates user information in the database.
   Future<void> createUserInfo({
     required String userId,
-    required User user,
+    required UserEntity user,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
   });
 
+  /// get user information in the database.
+  Future<void> getUserInfo({
+    required void Function(
+            {required UserEntity? user,
+            required String message,
+            required ProcessStatus status})
+        onPressed,
+  });
+
   /// Updates user information in the database.
   Future<void> updateUserInfo({
-    required User user,
+    required UserEntity user,
+    required File? imageFile,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
@@ -104,8 +114,8 @@ abstract class UserRepository {
   Future<bool> isUserLoggedIn();
 
   /// Uploads an image to Firebase Storage and returns the image URL.
-  Future<String?> uploadUserImage({
-    required File imageFile,
+  Future<String?> uploadImage({
+    required File? imageFile,
     required String storagePath,
     required String userId,
     required void Function(

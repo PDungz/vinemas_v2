@@ -65,7 +65,7 @@ class OtherSignInWidget extends StatelessWidget {
                       onTap: () {
                         BlocProvider.of<UserBloc>(context).add(
                             loginWithThirdPartyEvent(
-                                method: 'google', user: User(email: '')));
+                                method: 'google', user: UserEntity(email: '')));
                       },
                       socialNetworkWidget:
                           $AssetsImagesSocialNetworkGen().google.path,
@@ -75,7 +75,7 @@ class OtherSignInWidget extends StatelessWidget {
                       onTap: () {
                         BlocProvider.of<UserBloc>(context).add(
                             loginWithThirdPartyEvent(
-                                method: 'facebook', user: User(email: '')));
+                                method: 'facebook', user: UserEntity(email: '')));
                       },
                       socialNetworkWidget:
                           $AssetsImagesSocialNetworkGen().facebook.path,

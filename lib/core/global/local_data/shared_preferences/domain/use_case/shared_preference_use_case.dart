@@ -20,4 +20,8 @@ class SharedPreferenceUseCase {
   Future<void> clearData() async {
     await _sharedPreferenceRepository.clearData();
   }
+
+  Future<void> updateData(String key, dynamic newValue) async {
+    await _sharedPreferenceRepository.updateData(key, newValue);
+  }
 }

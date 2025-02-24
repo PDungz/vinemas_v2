@@ -31,6 +31,8 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
               .saveData('language', localeString);
         }
 
+        bool isVietnamese = localeString.contains('vi') ? true : false;
+
         final Locale locale = Locale(localeString);
 
         final Configuration? configuration =
@@ -38,6 +40,7 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
 
         final List<Genres>? genres = await getIt<GenresUseCase>().getGenres();
         emit(state.copyWith(
+          isVietnamese: isVietnamese,
           state: ProcessStatus.success,
           configuration: configuration,
           genres: genres,
@@ -53,5 +56,41 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
         emit(state.copyWith(state: ProcessStatus.idle));
       }
     });
+
+    on<LanguageEvent>(
+      (event, emit) async {
+        try {
+          emit(state.copyWith(state: ProcessStatus.loading));
+          String? localeString = event.language;
+
+          await getIt<SharedPreferenceUseCase>()
+              .updateData('language', localeString);
+
+          bool isVietnamese = localeString.contains('vi') ? true : false;
+
+          final Locale locale = Locale(localeString);
+
+          final Configuration? configuration =
+              await getIt<ConfigurationUseCase>().getConfiguration();
+
+          final List<Genres>? genres = await getIt<GenresUseCase>().getGenres();
+          emit(state.copyWith(
+            isVietnamese: isVietnamese,
+            state: ProcessStatus.success,
+            configuration: configuration,
+            genres: genres,
+            locale: locale,
+          ));
+        } catch (e) {
+          printE("[GlobalBloc] error: $e");
+          emit(state.copyWith(
+            state: ProcessStatus.failure,
+            errorMsg: e.toString(),
+          ));
+        } finally {
+          emit(state.copyWith(state: ProcessStatus.idle));
+        }
+      },
+    );
   }
 }

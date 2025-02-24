@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/features/login/domain/entity/user.dart';
 import 'package:vinemas_v1/features/login/domain/repository/user_repository.dart';
@@ -11,7 +13,7 @@ class UserUseCase {
   });
 
   Future<void> registerWithEmailPassword({
-    required User user,
+    required UserEntity user,
     required String email,
     required String password,
     required void Function(
@@ -45,7 +47,7 @@ class UserUseCase {
 
   /// Logs in a user using Google authentication.
   Future<void> loginWithGoogle({
-    required User user,
+    required UserEntity user,
     required void Function(
             {required String message, required ProcessStatus status})
         onPressed,
@@ -64,7 +66,7 @@ class UserUseCase {
 
   Future<void> createUserInfo(
       {required String userId,
-      required User user,
+      required UserEntity user,
       required void Function(
               {required String message, required ProcessStatus status})
           onPressed}) async {
@@ -109,5 +111,41 @@ class UserUseCase {
               {required String message, required ProcessStatus status})
           onPressed}) async {
     return await userRepository.logout(onPressed: onPressed);
+  }
+
+  Future<void> updateUserInfo(
+      {required UserEntity user,
+      required File? imageFile,
+      required void Function(
+              {required String message, required ProcessStatus status})
+          onPressed}) async {
+    return await userRepository.updateUserInfo(
+        user: user, imageFile: imageFile, onPressed: onPressed);
+  }
+
+  Future<String?> uploadImage({
+    required File? imageFile,
+    required String storagePath,
+    required String userId,
+    required void Function(
+            {required String message, required ProcessStatus status})
+        onPressed,
+  }) async {
+    return await userRepository.uploadImage(
+        imageFile: imageFile,
+        storagePath: storagePath,
+        userId: userId,
+        onPressed: onPressed);
+  }
+
+  /// get user information in the database.
+  Future<void> getUserInfo({
+    required void Function(
+            {required UserEntity? user,
+            required String message,
+            required ProcessStatus status})
+        onPressed,
+  }) async {
+    return await userRepository.getUserInfo(onPressed: onPressed);
   }
 }

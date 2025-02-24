@@ -102,7 +102,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       if (event.method == 'google') {
         await _userUserCase.loginWithGoogle(
-          user: User(email: ''),
+          user: UserEntity(email: ''),
           onPressed: ({required message, required status}) {
             emit(loginWithThirdPartyState(
               message: message,
