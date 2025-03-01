@@ -77,7 +77,14 @@ class CustomTabLabel extends StatelessWidget {
             children: [
               Container(
                 height: indicatorHeight,
-                color: Colors.transparent,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border(
+                      top: BorderSide(
+                    color: AppColor.primaryIconColor,
+                    width: 2,
+                  )),
+                ),
               ),
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 300),

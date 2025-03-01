@@ -7,6 +7,7 @@ import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/about_bloc/about_bloc.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/widget/about_loading_widget.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/about_movie_rating.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
@@ -70,7 +71,7 @@ class AboutPage extends StatelessWidget {
                 if (aboutState is MovieDetailState) {
                   switch (aboutState.state) {
                     case ProcessStatus.loading:
-                      return _buildShimmerLoading();
+                      return AboutLoadingWidget();
                     case ProcessStatus.success:
                       final movieDetail = aboutState.movieDetail;
                       if (movieDetail != null) {
@@ -94,7 +95,7 @@ class AboutPage extends StatelessWidget {
                                   widgetLeft: Text('8.3'),
                                   widgetRight: Text(aboutState
                                           .movieDetail?.voteAverage
-                                          .toString() ??
+                                          .toStringAsFixed(1) ??
                                       '0.0')),
                             ),
                             Padding(
@@ -118,85 +119,49 @@ class AboutPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 8),
-                            CustomLayoutLabelValue(
-                              widgetLeft: Text(
-                                AppLocalizations.of(context)!
+                            _buildContent(
+                                context: context,
+                                leftTitle: AppLocalizations.of(context)!
                                     .keyword_certificate,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                        color: AppColor.secondaryTextColor),
-                              ),
-                              widgetRight: Text('16+'),
-                            ),
+                                widgetContent: Text('16+')),
                             SizedBox(height: 8),
-                            CustomLayoutLabelValue(
-                              widgetLeft: Text(
-                                AppLocalizations.of(context)!.keyword_runtime,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                        color: AppColor.secondaryTextColor),
-                              ),
-                              widgetRight: Text(
-                                  FormatDateTime.convertMinutesToHourMinute(
-                                      movieDetail.runtime)),
-                            ),
+                            _buildContent(
+                                context: context,
+                                leftTitle: AppLocalizations.of(context)!
+                                    .keyword_runtime,
+                                widgetContent: Text(
+                                    FormatDateTime.convertMinutesToHourMinute(
+                                        movieDetail.runtime))),
                             SizedBox(height: 8),
-                            CustomLayoutLabelValue(
-                              widgetLeft: Text(
-                                AppLocalizations.of(context)!.keyword_release,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                        color: AppColor.secondaryTextColor),
-                              ),
-                              widgetRight: Text(
-                                FormatDateTime.convertFromYYYYMMDDToDDMMYYYY(
-                                        movieDetail.releaseDate)
-                                    .toString(),
-                              ),
-                            ),
+                            _buildContent(
+                                context: context,
+                                leftTitle: AppLocalizations.of(context)!
+                                    .keyword_release,
+                                widgetContent: Text(
+                                  FormatDateTime.convertFromYYYYMMDDToDDMMYYYY(
+                                          movieDetail.releaseDate)
+                                      .toString(),
+                                )),
                             SizedBox(height: 8),
-                            CustomLayoutLabelValue(
-                              widgetLeft: Text(
-                                AppLocalizations.of(context)!.keyword_genre,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                        color: AppColor.secondaryTextColor),
-                              ),
-                              widgetRight: Text(listGenres ?? ''),
-                            ),
+                            _buildContent(
+                                context: context,
+                                leftTitle:
+                                    AppLocalizations.of(context)!.keyword_genre,
+                                widgetContent: Text(listGenres ?? '')),
                             SizedBox(height: 8),
-                            CustomLayoutLabelValue(
-                              widgetLeft: Text(
-                                AppLocalizations.of(context)!.keyword_director,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                        color: AppColor.secondaryTextColor),
-                              ),
-                              widgetRight: Text(
-                                director?.name ?? '',
-                              ),
-                            ),
+                            _buildContent(
+                                context: context,
+                                leftTitle: AppLocalizations.of(context)!
+                                    .keyword_director,
+                                widgetContent: Text(
+                                  director?.name ?? '',
+                                )),
                             SizedBox(height: 8),
-                            CustomLayoutLabelValue(
-                              widgetLeft: Text(
-                                AppLocalizations.of(context)!.keyword_cast,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                        color: AppColor.secondaryTextColor),
-                              ),
-                              widgetRight: CustomText(
+                            _buildContent(
+                              context: context,
+                              leftTitle:
+                                  AppLocalizations.of(context)!.keyword_cast,
+                              widgetContent: CustomText(
                                 text: cast ?? '',
                                 customStyle: Theme.of(context)
                                     .textTheme
@@ -233,6 +198,23 @@ class AboutPage extends StatelessWidget {
     );
   }
 
+  Widget _buildContent({
+    required BuildContext context,
+    required String leftTitle,
+    required Widget widgetContent,
+  }) {
+    return CustomLayoutLabelValue(
+      widgetLeft: Text(
+        leftTitle,
+        style: Theme.of(context)
+            .textTheme
+            .titleSmall
+            ?.copyWith(color: AppColor.secondaryTextColor),
+      ),
+      widgetRight: widgetContent,
+    );
+  }
+
   Widget _buildVideoLoading() {
     return Stack(
       children: [
@@ -249,106 +231,6 @@ class AboutPage extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: Center(child: CircularProgressIndicator()),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildShimmerLoading() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Rating Section
-        Container(
-          decoration: BoxDecoration(
-            color: AppColor.secondaryColor,
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: AboutMovieRating(
-            widgetLeft: CustomShimmer(
-              height: 16,
-              width: 40,
-              borderRadius: 8,
-              baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-              highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-            ),
-            widgetRight: CustomShimmer(
-              height: 16,
-              width: 40,
-              borderRadius: 8,
-              baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-              highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-            ),
-          ),
-        ),
-
-        // Image Section
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: CustomShimmer(
-            height: 80,
-            width: double.infinity,
-            borderRadius: 8,
-            baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-            highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-          ),
-        ),
-
-        // Text Section
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomShimmer(
-                height: 24,
-                width: 100,
-                borderRadius: 8,
-                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-              ),
-              const SizedBox(height: 8),
-              CustomShimmer(
-                height: 20,
-                width: 140,
-                borderRadius: 8,
-                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-              ),
-              const SizedBox(height: 8),
-              CustomShimmer(
-                height: 20,
-                width: 90,
-                borderRadius: 8,
-                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-              ),
-              const SizedBox(height: 8),
-              CustomShimmer(
-                height: 20,
-                width: double.infinity,
-                borderRadius: 8,
-                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-              ),
-              const SizedBox(height: 8),
-              CustomShimmer(
-                height: 20,
-                width: 250,
-                borderRadius: 8,
-                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-              ),
-              const SizedBox(height: 12),
-              CustomShimmer(
-                height: 50,
-                width: double.infinity,
-                borderRadius: 8,
-                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-              ),
-            ],
-          ),
         ),
       ],
     );
