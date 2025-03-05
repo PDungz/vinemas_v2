@@ -4,7 +4,7 @@ import 'package:packages/widget/Layout/custom_layout.dart';
 import 'package:packages/widget/Page_view/custom_page_view.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/page/about_page.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/page/sessions_page.dart';
-import 'package:vinemas_v1/features/about_sessions/presentation/widget/about_sessions_app_bar_widget.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/widget/about/about_sessions_app_bar_widget.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 
 class AboutSessionsPage extends StatefulWidget {
@@ -22,7 +22,9 @@ class _AboutSessionsPageState extends State<AboutSessionsPage> {
     AboutPage(
       movie: Get.arguments as Movie,
     ),
-    const SessionsPage(),
+    SessionsPage(
+      movie: Get.arguments as Movie,
+    ),
   ];
 
   void _onTabSelected(int index) {

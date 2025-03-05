@@ -102,6 +102,7 @@
   "keyword_receive_notifications": "Recieve notifications",
   "keyword_more": "See more",
   "keyword_collapse": "collapse",
+  "keyword_recommended": "Recommended",
   "error_validate": "ERROR_validate",
   "error_email_required": "Email cannot be empty",
   "error_email_invalid": "Please enter a valid email address",

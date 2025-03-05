@@ -206,6 +206,10 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/location.svg
   String get location => 'assets/icons/icon_app/location.svg';
 
+  /// File path: assets/icons/icon_app/location_crosshairs.svg
+  String get locationCrosshairs =>
+      'assets/icons/icon_app/location_crosshairs.svg';
+
   /// File path: assets/icons/icon_app/lock.svg
   String get lock => 'assets/icons/icon_app/lock.svg';
 
@@ -248,6 +252,7 @@ class $AssetsIconsIconAppGen {
         home,
         language,
         location,
+        locationCrosshairs,
         lock,
         logout,
         person,
@@ -275,12 +280,16 @@ class $AssetsImagesBackgroundGen {
   AssetGenImage get cover =>
       const AssetGenImage('assets/images/background/Cover.png');
 
+  /// File path: assets/images/background/Cover_horizontal.png
+  AssetGenImage get coverHorizontal =>
+      const AssetGenImage('assets/images/background/Cover_horizontal.png');
+
   /// File path: assets/images/background/Splash.png
   AssetGenImage get splash =>
       const AssetGenImage('assets/images/background/Splash.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [cover, splash];
+  List<AssetGenImage> get values => [cover, coverHorizontal, splash];
 }
 
 class $AssetsImagesFlagGen {

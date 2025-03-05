@@ -72,6 +72,11 @@ class FormatDateTime {
     return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
+  /// Format a DateTime to 'HH:mm'
+  static String formatToHourMinute(DateTime date) {
+    return DateFormat('HH:mm').format(date);
+  }
+
   /// Check if a date is in the past
   static bool isPastDate(DateTime date) {
     return date.isBefore(DateTime.now());

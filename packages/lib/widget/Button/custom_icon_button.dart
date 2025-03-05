@@ -100,8 +100,8 @@ class _CustomIconButtonState extends State<CustomIconButton> {
             _isPressed && widget.svgPathDown != null
                 ? widget.svgPathDown!
                 : widget.svgPathUp,
-            width: widget.size + 16,
-            height: widget.size + 16,
+            width: widget.size,
+            height: widget.size,
             color: widget.iconColor,
           ),
         ),

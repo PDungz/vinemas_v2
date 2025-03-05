@@ -313,6 +313,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_collapse => 'collapse';
 
   @override
+  String get keyword_recommended => 'Recommended';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

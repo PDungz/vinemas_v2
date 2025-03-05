@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/entity/movie_cast_crew.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/entity/movie_detail.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/entity/video.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/use_case/cast_use_case.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/use_case/movie_detail_use_case.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/use_case/video_use_case.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_cast_crew.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/about/video.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/cast_use_case.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/movie_detail_use_case.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/video_use_case.dart';
 
 part 'about_event.dart';
 part 'about_state.dart';

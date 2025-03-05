@@ -13,18 +13,22 @@ import 'package:vinemas_v1/core/global/local_data/shared_preferences/data/dataso
 import 'package:vinemas_v1/core/global/local_data/shared_preferences/data/repository_impl/shared_preference_repository_impl.dart';
 import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/repository/shared_preference_repository.dart';
 import 'package:vinemas_v1/core/global/local_data/shared_preferences/domain/use_case/shared_preference_use_case.dart';
-import 'package:vinemas_v1/features/about_sessions/data/data_source/cast_remote_data_source.dart';
-import 'package:vinemas_v1/features/about_sessions/data/data_source/movie_detail_remote_data_source.dart';
-import 'package:vinemas_v1/features/about_sessions/data/data_source/video_remote_data_source.dart';
-import 'package:vinemas_v1/features/about_sessions/data/repository/cast_repository_impl.dart';
-import 'package:vinemas_v1/features/about_sessions/data/repository/movie_detail_repository_impl.dart';
-import 'package:vinemas_v1/features/about_sessions/data/repository/video_repository_impl.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/repository/cast_repository.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/repository/movie_detail_repository.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/repository/video_repository.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/use_case/cast_use_case.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/use_case/movie_detail_use_case.dart';
-import 'package:vinemas_v1/features/about_sessions/domain/use_case/video_use_case.dart';
+import 'package:vinemas_v1/features/about_sessions/data/data_source/about/cast_remote_data_source.dart';
+import 'package:vinemas_v1/features/about_sessions/data/data_source/about/movie_detail_remote_data_source.dart';
+import 'package:vinemas_v1/features/about_sessions/data/data_source/about/video_remote_data_source.dart';
+import 'package:vinemas_v1/features/about_sessions/data/data_source/session/session_remote_data_source.dart';
+import 'package:vinemas_v1/features/about_sessions/data/repository/about/cast_repository_impl.dart';
+import 'package:vinemas_v1/features/about_sessions/data/repository/about/movie_detail_repository_impl.dart';
+import 'package:vinemas_v1/features/about_sessions/data/repository/about/video_repository_impl.dart';
+import 'package:vinemas_v1/features/about_sessions/data/repository/session/session_repository_impl.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/repository/about/cast_repository.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/repository/about/movie_detail_repository.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/repository/about/video_repository.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/repository/session/session_repository.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/cast_use_case.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/movie_detail_use_case.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/video_use_case.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/use_case/session/session_use_case.dart';
 import 'package:vinemas_v1/features/home/data/datasource/now_playing_remote_data_source.dart';
 import 'package:vinemas_v1/features/home/data/datasource/upcoming_remote_data_source.dart';
 import 'package:vinemas_v1/features/home/data/repository_impl/now_playing_repository_impl.dart';
@@ -95,6 +99,11 @@ Future<void> initDI() async {
     () => UserRemoteDataSourceImpl(),
   );
 
+  // * Remote Data Session
+  getIt.registerLazySingleton<SessionRemoteDataSource>(
+    () => SessionRemoteDataSourceImpl(),
+  );
+
   //! Repository
   //* Configuration Repository
   getIt.registerLazySingleton<ConfigurationRepository>(
@@ -142,6 +151,11 @@ Future<void> initDI() async {
     () => UserRepositoryImpl(userRemoteDataSource: getIt()),
   );
 
+  //* Session Repository
+  getIt.registerLazySingleton<SessionRepository>(
+    () => SessionRepositoryImpl(sessionRemoteDataSource: getIt()),
+  );
+
   //! Use case
   //* Configuration Use Case
   getIt.registerSingleton<ConfigurationUseCase>(
@@ -181,4 +195,7 @@ Future<void> initDI() async {
 
   //* User Use Case
   getIt.registerSingleton(UserUseCase(userRepository: getIt()));
+
+  //* Session Use Case
+  getIt.registerSingleton(SessionUseCase(sessionRepository: getIt()));
 }

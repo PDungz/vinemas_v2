@@ -707,6 +707,12 @@ abstract class AppLocalizations {
   /// **'collapse'**
   String get keyword_collapse;
 
+  /// No description provided for @keyword_recommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get keyword_recommended;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

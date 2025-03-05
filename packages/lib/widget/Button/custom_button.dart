@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final bool isLoading;
   final bool isDisabled;
-  final IconData? icon;
+  final String? svgAsset;
   final double borderRadius;
   final double elevation;
+  final bool isOutlined;
   final BorderSide? border;
-  final TextStyle? textStyle; // Optional textStyle
+  final TextStyle? textStyle;
   final double? iconSize;
   final Color? iconColor;
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
   final Color? overlayColor;
+  final bool useMinSize; // Tùy chọn bật/tắt minSize
 
   const CustomButton({
     super.key,
@@ -22,49 +25,50 @@ class CustomButton extends StatelessWidget {
     required this.onPressed,
     this.isLoading = false,
     this.isDisabled = false,
-    this.icon,
+    this.svgAsset,
     this.borderRadius = 8.0,
     this.elevation = 0.0,
+    this.isOutlined = false,
     this.border,
-    this.textStyle, // Optional textStyle
-    this.iconSize,
+    this.textStyle,
+    this.iconSize = 24.0,
     this.iconColor,
     this.padding,
     this.backgroundColor,
     this.overlayColor = Colors.white,
+    this.useMinSize = true, // Mặc định bật minSize
   });
 
   @override
   Widget build(BuildContext context) {
-    // Default theme button text style
-    final buttonTextStyle = textStyle ??
-        Theme.of(context).textTheme.labelLarge?.copyWith(
-              color:
-                  Theme.of(context).textTheme.labelLarge?.color ?? Colors.white,
-            );
+    final theme = Theme.of(context);
+    final borderColor = border?.color ?? theme.primaryColor;
+    final textColor = isOutlined ? borderColor : Colors.white;
+    final buttonTextStyle =
+        textStyle ?? theme.textTheme.labelLarge?.copyWith(color: textColor);
 
     return ElevatedButton(
       onPressed: isLoading || isDisabled ? null : onPressed,
       style: ElevatedButton.styleFrom(
-        elevation: elevation,
+        elevation: isOutlined ? 0 : elevation,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
-          side: border ?? BorderSide.none,
+          side: isOutlined
+              ? (border ?? BorderSide(color: theme.primaryColor, width: 1.2))
+              : BorderSide.none,
         ),
-        padding: padding ??
-            EdgeInsets.symmetric(
-                vertical: 12, horizontal: 16), // Default padding
-        backgroundColor: backgroundColor ??
-            Theme.of(context).primaryColor, // Use theme color by default
-        //
-        splashFactory: InkRipple.splashFactory,
-        overlayColor: overlayColor,
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        minimumSize: useMinSize ? const Size(64, 36) : Size.zero,
+        backgroundColor: isOutlined
+            ? Colors.transparent
+            : (backgroundColor ?? theme.primaryColor),
+        foregroundColor: overlayColor,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (isLoading)
-            SizedBox(
+            const SizedBox(
               height: 20,
               width: 20,
               child: CircularProgressIndicator(
@@ -72,20 +76,18 @@ class CustomButton extends StatelessWidget {
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             ),
-          if (icon != null && !isLoading)
-            Icon(
-              icon,
-              color: iconColor ??
-                  Theme.of(context)
-                      .iconTheme
-                      .color, // Use theme icon color by default
-              size: iconSize,
+          if (svgAsset != null && !isLoading)
+            SvgPicture.asset(
+              svgAsset!,
+              height: iconSize,
+              width: iconSize,
+              colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
             ),
-          if (icon != null && !isLoading) const SizedBox(width: 8),
+          if (svgAsset != null && !isLoading) const SizedBox(width: 8),
           if (!isLoading)
             Text(
               label,
-              style: buttonTextStyle, // Use the text style
+              style: buttonTextStyle,
             ),
         ],
       ),

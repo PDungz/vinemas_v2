@@ -102,6 +102,7 @@
   "keyword_recieve_notifications": "Nhận thông báo",
   "keyword_more": "Xem thêm",
   "keyword_collapse": "Thu gọn",
+  "keyword_recommended": "Rạp đề xuất",
   "error_validate": "LỖI_XÁC_THỰC",
   "error_email_required": "Email không được để trống",
   "error_email_invalid": "Vui lòng nhập địa chỉ email hợp lệ",

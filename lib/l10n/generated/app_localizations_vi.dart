@@ -313,6 +313,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_collapse => 'Thu gọn';
 
   @override
+  String get keyword_recommended => 'Rạp đề xuất';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override
