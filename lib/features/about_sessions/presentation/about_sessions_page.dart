@@ -16,6 +16,7 @@ class AboutSessionsPage extends StatefulWidget {
 
 class _AboutSessionsPageState extends State<AboutSessionsPage> {
   int _selectedTabIndex = 0;
+  late final Movie parameter;
   final PageController _pageController = PageController();
 
   final List<Widget> _pages = [
@@ -26,6 +27,24 @@ class _AboutSessionsPageState extends State<AboutSessionsPage> {
       movie: Get.arguments as Movie,
     ),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _getArguments();
+  }
+
+  void _getArguments() {
+    final dynamic args = Get.arguments;
+
+    if (args is Movie) {
+      parameter = args;
+    } else if (args is List && args.isNotEmpty && args.first is Movie) {
+      parameter = args.first as Movie;
+    } else {
+      throw Exception("Invalid argument type: $args");
+    }
+  }
 
   void _onTabSelected(int index) {
     setState(() => _selectedTabIndex = index);
@@ -38,7 +57,7 @@ class _AboutSessionsPageState extends State<AboutSessionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Movie parameter = Get.arguments as Movie;
+    // final Movie parameter = Get.arguments as Movie;
 
     return CustomLayout(
       appBar: AboutSessionsAppBarWidget(

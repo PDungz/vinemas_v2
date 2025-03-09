@@ -7,7 +7,6 @@ class ChairConfigModel extends ChairConfig {
     required super.rowCount,
     required super.seatsPerRow,
     required super.chairTypes,
-    required super.seats,
   });
 
   factory ChairConfigModel.fromJson(Map<String, dynamic> json) {
@@ -16,8 +15,8 @@ class ChairConfigModel extends ChairConfig {
       layout: json['layout'],
       rowCount: json['rowCount'],
       seatsPerRow: json['seatsPerRow'],
-      chairTypes: (json['chairTypes'] != null)
-          ? (json['chairTypes'] as Map<String, dynamic>).map(
+      chairTypes: (json['chairType'] != null)
+          ? (json['chairType'] as Map<String, dynamic>).map(
               (key, value) => MapEntry(
                   key,
                   value != null
@@ -25,10 +24,6 @@ class ChairConfigModel extends ChairConfig {
                       : <String>[]),
             )
           : {},
-      seats: (json['seats'] as List?)
-              ?.map((seat) => Seat.fromJson(seat))
-              .toList() ??
-          [],
     );
   }
 
@@ -39,7 +34,6 @@ class ChairConfigModel extends ChairConfig {
       'rowCount': rowCount,
       'seatsPerRow': seatsPerRow,
       'chairTypes': chairTypes,
-      'seats': seats.map((seat) => seat.toJson()).toList(),
     };
   }
 }

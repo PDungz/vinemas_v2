@@ -32,7 +32,7 @@ class AboutSessionsAppBarWidget extends StatelessWidget {
         child: Text(
           parameter.title,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
         ),
       ),
       bottom: PreferredSize(

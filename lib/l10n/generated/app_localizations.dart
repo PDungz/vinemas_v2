@@ -440,7 +440,7 @@ abstract class AppLocalizations {
   /// No description provided for @keyword_buy.
   ///
   /// In en, this message translates to:
-  /// **'Buy'**
+  /// **'Buy ticket'**
   String get keyword_buy;
 
   /// No description provided for @keyword_ticket.
@@ -712,6 +712,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recommended'**
   String get keyword_recommended;
+
+  /// No description provided for @keyword_seat_reserved.
+  ///
+  /// In en, this message translates to:
+  /// **'Reserved'**
+  String get keyword_seat_reserved;
+
+  /// No description provided for @keyword_seat_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Your selected seat'**
+  String get keyword_seat_selected;
+
+  /// No description provided for @keyword_seat_regular.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular Seat'**
+  String get keyword_seat_regular;
+
+  /// No description provided for @keyword_seat_vip.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP Seat'**
+  String get keyword_seat_vip;
+
+  /// No description provided for @keyword_seat_sweetbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweetbox Seat'**
+  String get keyword_seat_sweetbox;
+
+  /// No description provided for @keyword_change_showtime.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch Time'**
+  String get keyword_change_showtime;
+
+  /// No description provided for @keyword_currency_format.
+  ///
+  /// In en, this message translates to:
+  /// **'USD'**
+  String get keyword_currency_format;
+
+  /// No description provided for @keyword_remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Left'**
+  String get keyword_remaining;
 
   /// No description provided for @error_validate.
   ///

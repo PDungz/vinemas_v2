@@ -178,7 +178,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_this_seat_is_unavailable => 'This seat is unavailable';
 
   @override
-  String get keyword_buy => 'Buy';
+  String get keyword_buy => 'Buy ticket';
 
   @override
   String get keyword_ticket => 'Ticket';
@@ -314,6 +314,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get keyword_recommended => 'Recommended';
+
+  @override
+  String get keyword_seat_reserved => 'Reserved';
+
+  @override
+  String get keyword_seat_selected => 'Your selected seat';
+
+  @override
+  String get keyword_seat_regular => 'Regular Seat';
+
+  @override
+  String get keyword_seat_vip => 'VIP Seat';
+
+  @override
+  String get keyword_seat_sweetbox => 'Sweetbox Seat';
+
+  @override
+  String get keyword_change_showtime => 'Switch Time';
+
+  @override
+  String get keyword_currency_format => 'USD';
+
+  @override
+  String get keyword_remaining => 'Left';
 
   @override
   String get error_validate => 'ERROR_validate';

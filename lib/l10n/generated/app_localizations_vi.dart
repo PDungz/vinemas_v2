@@ -178,7 +178,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_this_seat_is_unavailable => 'Chỗ ngồi này không khả dụng';
 
   @override
-  String get keyword_buy => 'Mua';
+  String get keyword_buy => 'Mua vé';
 
   @override
   String get keyword_ticket => 'Vé';
@@ -314,6 +314,30 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get keyword_recommended => 'Rạp đề xuất';
+
+  @override
+  String get keyword_seat_reserved => 'Đã đặt';
+
+  @override
+  String get keyword_seat_selected => 'Ghế bạn chọn';
+
+  @override
+  String get keyword_seat_regular => 'Ghế thường';
+
+  @override
+  String get keyword_seat_vip => 'Ghế VIP';
+
+  @override
+  String get keyword_seat_sweetbox => 'Ghế Sweetbox';
+
+  @override
+  String get keyword_change_showtime => 'Đổi suất';
+
+  @override
+  String get keyword_currency_format => 'VND';
+
+  @override
+  String get keyword_remaining => 'Còn';
 
   @override
   String get error_validate => 'LỖI_XÁC_THỰC';

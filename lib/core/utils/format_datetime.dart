@@ -22,6 +22,11 @@ class FormatDateTime {
     return DateFormat('MMM d, yyyy').format(date);
   }
 
+  /// Formats a DateTime to a short human-readable string, e.g., 'Jan 1'
+  static String formatDateShort(DateTime date) {
+    return DateFormat('MMM, d').format(date);
+  }
+
   /// Format a DateTime to include time, e.g., 'dd/MM/yyyy HH:mm:ss'
   static String formatWithTime(DateTime date) {
     return DateFormat('dd/MM/yyyy HH:mm:ss').format(date);

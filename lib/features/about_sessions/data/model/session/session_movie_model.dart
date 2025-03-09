@@ -1,5 +1,6 @@
-import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+import 'package:vinemas_v1/core/common/extension/seat_extenstion.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 
 class SessionMovieModel extends SessionMovie {
@@ -24,29 +25,19 @@ class SessionMovieModel extends SessionMovie {
       startDate: _parseDate(json['startDate']),
       endDate: _parseDate(json['endDate']),
       description: json['description'] ?? '',
-      seatPrices: _parseSeatPrices(json['seatPrices']),
-      chairStatuses: json['chairStatuses'] != null
-          ? (json['chairStatuses'] as List)
-              .map((status) => ChairStatus.fromJson(status))
-              .toList()
-          : [],
-    );
-  }
-
-  static Map<String, Map<String, int>> _parseSeatPrices(dynamic data) {
-    if (data == null) return {};
-
-    return (data as Map<String, dynamic>).map(
-      (key, value) {
-        if (value is Map<String, dynamic>) {
-          return MapEntry(
-            key,
-            value.map((k, v) =>
-                MapEntry(k, v is int ? v : int.tryParse(v.toString()) ?? 0)),
-          );
-        }
-        return MapEntry(key, {});
-      },
+      seatPrices: (json['seatPrices'] != null)
+          ? (json['seatPrices'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(key, value),
+            )
+          : {},
+      chairStatuses: (json['chairStatuses'] != null)
+          ? (json['chairStatuses'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(
+                key,
+                ChairStatusExtension.fromValue(value as int),
+              ),
+            )
+          : {},
     );
   }
 
@@ -71,7 +62,9 @@ class SessionMovieModel extends SessionMovie {
       'endDate': endDate.toIso8601String(),
       'description': description,
       'seatPrices': seatPrices,
-      'chairStatuses': chairStatuses.map((status) => status.toJson()).toList(),
+      'chairStatuses': chairStatuses.map(
+        (key, value) => MapEntry(key, value.value),
+      ),
     };
   }
 }
