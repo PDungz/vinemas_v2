@@ -127,7 +127,7 @@ class SessionChairConfigState extends SessionState {
 
 class SessionSessionMovieState extends SessionState {
   final ProcessStatus state;
-  final List<SessionMovie>? sessionMovie;
+  final SessionMovie? sessionMovie;
   final String? message;
 
   SessionSessionMovieState({
@@ -141,7 +141,7 @@ class SessionSessionMovieState extends SessionState {
 
   SessionSessionMovieState copyWith({
     ProcessStatus? state,
-    List<SessionMovie>? sessionMovie,
+    SessionMovie? sessionMovie,
     String? message,
   }) {
     return SessionSessionMovieState(

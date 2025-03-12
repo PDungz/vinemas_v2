@@ -4,6 +4,7 @@ import 'package:vinemas_v1/features/login/domain/entity/user.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
+    super.userId,
     super.avatarUrl,
     super.fullName,
     super.dateOfBirth,
@@ -13,7 +14,9 @@ class UserModel extends UserEntity {
     super.address,
   });
 
+  @override
   UserModel copyWith({
+    String? userId,
     String? avatarUrl,
     String? fullName,
     DateTime? dateOfBirth,
@@ -23,6 +26,7 @@ class UserModel extends UserEntity {
     String? address,
   }) {
     return UserModel(
+      userId: userId ?? this.userId,
       avatarUrl: avatarUrl ?? this.avatarUrl,
       fullName: fullName ?? this.fullName,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
@@ -35,6 +39,7 @@ class UserModel extends UserEntity {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'userId': userId ?? '',
       'avatarUrl': avatarUrl ?? '',
       'fullName': fullName ?? '',
       'dateOfBirth': dateOfBirth?.millisecondsSinceEpoch ?? '',
@@ -59,6 +64,7 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
+      userId: json['userId'] != null ? json['userId'] as String : null,
       avatarUrl: json['avatarUrl'] != null ? json['avatarUrl'] as String : null,
       fullName: json['fullName'] != null ? json['fullName'] as String : null,
       dateOfBirth: json['dateOfBirth'] != null

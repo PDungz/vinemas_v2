@@ -340,6 +340,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_remaining => 'Còn';
 
   @override
+  String get keyword_book_at => 'Đặt lúc';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

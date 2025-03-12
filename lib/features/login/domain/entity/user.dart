@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:vinemas_v1/core/common/enum/gender.dart';
 
 class UserEntity extends Equatable {
+  final String? userId;
   final String? avatarUrl;
   final String? fullName;
   final DateTime? dateOfBirth;
@@ -12,6 +13,7 @@ class UserEntity extends Equatable {
   final String? address;
 
   const UserEntity({
+    this.userId,
     this.avatarUrl,
     this.fullName,
     this.dateOfBirth,
@@ -23,6 +25,7 @@ class UserEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+        userId,
         avatarUrl,
         fullName,
         dateOfBirth,
@@ -33,6 +36,7 @@ class UserEntity extends Equatable {
       ];
 
   UserEntity copyWith({
+    String? userId,
     String? avatarUrl,
     String? fullName,
     DateTime? dateOfBirth,
@@ -42,6 +46,7 @@ class UserEntity extends Equatable {
     String? address,
   }) {
     return UserEntity(
+      userId: userId ?? this.userId,
       avatarUrl: avatarUrl ?? this.avatarUrl,
       fullName: fullName ?? this.fullName,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,

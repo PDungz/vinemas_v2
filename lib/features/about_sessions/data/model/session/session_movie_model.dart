@@ -15,6 +15,18 @@ class SessionMovieModel extends SessionMovie {
     required super.chairStatuses,
   });
 
+  factory SessionMovieModel.fromEntity(SessionMovie sessionMovie) {
+    return SessionMovieModel(
+        sessionMovieId: sessionMovie.sessionMovieId,
+        movieId: sessionMovie.movieId,
+        cinemaId: sessionMovie.cinemaId,
+        startDate: sessionMovie.startDate,
+        endDate: sessionMovie.endDate,
+        description: sessionMovie.description,
+        seatPrices: sessionMovie.seatPrices,
+        chairStatuses: sessionMovie.chairStatuses);
+  }
+
   factory SessionMovieModel.fromJson(Map<String, dynamic> json) {
     return SessionMovieModel(
       sessionMovieId: json['sessionMovieId'] ?? '',
@@ -58,8 +70,8 @@ class SessionMovieModel extends SessionMovie {
       'sessionMovieId': sessionMovieId,
       'movieId': movieId,
       'cinemaId': cinemaId,
-      'startDate': startDate.toIso8601String(),
-      'endDate': endDate.toIso8601String(),
+      'startDate': Timestamp.fromDate(startDate),
+      'endDate': Timestamp.fromDate(endDate),
       'description': description,
       'seatPrices': seatPrices,
       'chairStatuses': chairStatuses.map(

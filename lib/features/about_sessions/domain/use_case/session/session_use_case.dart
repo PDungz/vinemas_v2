@@ -101,4 +101,8 @@ class SessionUseCase {
       );
     }
   }
+
+  Future<void> updateSessionMovie({required SessionMovie sessionMovie}) async {
+    await sessionRepository.updateSessionMovie(sessionMovie: sessionMovie);
+  }
 }

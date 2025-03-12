@@ -11,4 +11,6 @@ abstract class SessionRepository {
   Future<List<ChairConfig>?> getChairConfig();
 
   Future<List<SessionMovie>?> getSessionMovie();
+
+  Future<void> updateSessionMovie({required SessionMovie sessionMovie});
 }

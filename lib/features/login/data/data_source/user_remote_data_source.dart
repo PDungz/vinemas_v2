@@ -608,6 +608,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
       onPressed(
         user: UserEntity(
+          userId: currentUser.uid,
           avatarUrl: user.avatarUrl,
           fullName: user.fullName,
           dateOfBirth: user.dateOfBirth,

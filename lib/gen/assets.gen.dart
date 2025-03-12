@@ -60,6 +60,15 @@ class $AssetsSvgGen {
   /// File path: assets/svg/calendar.svg
   String get calendar => 'assets/svg/calendar.svg';
 
+  /// File path: assets/svg/circle.svg
+  String get circle => 'assets/svg/circle.svg';
+
+  /// File path: assets/svg/circle_left.svg
+  String get circleLeft => 'assets/svg/circle_left.svg';
+
+  /// File path: assets/svg/circle_right.svg
+  String get circleRight => 'assets/svg/circle_right.svg';
+
   /// File path: assets/svg/clock.svg
   String get clock => 'assets/svg/clock.svg';
 
@@ -107,6 +116,9 @@ class $AssetsSvgGen {
         appIcon,
         back,
         calendar,
+        circle,
+        circleLeft,
+        circleRight,
         clock,
         close,
         enlarge,

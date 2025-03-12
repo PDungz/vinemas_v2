@@ -6,18 +6,18 @@ import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
-import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 
 class SeatReservationAppBarWidget extends StatelessWidget {
   const SeatReservationAppBarWidget({
     super.key,
-    required this.movie,
+    required this.movieDetail,
     required this.sessionMovie,
   });
 
-  final Movie movie;
+  final MovieDetail movieDetail;
   final SessionMovie sessionMovie;
 
   @override
@@ -30,7 +30,7 @@ class SeatReservationAppBarWidget extends StatelessWidget {
       ),
       title: Padding(
         padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
-        child: Text(movie.title,
+        child: Text(movieDetail.title,
             overflow: TextOverflow.ellipsis,
             style:
                 Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18)),

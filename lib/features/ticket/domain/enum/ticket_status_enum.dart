@@ -1,1 +1,1 @@
-enum TicketStatus { confirmed, pending, cancelled }
+enum TicketStatus { confirmed, pending, cancelled, used, expired }

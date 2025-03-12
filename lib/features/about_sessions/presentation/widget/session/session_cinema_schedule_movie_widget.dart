@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema_band.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_title_cinema_movie_widget.dart';
-import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 
 class SessionCinemaScheduleMovieWidget extends StatefulWidget {
   const SessionCinemaScheduleMovieWidget(
@@ -10,11 +10,11 @@ class SessionCinemaScheduleMovieWidget extends StatefulWidget {
       required this.cinemaBand,
       required this.selectedDate,
       required this.selectedTimeInterval,
-      required this.movie});
+      required this.movieDetail});
   final CinemaBand? cinemaBand;
   final DateTime selectedDate;
   final String selectedTimeInterval;
-  final Movie movie;
+  final MovieDetail movieDetail;
   @override
   State<SessionCinemaScheduleMovieWidget> createState() =>
       _SessionCinemaScheduleMovieWidgetState();
@@ -34,7 +34,7 @@ class _SessionCinemaScheduleMovieWidgetState
         cinemaBand: widget.cinemaBand,
         selectedDate: widget.selectedDate,
         selectedTimeInterval: widget.selectedTimeInterval,
-        movie: widget.movie,
+        movieDetail: widget.movieDetail,
       ),
     );
   }

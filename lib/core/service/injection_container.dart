@@ -41,6 +41,14 @@ import 'package:vinemas_v1/features/login/data/data_source/user_remote_data_sour
 import 'package:vinemas_v1/features/login/data/repository_impl/user_repository_impl.dart';
 import 'package:vinemas_v1/features/login/domain/repository/user_repository.dart';
 import 'package:vinemas_v1/features/login/domain/use_case/user_use_case.dart';
+import 'package:vinemas_v1/features/pay/data/data_source/payment_remote_data_source.dart';
+import 'package:vinemas_v1/features/pay/data/repository_impl/payment_repository_impl.dart';
+import 'package:vinemas_v1/features/pay/domain/repository/payment_repository.dart';
+import 'package:vinemas_v1/features/pay/domain/use_case/payment_use_case.dart';
+import 'package:vinemas_v1/features/ticket/data/data_source/ticket_remote_data_source.dart';
+import 'package:vinemas_v1/features/ticket/data/repository_impl/ticket_repository_impl.dart';
+import 'package:vinemas_v1/features/ticket/domain/repository/ticket_repository.dart';
+import 'package:vinemas_v1/features/ticket/domain/use_case/ticket_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -104,6 +112,16 @@ Future<void> initDI() async {
     () => SessionRemoteDataSourceImpl(),
   );
 
+  // * Remote Data Ticket
+  getIt.registerLazySingleton<TicketRemoteDataSource>(
+    () => TicketRemoteDataSourceImpl(),
+  );
+
+  // * Remote Data Payment
+  getIt.registerLazySingleton<PaymentRemoteDataSource>(
+    () => PaymentRemoteDataSourceImpl(),
+  );
+
   //! Repository
   //* Configuration Repository
   getIt.registerLazySingleton<ConfigurationRepository>(
@@ -156,6 +174,16 @@ Future<void> initDI() async {
     () => SessionRepositoryImpl(sessionRemoteDataSource: getIt()),
   );
 
+  // * Ticket Repository
+  getIt.registerLazySingleton<TicketRepository>(
+    () => TicketRepositoryImpl(ticketRemoteDataSource: getIt()),
+  );
+
+  // * Payment Repository
+  getIt.registerLazySingleton<PaymentRepository>(
+    () => PaymentRepositoryImpl(paymentRemoteDataSource: getIt()),
+  );
+
   //! Use case
   //* Configuration Use Case
   getIt.registerSingleton<ConfigurationUseCase>(
@@ -198,4 +226,10 @@ Future<void> initDI() async {
 
   //* Session Use Case
   getIt.registerSingleton(SessionUseCase(sessionRepository: getIt()));
+
+  //* Ticket Use Case
+  getIt.registerSingleton(TicketUseCase(ticketRepository: getIt()));
+
+  //* Payment Use Case
+  getIt.registerSingleton(PaymentUseCase(paymentRepository: getIt()));
 }

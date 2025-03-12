@@ -340,6 +340,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_remaining => 'Left';
 
   @override
+  String get keyword_book_at => 'Book at';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

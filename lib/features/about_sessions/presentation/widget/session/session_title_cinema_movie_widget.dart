@@ -11,10 +11,10 @@ import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema_band.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
-import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
@@ -24,12 +24,12 @@ class SessionTitleCinemaMovieWidget extends StatefulWidget {
     required this.cinemaBand,
     required this.selectedDate,
     required this.selectedTimeInterval,
-    required this.movie,
+    required this.movieDetail,
   });
   final CinemaBand? cinemaBand;
   final DateTime selectedDate;
   final String selectedTimeInterval;
-  final Movie movie;
+  final MovieDetail movieDetail;
 
   @override
   State<SessionTitleCinemaMovieWidget> createState() =>
@@ -62,7 +62,7 @@ class _SessionTitleCinemaMovieState
                     .toList();
                 final listSessionMovie = state.sessionMovie
                     ?.where(
-                  (element) => element.movieId == widget.movie.id,
+                  (element) => element.movieId == widget.movieDetail.id,
                 )
                     .where((element) {
                   DateTime movieStartDate = element.startDate;
@@ -189,8 +189,9 @@ class _SessionTitleCinemaMovieState
                                               ConfigRoute.seatReservationPage,
                                               arguments: [
                                                 session,
-                                                widget.movie,
+                                                widget.movieDetail,
                                                 chairConfig,
+                                                cinemas[index],
                                               ],
                                             ),
                                             child: Container(

@@ -111,8 +111,13 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
       await getIt<SessionUseCase>().getSessionMovie(
         onPressed: (
             {required sessionMovie, required message, required status}) {
+          final sessionMovieCinema = sessionMovie?.firstWhere(
+            (element) => element.sessionMovieId == event.sessionMovieId,
+          );
           emit(SessionSessionMovieState(
-              state: status, sessionMovie: sessionMovie, message: message));
+              state: status,
+              sessionMovie: sessionMovieCinema,
+              message: message));
         },
       );
     } catch (e) {

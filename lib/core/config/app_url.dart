@@ -1,6 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppUrl {
+  static String get urlPay => dotenv.env['URL_PAY'] ?? '';
+  static String get publishableKey => dotenv.env['PUBLISHABLE_KEY'] ?? '';
+  static String get secretKey => dotenv.env['SECRET_KEY'] ?? '';
+
   static String get apiHost => dotenv.env['API_HOST'] ?? '';
   static String get versionApi => dotenv.env['API_VERSION'] ?? '';
   static String get apiKey => dotenv.env['API_KEY'] ?? '';

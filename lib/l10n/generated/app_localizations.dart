@@ -761,6 +761,12 @@ abstract class AppLocalizations {
   /// **'Left'**
   String get keyword_remaining;
 
+  /// No description provided for @keyword_book_at.
+  ///
+  /// In en, this message translates to:
+  /// **'Book at'**
+  String get keyword_book_at;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

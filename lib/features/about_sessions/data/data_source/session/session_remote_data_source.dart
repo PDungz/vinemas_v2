@@ -10,6 +10,7 @@ abstract class SessionRemoteDataSource {
   Future<List<CinemaModel>> getCinema();
   Future<List<ChairConfigModel>> getChairConfig();
   Future<List<SessionMovieModel>> getSessionMovie();
+  Future<void> updateSessionMovie({required SessionMovieModel sessionMovie});
 }
 
 class SessionRemoteDataSourceImpl implements SessionRemoteDataSource {
@@ -65,10 +66,25 @@ class SessionRemoteDataSourceImpl implements SessionRemoteDataSource {
     try {
       QuerySnapshot snapshot =
           await _firestore.collection('sessionMovie').get();
-      return snapshot.docs
-          .map((doc) =>
-              SessionMovieModel.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
+      return snapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        data['sessionMovieId'] = doc.id;
+        return SessionMovieModel.fromJson(data);
+      }).toList();
+    } catch (e) {
+      printE("Error in SessionRemoteDataSourceImpl - getSessionMovie: $e");
+      throw Exception("Failed to fetch Session Movies: $e");
+    }
+  }
+
+  @override
+  Future<void> updateSessionMovie(
+      {required SessionMovieModel sessionMovie}) async {
+    try {
+      await _firestore
+          .collection('sessionMovie')
+          .doc(sessionMovie.sessionMovieId)
+          .update(sessionMovie.toJson());
     } catch (e) {
       printE("Error in SessionRemoteDataSourceImpl - getSessionMovie: $e");
       throw Exception("Failed to fetch Session Movies: $e");

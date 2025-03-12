@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema_band.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/bloc/about_bloc/about_bloc.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_cinema_schedule_movie_widget.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_cinema_widget.dart';
@@ -36,8 +38,14 @@ class _SessionsPageState extends State<SessionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SessionBloc()..add(SessionInitialEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => SessionBloc()..add(SessionInitialEvent())),
+        BlocProvider(
+            create: (context) =>
+                AboutBloc()..add(MovieDetailEvent(movieId: widget.movie.id))),
+      ],
       child: Padding(
         padding: const EdgeInsets.only(top: 104),
         child: CustomScrollView(
@@ -69,11 +77,22 @@ class _SessionsPageState extends State<SessionsPage> {
               child: SessionTitleCinemaLocationWidget(),
             ),
             SliverToBoxAdapter(
-              child: SessionCinemaScheduleMovieWidget(
-                cinemaBand: selectedCinemaBand,
-                selectedDate: selectedDate,
-                selectedTimeInterval: selectedTimeInterval,
-                movie: widget.movie,
+              child: BlocBuilder<AboutBloc, AboutState>(
+                builder: (context, state) {
+                  if (state is MovieDetailState) {
+                    final movieDetail = state.movieDetail;
+                    if (state.state == ProcessStatus.success &&
+                        movieDetail != null) {
+                      return SessionCinemaScheduleMovieWidget(
+                        cinemaBand: selectedCinemaBand,
+                        selectedDate: selectedDate,
+                        selectedTimeInterval: selectedTimeInterval,
+                        movieDetail: movieDetail,
+                      );
+                    }
+                  }
+                  return SizedBox();
+                },
               ),
             )
           ],

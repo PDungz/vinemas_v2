@@ -111,6 +111,7 @@
   "keyword_change_showtime": "Đổi suất",
   "keyword_currency_format": "VND",
   "keyword_remaining": "Còn",
+  "keyword_book_at": "Đặt lúc",
   "error_validate": "LỖI_XÁC_THỰC",
   "error_email_required": "Email không được để trống",
   "error_email_invalid": "Vui lòng nhập địa chỉ email hợp lệ",

@@ -29,7 +29,7 @@ class FormatDateTime {
 
   /// Format a DateTime to include time, e.g., 'dd/MM/yyyy HH:mm:ss'
   static String formatWithTime(DateTime date) {
-    return DateFormat('dd/MM/yyyy HH:mm:ss').format(date);
+    return DateFormat('HH:mm:ss dd/MM/yyyy').format(date);
   }
 
   /// Format a DateTime to 'HH:mm:ss'

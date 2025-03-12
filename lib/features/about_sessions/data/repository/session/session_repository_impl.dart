@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:vinemas_v1/features/about_sessions/data/data_source/session/session_remote_data_source.dart';
+import 'package:vinemas_v1/features/about_sessions/data/model/session/session_movie_model.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_config.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema_band.dart';
@@ -30,5 +31,11 @@ class SessionRepositoryImpl implements SessionRepository {
   @override
   Future<List<SessionMovie>?> getSessionMovie() async {
     return await sessionRemoteDataSource.getSessionMovie();
+  }
+
+  @override
+  Future<void> updateSessionMovie({required SessionMovie sessionMovie}) async {
+    await sessionRemoteDataSource.updateSessionMovie(
+        sessionMovie: SessionMovieModel.fromEntity(sessionMovie));
   }
 }
