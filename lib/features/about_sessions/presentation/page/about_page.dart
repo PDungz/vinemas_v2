@@ -233,6 +233,14 @@ class AboutPage extends StatelessWidget {
                               onSelectSession();
                             } else {
                               Get.dialog(CustomDialog(
+                                title: AppLocalizations.of(context)!
+                                    .keyword_notification,
+                                description: AppLocalizations.of(context)!
+                                    .keyword_notification_login_required,
+                                acceptText: AppLocalizations.of(context)!
+                                    .keyword_confirm,
+                                cancelText: AppLocalizations.of(context)!
+                                    .keyword_cancel,
                                 onAccept: () {
                                   Get.toNamed(ConfigRoute.loginPage);
                                 },

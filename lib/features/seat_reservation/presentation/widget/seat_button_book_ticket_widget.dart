@@ -97,8 +97,16 @@ class SeatButtonBookTicketWidget extends StatelessWidget {
                   onPressed: () {
                     if (currentBooked.isEmpty) {
                       Get.dialog(CustomDialog(
-                        title: 'Thông báo',
-                        description: 'Bạn cần chọn ghế trước khi mua vé',
+                        title:
+                            AppLocalizations.of(context)!.keyword_notification,
+                        description: AppLocalizations.of(context)!
+                            .keyword_notification_seat_required,
+                        acceptText:
+                            AppLocalizations.of(context)!.keyword_continue,
+                        showCancelButton: false,
+                        onAccept: () {
+                          Get.back();
+                        },
                       ));
                     } else {
                       Get.toNamed(ConfigRoute.payPage, arguments: [

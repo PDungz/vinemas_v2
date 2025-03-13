@@ -343,6 +343,21 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_book_at => 'Đặt lúc';
 
   @override
+  String get keyword_cancel => 'Hủy';
+
+  @override
+  String get keyword_confirm => 'Xác nhận';
+
+  @override
+  String get keyword_notification => 'Thông báo';
+
+  @override
+  String get keyword_notification_login_required => 'Bạn cần đăng nhập để tiếp tục.';
+
+  @override
+  String get keyword_notification_seat_required => 'Bạn cần đặt ghế trước khi mua vé.';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

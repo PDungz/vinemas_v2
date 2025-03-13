@@ -28,39 +28,24 @@ class NowPlayingLoadMoreEvent extends NowPlayingEvent {
 
 class NowPlayingSearchLoadMoreEvent extends NowPlayingEvent {
   final List<Movie> movie;
-  final String? keySearch;
-  final List<int>? genreIds;
-  final DateTime? fromDate;
-  final DateTime? toDate;
   final int page;
 
   NowPlayingSearchLoadMoreEvent({
     required this.movie,
-    this.keySearch,
-    this.genreIds,
-    this.fromDate,
-    this.toDate,
+
     required this.page,
   });
 
   @override
   List<Object?> get props =>
-      [movie, keySearch, genreIds, fromDate, toDate, page];
+      [movie, page];
 
   NowPlayingSearchLoadMoreEvent copyWith({
     List<Movie>? movie,
-    String? keySearch,
-    List<int>? genreIds,
-    DateTime? fromDate,
-    DateTime? toDate,
     int? page,
   }) {
     return NowPlayingSearchLoadMoreEvent(
       movie: movie ?? this.movie,
-      keySearch: keySearch ?? this.keySearch,
-      genreIds: genreIds ?? this.genreIds,
-      fromDate: fromDate ?? this.fromDate,
-      toDate: toDate ?? this.toDate,
       page: page ?? this.page,
     );
   }

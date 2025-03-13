@@ -343,6 +343,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_book_at => 'Book at';
 
   @override
+  String get keyword_cancel => 'Cancel';
+
+  @override
+  String get keyword_confirm => 'Confirm';
+
+  @override
+  String get keyword_notification => 'Notification';
+
+  @override
+  String get keyword_notification_login_required => 'You need to log in to continue.';
+
+  @override
+  String get keyword_notification_seat_required => 'You need to select a seat before purchasing.';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

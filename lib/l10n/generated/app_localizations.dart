@@ -767,6 +767,36 @@ abstract class AppLocalizations {
   /// **'Book at'**
   String get keyword_book_at;
 
+  /// No description provided for @keyword_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get keyword_cancel;
+
+  /// No description provided for @keyword_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get keyword_confirm;
+
+  /// No description provided for @keyword_notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get keyword_notification;
+
+  /// No description provided for @keyword_notification_login_required.
+  ///
+  /// In en, this message translates to:
+  /// **'You need to log in to continue.'**
+  String get keyword_notification_login_required;
+
+  /// No description provided for @keyword_notification_seat_required.
+  ///
+  /// In en, this message translates to:
+  /// **'You need to select a seat before purchasing.'**
+  String get keyword_notification_seat_required;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

@@ -32,6 +32,7 @@ class CustomDatePicker extends StatefulWidget {
   final TextStyle? hintStyle;
   final TextAlign textAlign;
   final bool readOnly; // Thêm thuộc tính readOnly
+  final bool useDefaultDate;
 
   const CustomDatePicker({
     super.key,
@@ -62,6 +63,7 @@ class CustomDatePicker extends StatefulWidget {
     this.textAlign = TextAlign.left,
     required this.primaryColor,
     this.readOnly = true, // Khởi tạo readOnly
+    this.useDefaultDate = true,
   });
 
   @override
@@ -72,7 +74,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   void initState() {
     // Gán ngày hiện tại vào controller khi widget được khởi tạo
-    widget.controller.text = FormatDateTime.formatToDDMMYYYY(DateTime.now());
+    if (widget.useDefaultDate) {
+      widget.controller.text = FormatDateTime.formatToDDMMYYYY(DateTime.now());
+    } else {
+      widget.controller.text = '--/--/----';
+    }
     super.initState();
   }
 
@@ -103,9 +109,13 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     if (picked != null) {
       setState(() {
-        // Format the picked date to display in the text field
         widget.controller.text = FormatDateTime.formatToDDMMYYYY(picked);
       });
+
+      // Gọi callback onChanged nếu có
+      if (widget.onChanged != null) {
+        widget.onChanged!(widget.controller.text);
+      }
     }
   }
 

@@ -10,6 +10,7 @@ import 'package:vinemas_v1/features/about_sessions/presentation/page/sessions_pa
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/about/about_sessions_app_bar_widget.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/features/login/presentation/bloc/bloc/user_bloc.dart';
+import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
 class AboutSessionsPage extends StatefulWidget {
   const AboutSessionsPage({super.key});
@@ -69,6 +70,11 @@ class _AboutSessionsPageState extends State<AboutSessionsPage> {
                     _onTabSelected(index);
                   } else {
                     Get.dialog(CustomDialog(
+                      title: AppLocalizations.of(context)!.keyword_notification,
+                      description: AppLocalizations.of(context)!
+                          .keyword_notification_login_required,
+                      acceptText: AppLocalizations.of(context)!.keyword_confirm,
+                      cancelText: AppLocalizations.of(context)!.keyword_cancel,
                       onAccept: () {
                         Get.toNamed(ConfigRoute.loginPage);
                       },
