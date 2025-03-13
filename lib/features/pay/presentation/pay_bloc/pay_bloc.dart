@@ -37,7 +37,7 @@ class PayBloc extends Bloc<PayEvent, PayState> {
           seats: event.ticketModel.seats,
           totalPrice: event.ticketModel.totalPrice,
           status: event.ticketModel.status,
-          bookedAt: event.ticketModel.bookedAt);
+          bookedTime: event.ticketModel.bookedTime);
 
       await getIt<TicketUseCase>().bookTicket(
         ticket: ticketModel,

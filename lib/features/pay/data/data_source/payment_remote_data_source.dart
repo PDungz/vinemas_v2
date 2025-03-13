@@ -136,7 +136,6 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
       QuerySnapshot snapshot = await _firestore
           .collection('payment')
           .where('userAuthId', isEqualTo: userAuthId)
-          .orderBy('createdAt', descending: true)
           .get();
 
       if (snapshot.docs.isEmpty) {

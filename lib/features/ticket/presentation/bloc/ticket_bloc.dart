@@ -12,6 +12,7 @@ part 'ticket_state.dart';
 class TicketBloc extends Bloc<TicketEvent, TicketState> {
   TicketBloc() : super(TicketInitial()) {
     on<TicketEvent>((event, emit) {});
+    on<UserMovieTicketEvent>(getUserTicketMove);
   }
 
   Future<void> getTicketMoves(
@@ -37,23 +38,30 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     try {
       emit(SeatMovieTicketState(processStatus: ProcessStatus.loading));
 
+      // Lấy danh sách payment, đảm bảo không null
       final payment = await getIt<PaymentUseCase>().getUserPaymentTicket();
-      final ticketMovies = await getIt<TicketUseCase>().getTickets();
 
-      // Lấy danh sách paymentId từ giao dịch đã thanh toán (đã lọc theo user trước đó)
-      final List<String> paidPaymentIds =
-          payment.map((p) => p?.paymentId ?? '').toList();
+      // Lấy danh sách ticket, đảm bảo không null
+      final ticketMovies = await getIt<TicketUseCase>().getTickets() ?? [];
+
+      // Lấy danh sách paymentId từ giao dịch đã thanh toán
+      final List<String> paidPaymentIds = payment
+          .where((p) =>
+              p?.paymentId != null) // Loại bỏ phần tử null hoặc paymentId null
+          .map((p) => p!.paymentId) // Lấy paymentId
+          .toList();
 
       // Lọc danh sách ticket theo paymentId và sessionMovieId
-      final List<Ticket> filteredTickets = ticketMovies!
+      final List<Ticket> filteredTickets = ticketMovies
           .where((t) =>
               paidPaymentIds.contains(t.paymentId) &&
-              t.sessionId == event.sessionMovieId)
+              t.sessionId == event.sessionMovieId) // Kiểm tra sessionId
           .toList();
 
       // Lấy danh sách ghế đã đặt
-      final List<String> bookedSeats =
-          filteredTickets.expand((t) => t.seats).toList();
+      final List<String> bookedSeats = filteredTickets
+          .expand((t) => t.seats) // Đảm bảo seats không null
+          .toList();
 
       emit(SeatMovieTicketState(
           seats: bookedSeats,

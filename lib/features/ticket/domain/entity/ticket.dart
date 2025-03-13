@@ -6,7 +6,7 @@ abstract class Ticket {
   final String sessionId;
   final List<String> seats;
   final int totalPrice;
-  final DateTime bookedAt;
+  final DateTime bookedTime;
   final TicketStatus status;
 
   Ticket({
@@ -15,7 +15,7 @@ abstract class Ticket {
     required this.sessionId,
     required this.seats,
     required this.totalPrice,
-    required this.bookedAt,
+    required this.bookedTime,
     required this.status,
   });
 }

@@ -78,6 +78,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/enlarge.svg
   String get enlarge => 'assets/svg/enlarge.svg';
 
+  /// File path: assets/svg/exclamation_circle.svg
+  String get exclamationCircle => 'assets/svg/exclamation_circle.svg';
+
   /// File path: assets/svg/language.svg
   String get language => 'assets/svg/language.svg';
 
@@ -122,6 +125,7 @@ class $AssetsSvgGen {
         clock,
         close,
         enlarge,
+        exclamationCircle,
         language,
         location,
         lock,

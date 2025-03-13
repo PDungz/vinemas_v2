@@ -160,8 +160,15 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/enlarge.svg
   String get enlarge => 'assets/icons/icon_app/enlarge.svg';
 
+  /// File path: assets/icons/icon_app/exclamation_circle.svg
+  String get exclamationCircle =>
+      'assets/icons/icon_app/exclamation_circle.svg';
+
   /// File path: assets/icons/icon_app/expand_arrow.svg
   String get expandArrow => 'assets/icons/icon_app/expand_arrow.svg';
+
+  /// File path: assets/icons/icon_app/filter_regular.svg
+  String get filterRegular => 'assets/icons/icon_app/filter_regular.svg';
 
   /// File path: assets/icons/icon_app/forward _arrow.svg
   String get forwardArrow => 'assets/icons/icon_app/forward _arrow.svg';
@@ -198,7 +205,9 @@ class $AssetsIconsIconAppGen {
         compress,
         done,
         enlarge,
+        exclamationCircle,
         expandArrow,
+        filterRegular,
         forwardArrow,
         forward,
         language,

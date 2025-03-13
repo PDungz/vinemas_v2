@@ -17,7 +17,9 @@ class CustomButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
   final Color? overlayColor;
-  final bool useMinSize; // Tùy chọn bật/tắt minSize
+  final bool useMinSize;
+  final double? width; // Thêm tham số chiều rộng
+  final double? height; // Thêm tham số chiều cao
 
   const CustomButton({
     super.key,
@@ -36,7 +38,9 @@ class CustomButton extends StatelessWidget {
     this.padding,
     this.backgroundColor,
     this.overlayColor = Colors.white,
-    this.useMinSize = true, // Mặc định bật minSize
+    this.useMinSize = true,
+    this.width, // Mặc định là null
+    this.height, // Mặc định là null
   });
 
   @override
@@ -47,49 +51,54 @@ class CustomButton extends StatelessWidget {
     final buttonTextStyle =
         textStyle ?? theme.textTheme.labelLarge?.copyWith(color: textColor);
 
-    return ElevatedButton(
-      onPressed: isLoading || isDisabled ? null : onPressed,
-      style: ElevatedButton.styleFrom(
-        elevation: isOutlined ? 0 : elevation,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          side: isOutlined
-              ? (border ?? BorderSide(color: theme.primaryColor, width: 1.2))
-              : BorderSide.none,
+    return SizedBox(
+      width: width, // Áp dụng chiều rộng
+      height: height, // Áp dụng chiều cao
+      child: ElevatedButton(
+        onPressed: isLoading || isDisabled ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          elevation: isOutlined ? 0 : elevation,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            side: isOutlined
+                ? (border ?? BorderSide(color: theme.primaryColor, width: 1.2))
+                : BorderSide.none,
+          ),
+          padding: padding ??
+              const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          minimumSize: useMinSize ? Size(width ?? 64, height ?? 36) : Size.zero,
+          backgroundColor: isOutlined
+              ? Colors.transparent
+              : (backgroundColor ?? theme.primaryColor),
+          foregroundColor: overlayColor,
         ),
-        padding: padding ?? EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-        minimumSize: useMinSize ? const Size(64, 36) : Size.zero,
-        backgroundColor: isOutlined
-            ? Colors.transparent
-            : (backgroundColor ?? theme.primaryColor),
-        foregroundColor: overlayColor,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (isLoading)
-            const SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (isLoading)
+              const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
               ),
-            ),
-          if (svgAsset != null && !isLoading)
-            SvgPicture.asset(
-              svgAsset!,
-              height: iconSize,
-              width: iconSize,
-              colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
-            ),
-          if (svgAsset != null && !isLoading) const SizedBox(width: 8),
-          if (!isLoading)
-            Text(
-              label,
-              style: buttonTextStyle,
-            ),
-        ],
+            if (svgAsset != null && !isLoading)
+              SvgPicture.asset(
+                svgAsset!,
+                height: iconSize,
+                width: iconSize,
+                colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
+              ),
+            if (svgAsset != null && !isLoading) const SizedBox(width: 8),
+            if (!isLoading)
+              Text(
+                label,
+                style: buttonTextStyle,
+              ),
+          ],
+        ),
       ),
     );
   }

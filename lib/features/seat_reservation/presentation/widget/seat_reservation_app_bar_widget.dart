@@ -36,11 +36,11 @@ class SeatReservationAppBarWidget extends StatelessWidget {
                 Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18)),
       ),
       actions: [
-        CustomIconButton(
-            elevation: 0,
-            svgPathUp: $AssetsIconsGen().iconApp.enlarge,
-            svgPathDown: $AssetsIconsGen().iconApp.compress,
-            onPressed: () {})
+        // CustomIconButton(
+        //     elevation: 0,
+        //     svgPathUp: $AssetsIconsGen().iconApp.enlarge,
+        //     svgPathDown: $AssetsIconsGen().iconApp.compress,
+        //     onPressed: () {})
       ],
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),

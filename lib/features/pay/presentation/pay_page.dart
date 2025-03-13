@@ -127,7 +127,7 @@ class _PayPageState extends State<PayPage> {
                                 seats: currentBooked,
                                 totalPrice: currentPrice,
                                 status: TicketStatus.confirmed,
-                                bookedAt: DateTime.now(),
+                                bookedTime: DateTime.now(),
                                 paymentId: '',
                               ),
                             ));

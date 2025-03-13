@@ -10,7 +10,7 @@ class TicketModel extends Ticket {
       required super.sessionId,
       required super.seats,
       required super.totalPrice,
-      required super.bookedAt,
+      required super.bookedTime,
       required super.status});
 
   TicketModel copyWith({
@@ -19,7 +19,7 @@ class TicketModel extends Ticket {
     String? sessionId,
     List<String>? seats,
     int? totalPrice,
-    DateTime? bookedAt,
+    DateTime? bookedTime,
     TicketStatus? status,
   }) {
     return TicketModel(
@@ -28,7 +28,7 @@ class TicketModel extends Ticket {
       sessionId: sessionId ?? this.sessionId,
       seats: seats ?? this.seats,
       totalPrice: totalPrice ?? this.totalPrice,
-      bookedAt: bookedAt ?? this.bookedAt,
+      bookedTime: bookedTime ?? this.bookedTime,
       status: status ?? this.status,
     );
   }
@@ -40,18 +40,18 @@ class TicketModel extends Ticket {
         sessionId: ticket.sessionId,
         seats: ticket.seats,
         totalPrice: ticket.totalPrice,
-        bookedAt: ticket.bookedAt,
+        bookedTime: ticket.bookedTime,
         status: ticket.status);
   }
 
   factory TicketModel.fromJson(Map<String, dynamic> json) {
     return TicketModel(
-      ticketId: json['ticketId'],
-      paymentId: json['paymentId'],
-      sessionId: json['sessionMovieId'],
+      ticketId: json['ticketId'] ?? '',
+      paymentId: json['paymentId'] ?? '',
+      sessionId: json['sessionMovieId'] ?? '',
       seats: List<String>.from(json['seatInfo']),
       totalPrice: json['total'],
-      bookedAt: (json['bookingTime'] as Timestamp).toDate(),
+      bookedTime: (json['bookingTime'] as Timestamp).toDate(),
       status: TicketStatusExtension.fromInt(json['status'] ?? 1),
     );
   }
