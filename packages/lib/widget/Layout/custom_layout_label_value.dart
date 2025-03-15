@@ -5,6 +5,8 @@ class CustomLayoutLabelValue extends StatelessWidget {
   final Widget widgetRight;
   final EdgeInsetsGeometry padding;
   final double labelWidth;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   const CustomLayoutLabelValue({
     super.key,
@@ -12,6 +14,8 @@ class CustomLayoutLabelValue extends StatelessWidget {
     this.labelWidth = 74,
     required this.widgetLeft,
     required this.widgetRight,
+    this.mainAxisAlignment = MainAxisAlignment.start, // Mặc định căn trái
+    this.crossAxisAlignment = CrossAxisAlignment.center, // Mặc định căn giữa
   });
 
   @override
@@ -19,14 +23,15 @@ class CustomLayoutLabelValue extends StatelessWidget {
     return Container(
       padding: padding,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
         children: [
           SizedBox(
             width: labelWidth,
             child: widgetLeft,
           ),
           const SizedBox(width: 16),
-          Text(":  "),
+          const Text(":  "),
           Expanded(
             child: widgetRight,
           ),

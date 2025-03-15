@@ -11,6 +11,10 @@ abstract class SessionRemoteDataSource {
   Future<List<ChairConfigModel>> getChairConfig();
   Future<List<SessionMovieModel>> getSessionMovie();
   Future<void> updateSessionMovie({required SessionMovieModel sessionMovie});
+  Future<CinemaModel?> getCinemaDetail({required String cinemaId});
+
+  Future<SessionMovieModel?> getSessionMovieDetail(
+      {required String sessionMovieId});
 }
 
 class SessionRemoteDataSourceImpl implements SessionRemoteDataSource {
@@ -85,6 +89,34 @@ class SessionRemoteDataSourceImpl implements SessionRemoteDataSource {
           .collection('sessionMovie')
           .doc(sessionMovie.sessionMovieId)
           .update(sessionMovie.toJson());
+    } catch (e) {
+      printE("Error in SessionRemoteDataSourceImpl - getSessionMovie: $e");
+      throw Exception("Failed to fetch Session Movies: $e");
+    }
+  }
+
+  @override
+  Future<CinemaModel?> getCinemaDetail({required String cinemaId}) async {
+    try {
+      DocumentSnapshot doc =
+          await _firestore.collection('cinemaInfo').doc(cinemaId).get();
+      CinemaModel data =
+          CinemaModel.fromJson(doc.data() as Map<String, dynamic>);
+      return data.copyWith(cinemaId: doc.id);
+    } catch (e) {
+      printE("Error in SessionRemoteDataSourceImpl - getCinema: $e");
+      throw Exception("Failed to fetch Cinemas: $e");
+    }
+  }
+
+  @override
+  Future<SessionMovieModel?> getSessionMovieDetail(
+      {required String sessionMovieId}) async {
+    try {
+      DocumentSnapshot doc =
+          await _firestore.collection('sessionMovie').doc(sessionMovieId).get();
+      return SessionMovieModel.fromJson(doc.data() as Map<String, dynamic>)
+          .copyWith(sessionMovieId: doc.id);
     } catch (e) {
       printE("Error in SessionRemoteDataSourceImpl - getSessionMovie: $e");
       throw Exception("Failed to fetch Session Movies: $e");

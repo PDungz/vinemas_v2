@@ -97,6 +97,8 @@ class SeatButtonBookTicketWidget extends StatelessWidget {
                   onPressed: () {
                     if (currentBooked.isEmpty) {
                       Get.dialog(CustomDialog(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                         title:
                             AppLocalizations.of(context)!.keyword_notification,
                         description: AppLocalizations.of(context)!

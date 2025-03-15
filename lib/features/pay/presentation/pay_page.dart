@@ -8,6 +8,7 @@ import 'package:packages/widget/Layout/custom_layout.dart';
 import 'package:packages/widget/Layout/custom_layout_label_value.dart';
 import 'package:packages/widget/Shadow/custom_shadow.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
+import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/core/config/app_url.dart';
 import 'package:vinemas_v1/core/utils/currency_formatter.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
@@ -105,7 +106,19 @@ class _PayPageState extends State<PayPage> {
                 onSelectedMethod: onSelectedMethod,
                 selectedMethod: selectedMethod,
               ).paddingSymmetric(horizontal: 12, vertical: 12),
-              BlocBuilder<PayBloc, PayState>(
+              BlocConsumer<PayBloc, PayState>(
+                listener: (context, state) {
+                  if (state is PaymentTicketState &&
+                      state.processStatus == ProcessStatus.success) {
+                    Get.toNamed(ConfigRoute.ticketDetailPage, arguments: [
+                      movieDetail,
+                      sessionMovie,
+                      currentBooked,
+                      currentPrice,
+                      cinema
+                    ]);
+                  }
+                },
                 builder: (context, state) {
                   return CustomShadow(
                     child: CustomButton(
@@ -126,7 +139,7 @@ class _PayPageState extends State<PayPage> {
                                 sessionId: sessionMovie.sessionMovieId,
                                 seats: currentBooked,
                                 totalPrice: currentPrice,
-                                status: TicketStatus.confirmed,
+                                status: TicketStatus.active,
                                 bookedTime: DateTime.now(),
                                 paymentId: '',
                               ),

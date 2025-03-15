@@ -797,6 +797,18 @@ abstract class AppLocalizations {
   /// **'You need to select a seat before purchasing.'**
   String get keyword_notification_seat_required;
 
+  /// No description provided for @keyword_movie_session_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Movie Session Code'**
+  String get keyword_movie_session_code;
+
+  /// No description provided for @keyword_change_session.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Session'**
+  String get keyword_change_session;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

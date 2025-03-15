@@ -358,6 +358,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_notification_seat_required => 'You need to select a seat before purchasing.';
 
   @override
+  String get keyword_movie_session_code => 'Movie Session Code';
+
+  @override
+  String get keyword_change_session => 'Change Session';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

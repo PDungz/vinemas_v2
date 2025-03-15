@@ -5,6 +5,7 @@ import 'package:packages/widget/App_bar/custom_app_bar.dart';
 import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
+import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
@@ -36,11 +37,12 @@ class SeatReservationAppBarWidget extends StatelessWidget {
                 Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18)),
       ),
       actions: [
-        // CustomIconButton(
-        //     elevation: 0,
-        //     svgPathUp: $AssetsIconsGen().iconApp.enlarge,
-        //     svgPathDown: $AssetsIconsGen().iconApp.compress,
-        //     onPressed: () {})
+        CustomIconButton(
+            elevation: 0,
+            svgPathUp: $AssetsIconsGen().iconApp.ticket,
+            onPressed: () {
+              Get.toNamed(ConfigRoute.ticketPage);
+            })
       ],
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),

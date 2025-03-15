@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:packages/widget/App_bar/custom_app_bar.dart';
+import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:packages/widget/Tab_label/custom_tab_label.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
+import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
@@ -28,13 +30,22 @@ class AboutSessionsAppBarWidget extends StatelessWidget {
         child: SvgPicture.asset($AssetsIconsGen().iconApp.back),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(top: 12.0, right: 12.0, bottom: 2.0),
+        padding: const EdgeInsets.only(left: 16, bottom: 2.0),
         child: Text(
           parameter.title,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
         ),
       ),
+      actions: [
+        CustomIconButton(
+            elevation: 0,
+            svgPathUp: $AssetsIconsGen().iconApp.ticket,
+            horizontalPadding: 4,
+            onPressed: () {
+              Get.toNamed(ConfigRoute.ticketPage);
+            })
+      ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(36),
         child: CustomTabLabel(

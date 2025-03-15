@@ -23,6 +23,7 @@ class ConfigRoute {
 
   // <---- Ticket ---->
   static const String ticketPage = '/ticket';
+  static const String ticketDetailPage = '/ticketDetail';
 
   // <---- Profile ---->
   static const String profilePage = '/profile';

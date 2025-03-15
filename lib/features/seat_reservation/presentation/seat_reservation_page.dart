@@ -123,10 +123,7 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
                                 SeatTypeEnum.selected.color.withOpacity(0.4);
                           }
 
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
+                          return GestureDetector(
                             onTap: () {
                               if (!sessionMovie.chairStatuses
                                   .containsKey('${row.name}$seatNumber')) {

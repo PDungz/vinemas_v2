@@ -193,7 +193,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_pay_for_ticket => 'Thanh toán vé';
 
   @override
-  String get keyword_cinema => 'Rạp chiếu phim';
+  String get keyword_cinema => 'Rạp phim';
 
   @override
   String get keyword_date => 'Ngày';
@@ -356,6 +356,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get keyword_notification_seat_required => 'Bạn cần đặt ghế trước khi mua vé.';
+
+  @override
+  String get keyword_movie_session_code => 'Mã xuất chiếu phim';
+
+  @override
+  String get keyword_change_session => 'Đổi xuất chiếu';
 
   @override
   String get error_validate => 'LỖI_XÁC_THỰC';

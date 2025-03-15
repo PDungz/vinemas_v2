@@ -22,4 +22,8 @@ class PaymentUseCase {
   Future<List<Payment?>> getUserPaymentTicket() async {
     return await paymentRepository.getUserPaymentTicket();
   }
+
+  Future<Payment?> getPayment({required String paymentId}) async {
+    return await paymentRepository.getPayment(paymentId: paymentId);
+  }
 }

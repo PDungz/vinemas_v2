@@ -125,24 +125,27 @@ class CustomDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 if (showCancelButton)
-                  CustomButton(
-                    width: 100,
-                    padding: buttonPadding ??
-                        const EdgeInsets.symmetric(horizontal: 12),
-                    label: cancelText ?? "Cancel",
-                    onPressed: onCancel ?? () => Get.back(),
-                    isOutlined: true,
+                  Expanded(
+                    child: CustomButton(
+                      padding: buttonPadding ??
+                          const EdgeInsets.symmetric(horizontal: 12),
+                      label: cancelText ?? "Cancel",
+                      onPressed: onCancel ?? () => Get.back(),
+                      isOutlined: true,
+                    ),
                   ),
+                if (showCancelButton) const SizedBox(width: 12),
                 if (showAcceptButton)
-                  CustomButton(
-                    width: 100,
-                    padding: buttonPadding ??
-                        const EdgeInsets.symmetric(horizontal: 12),
-                    label: acceptText ?? "Confirm",
-                    onPressed: onAccept ?? () {},
+                  Expanded(
+                    child: CustomButton(
+                      padding: buttonPadding ??
+                          const EdgeInsets.symmetric(horizontal: 12),
+                      label: acceptText ?? "Confirm",
+                      onPressed: onAccept ?? () {},
+                    ),
                   ),
               ],
-            ).marginOnly(bottom: 12),
+            ).marginOnly(bottom: 12, left: 16, right: 16),
           ],
         ),
       ),

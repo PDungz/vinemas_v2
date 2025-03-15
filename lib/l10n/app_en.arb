@@ -117,6 +117,8 @@
   "keyword_notification": "Notification",
   "keyword_notification_login_required": "You need to log in to continue.",
   "keyword_notification_seat_required": "You need to select a seat before purchasing.",
+  "keyword_movie_session_code": "Movie Session Code",
+  "keyword_change_session": "Change Session",
   "error_validate": "ERROR_validate",
   "error_email_required": "Email cannot be empty",
   "error_email_invalid": "Please enter a valid email address",

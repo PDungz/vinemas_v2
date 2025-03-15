@@ -105,4 +105,14 @@ class SessionUseCase {
   Future<void> updateSessionMovie({required SessionMovie sessionMovie}) async {
     await sessionRepository.updateSessionMovie(sessionMovie: sessionMovie);
   }
+
+  Future<Cinema?> getCinemaDetail({required String cinemaId}) async {
+    return await sessionRepository.getCinemaDetail(cinemaId: cinemaId);
+  }
+
+  Future<SessionMovie?> getSessionMovieDetail(
+      {required String sessionMovieId}) async {
+    return await sessionRepository.getSessionMovieDetail(
+        sessionMovieId: sessionMovieId);
+  }
 }

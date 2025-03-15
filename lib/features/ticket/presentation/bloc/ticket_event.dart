@@ -8,6 +8,24 @@ class TicketMovieEvent extends TicketEvent {
   List<Object?> get props => [];
 }
 
+class TicketMovieDetailEvent extends TicketEvent {
+  final Ticket ticket;
+
+  TicketMovieDetailEvent({
+    required this.ticket,
+  });
+  @override
+  List<Object?> get props => [ticket];
+
+  TicketMovieDetailEvent copyWith({
+    Ticket? ticket,
+  }) {
+    return TicketMovieDetailEvent(
+      ticket: ticket ?? this.ticket,
+    );
+  }
+}
+
 class UserMovieTicketEvent extends TicketEvent {
   final String sessionMovieId;
   UserMovieTicketEvent({

@@ -15,7 +15,7 @@ abstract class PaymentRemoteDataSource {
     required PayMethodEnum paymentMethod,
   });
 
-  Future<List<PaymentModel?>> getPaymentTickets();
+  Future<PaymentModel?> getPayment({required String paymentId});
 
   Future<List<PaymentModel?>> getUserPaymentTicket();
 }
@@ -108,16 +108,16 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
   }
 
   @override
-  Future<List<PaymentModel>> getPaymentTickets() async {
+  Future<PaymentModel?> getPayment({required String paymentId}) async {
     try {
-      QuerySnapshot snapshot = await _firestore.collection('payment').get();
+      DocumentSnapshot snapshot =
+          await _firestore.collection('payment').doc(paymentId).get();
 
-      List<PaymentModel> payments = snapshot.docs.map((doc) {
-        return PaymentModel.fromJson(doc.data() as Map<String, dynamic>);
-      }).toList();
+      PaymentModel payment =
+          PaymentModel.fromJson(snapshot.data() as Map<String, dynamic>);
 
-      printS("Retrieved ${payments.length} payment records from Firestore.");
-      return payments;
+      printS("Retrieved $payment payment records from Firestore.");
+      return payment;
     } catch (e) {
       printE("Error fetching payment tickets: $e");
       throw Exception("Failed to fetch payment tickets.");

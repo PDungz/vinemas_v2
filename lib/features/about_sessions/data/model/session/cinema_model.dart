@@ -15,7 +15,7 @@ class CinemaModel extends Cinema {
   factory CinemaModel.fromJson(Map<String, dynamic> json) {
     final dateFormat = DateFormat.Hm();
     return CinemaModel(
-      cinemaId: json['cinemaId'],
+      cinemaId: json['cinemaId'] ?? '',
       nameCinema: json['nameCinema'],
       cinemaBandId: json['cinemaBandId'],
       address: json['address'] ?? '',
@@ -38,5 +38,27 @@ class CinemaModel extends Cinema {
       'description': description,
       'chairConfigId': chairConfigId,
     };
+  }
+
+  CinemaModel copyWith({
+    String? cinemaId,
+    String? nameCinema,
+    String? cinemaBandId,
+    String? address,
+    DateTime? openDate,
+    DateTime? closeDate,
+    String? description,
+    String? chairConfigId,
+  }) {
+    return CinemaModel(
+      cinemaId: cinemaId ?? this.cinemaId,
+      nameCinema: nameCinema ?? this.nameCinema,
+      cinemaBandId: cinemaBandId ?? this.cinemaBandId,
+      address: address ?? this.address,
+      openDate: openDate ?? this.openDate,
+      closeDate: closeDate ?? this.closeDate,
+      description: description ?? this.description,
+      chairConfigId: chairConfigId ?? this.chairConfigId,
+    );
   }
 }

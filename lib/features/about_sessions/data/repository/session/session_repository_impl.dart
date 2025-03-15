@@ -38,4 +38,16 @@ class SessionRepositoryImpl implements SessionRepository {
     await sessionRemoteDataSource.updateSessionMovie(
         sessionMovie: SessionMovieModel.fromEntity(sessionMovie));
   }
+
+  @override
+  Future<Cinema?> getCinemaDetail({required String cinemaId}) async {
+    return await sessionRemoteDataSource.getCinemaDetail(cinemaId: cinemaId);
+  }
+
+  @override
+  Future<SessionMovie?> getSessionMovieDetail(
+      {required String sessionMovieId}) async {
+    return await sessionRemoteDataSource.getSessionMovieDetail(
+        sessionMovieId: sessionMovieId);
+  }
 }

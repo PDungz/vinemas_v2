@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:vinemas_v1/core/common/enum/seat_enum.dart';
 import 'package:vinemas_v1/core/common/extension/seat_extenstion.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 
@@ -78,5 +79,28 @@ class SessionMovieModel extends SessionMovie {
         (key, value) => MapEntry(key, value.value),
       ),
     };
+  }
+
+  @override
+  SessionMovieModel copyWith({
+    String? sessionMovieId,
+    int? movieId,
+    String? cinemaId,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? description,
+    Map<String, num>? seatPrices,
+    Map<String, ChairStatus>? chairStatuses,
+  }) {
+    return SessionMovieModel(
+      sessionMovieId: sessionMovieId ?? this.sessionMovieId,
+      movieId: movieId ?? this.movieId,
+      cinemaId: cinemaId ?? this.cinemaId,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      description: description ?? this.description,
+      seatPrices: seatPrices ?? this.seatPrices,
+      chairStatuses: chairStatuses ?? this.chairStatuses,
+    );
   }
 }

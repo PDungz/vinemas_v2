@@ -10,6 +10,7 @@ import 'package:vinemas_v1/features/profile/presentation/profile_page.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/about_sessions_page.dart';
 import 'package:vinemas_v1/features/seat_reservation/presentation/seat_reservation_page.dart';
 import 'package:vinemas_v1/features/splash/presentation/splash_page.dart';
+import 'package:vinemas_v1/features/ticket/presentation/page/ticket_detail_page.dart';
 import 'package:vinemas_v1/features/ticket/presentation/ticket_page.dart';
 
 class AppGenerateRouter {
@@ -30,6 +31,7 @@ class AppGenerateRouter {
         page: () => SeatReservationPage()),
     GetPage(name: ConfigRoute.payPage, page: () => PayPage()),
     GetPage(name: ConfigRoute.ticketPage, page: () => TicketPage()),
+    GetPage(name: ConfigRoute.ticketDetailPage, page: () => TicketDetailPage()),
     GetPage(name: ConfigRoute.profilePage, page: () => ProfilePage()),
   ];
 }

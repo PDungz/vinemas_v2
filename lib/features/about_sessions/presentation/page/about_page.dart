@@ -17,6 +17,7 @@ import 'package:vinemas_v1/features/about_sessions/presentation/widget/about/abo
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/about/about_movie_rating.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/features/login/presentation/bloc/bloc/user_bloc.dart';
+import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -235,6 +236,8 @@ class AboutPage extends StatelessWidget {
                               Get.dialog(CustomDialog(
                                 title: AppLocalizations.of(context)!
                                     .keyword_notification,
+                                svgIcon:
+                                    $AssetsIconsGen().iconApp.exclamationCircle,
                                 description: AppLocalizations.of(context)!
                                     .keyword_notification_login_required,
                                 acceptText: AppLocalizations.of(context)!

@@ -43,6 +43,9 @@ class $AssetsImagesGen {
   /// Directory path: assets/images/flag
   $AssetsImagesFlagGen get flag => const $AssetsImagesFlagGen();
 
+  /// Directory path: assets/images/logo_app
+  $AssetsImagesLogoAppGen get logoApp => const $AssetsImagesLogoAppGen();
+
   /// Directory path: assets/images/social_network
   $AssetsImagesSocialNetworkGen get socialNetwork =>
       const $AssetsImagesSocialNetworkGen();
@@ -192,6 +195,10 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/enlarge.svg
   String get enlarge => 'assets/icons/icon_app/enlarge.svg';
 
+  /// File path: assets/icons/icon_app/exclamation_circle.svg
+  String get exclamationCircle =>
+      'assets/icons/icon_app/exclamation_circle.svg';
+
   /// File path: assets/icons/icon_app/expand_arrow.svg
   String get expandArrow => 'assets/icons/icon_app/expand_arrow.svg';
 
@@ -244,6 +251,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/sort.svg
   String get sort => 'assets/icons/icon_app/sort.svg';
 
+  /// File path: assets/icons/icon_app/ticket.svg
+  String get ticket => 'assets/icons/icon_app/ticket.svg';
+
   /// List of all assets
   List<String> get values => [
         add,
@@ -258,6 +268,7 @@ class $AssetsIconsIconAppGen {
         compress,
         done,
         enlarge,
+        exclamationCircle,
         expandArrow,
         eye,
         eyeSlash,
@@ -274,7 +285,8 @@ class $AssetsIconsIconAppGen {
         person,
         play,
         search,
-        sort
+        sort,
+        ticket
       ];
 }
 
@@ -321,6 +333,17 @@ class $AssetsImagesFlagGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [england, vietNam];
+}
+
+class $AssetsImagesLogoAppGen {
+  const $AssetsImagesLogoAppGen();
+
+  /// File path: assets/images/logo_app/app_icon.png
+  AssetGenImage get appIcon =>
+      const AssetGenImage('assets/images/logo_app/app_icon.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [appIcon];
 }
 
 class $AssetsImagesSocialNetworkGen {

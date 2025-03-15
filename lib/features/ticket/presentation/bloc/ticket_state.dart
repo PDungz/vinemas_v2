@@ -35,6 +35,46 @@ class TicketMovieState extends TicketState {
   }
 }
 
+class MovieTicketDetailState extends TicketState {
+  final ProcessStatus processStatus;
+  final Cinema? cinema;
+  final SessionMovie? sessionMovie;
+  final Payment? payment;
+  final MovieDetail? movieDetail;
+  final String? message;
+
+  MovieTicketDetailState({
+    required this.processStatus,
+    this.cinema,
+    this.sessionMovie,
+    this.payment,
+    this.movieDetail,
+    this.message,
+  });
+
+  @override
+  List<Object?> get props =>
+      [processStatus, cinema, sessionMovie, payment, movieDetail, message];
+
+  MovieTicketDetailState copyWith({
+    ProcessStatus? processStatus,
+    Cinema? cinema,
+    SessionMovie? sessionMovie,
+    Payment? payment,
+    MovieDetail? movieDetail,
+    String? message,
+  }) {
+    return MovieTicketDetailState(
+      processStatus: processStatus ?? this.processStatus,
+      cinema: cinema ?? this.cinema,
+      sessionMovie: sessionMovie ?? this.sessionMovie,
+      payment: payment ?? this.payment,
+      movieDetail: movieDetail ?? this.movieDetail,
+      message: message ?? this.message,
+    );
+  }
+}
+
 class SeatMovieTicketState extends TicketState {
   final ProcessStatus processStatus;
   final List<String>? seats;
