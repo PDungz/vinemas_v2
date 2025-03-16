@@ -50,4 +50,10 @@ class SessionRepositoryImpl implements SessionRepository {
     return await sessionRemoteDataSource.getSessionMovieDetail(
         sessionMovieId: sessionMovieId);
   }
+
+  @override
+  Future<void> createSessionMovie({required SessionMovie sessionMovie}) async {
+    await sessionRemoteDataSource.createSessionMovie(
+        sessionMovie: sessionMovie);
+  }
 }

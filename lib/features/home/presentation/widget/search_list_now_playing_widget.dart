@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:packages/widget/Layout/custom_layout_label_value.dart';
 import 'package:packages/widget/Text/custom_text.dart';
@@ -10,6 +11,7 @@ import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/core/global/api/configuration/domain/entity/configuration.dart';
 import 'package:vinemas_v1/core/global/api/genres/domain/entity/genres.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
@@ -32,8 +34,14 @@ class SearchListNowPlayingWidget extends StatelessWidget {
         final listGenreName =
             genres.convertGenreIdsToNames(nowPlaying[index].genreIds);
         return GestureDetector(
-          onTap: () => Get.toNamed(ConfigRoute.aboutSessionsPage,
-              arguments: nowPlaying[index]),
+          onTap: () {
+            context
+                .read<SessionBloc>()
+                .add(CreatSessionCinemaEvent(movie: nowPlaying[index]));
+
+            Get.toNamed(ConfigRoute.aboutSessionsPage,
+                arguments: nowPlaying[index]);
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

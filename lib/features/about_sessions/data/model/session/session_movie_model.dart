@@ -68,7 +68,6 @@ class SessionMovieModel extends SessionMovie {
 
   Map<String, dynamic> toJson() {
     return {
-      'sessionMovieId': sessionMovieId,
       'movieId': movieId,
       'cinemaId': cinemaId,
       'startDate': Timestamp.fromDate(startDate),

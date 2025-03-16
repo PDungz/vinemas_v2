@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/config/app_router.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 
 class MovieItemWidget extends StatelessWidget {
@@ -24,7 +26,10 @@ class MovieItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        context.read<SessionBloc>().add(CreatSessionCinemaEvent(movie: movie));
+        //
         Get.toNamed(ConfigRoute.aboutSessionsPage, arguments: movie);
+        //
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

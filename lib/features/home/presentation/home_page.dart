@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:packages/widget/Layout/custom_layout.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/bloc/upcoming_bloc/upcoming_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/widget/home_app_bar_widget.dart';
@@ -23,6 +24,9 @@ class HomePage extends StatelessWidget {
         ),
         BlocProvider<UserBloc>(
           create: (context) => UserBloc()..add(isUserLoggedInEvent()),
+        ),
+        BlocProvider<SessionBloc>(
+          create: (context) => SessionBloc(),
         ),
       ],
       child: CustomLayout(

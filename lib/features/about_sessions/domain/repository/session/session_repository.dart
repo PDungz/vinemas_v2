@@ -17,4 +17,6 @@ abstract class SessionRepository {
   Future<Cinema?> getCinemaDetail({required String cinemaId});
 
   Future<SessionMovie?> getSessionMovieDetail({required String sessionMovieId});
+
+  Future<void> createSessionMovie({required SessionMovie sessionMovie});
 }

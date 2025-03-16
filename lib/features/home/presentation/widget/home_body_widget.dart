@@ -4,6 +4,7 @@ import 'package:packages/Core/config/app_color.dart';
 import 'package:packages/widget/Bottom_sheet/custom_bottom_sheet.dart';
 import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/bloc/now_playing_bloc/now_playing_bloc.dart';
 import 'package:vinemas_v1/features/home/presentation/page/search_now_playing_page.dart';
 import 'package:vinemas_v1/features/home/presentation/widget/now_playing_widget.dart';
@@ -106,10 +107,16 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
                       onPressed: () {
                         CustomBottomSheet.show(context,
                             minHeight: 0.8,
-                            body: BlocProvider<NowPlayingBloc>(
-                              create: (context) => NowPlayingBloc()
-                                ..add(NowPlayingSearchLoadMoreEvent(
-                                    movie: [], page: 1)),
+                            body: MultiBlocProvider(
+                              providers: [
+                                BlocProvider<NowPlayingBloc>(
+                                    create: (context) => NowPlayingBloc()
+                                      ..add(NowPlayingSearchLoadMoreEvent(
+                                          movie: [], page: 1))),
+                                BlocProvider<SessionBloc>(
+                                  create: (context) => SessionBloc(),
+                                ),
+                              ],
                               child: SizedBox(
                                   width: double.infinity,
                                   child: SearchNowPlayingPage()),

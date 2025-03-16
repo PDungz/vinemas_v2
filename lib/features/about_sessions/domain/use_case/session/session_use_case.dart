@@ -115,4 +115,8 @@ class SessionUseCase {
     return await sessionRepository.getSessionMovieDetail(
         sessionMovieId: sessionMovieId);
   }
+
+  Future<void> createSessionMovie({required SessionMovie sessionMovie}) async {
+    await sessionRepository.createSessionMovie(sessionMovie: sessionMovie);
+  }
 }

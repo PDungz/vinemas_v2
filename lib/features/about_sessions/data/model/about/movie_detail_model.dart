@@ -35,38 +35,46 @@ class MovieDetailModel extends MovieDetail {
 
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) {
     return MovieDetailModel(
-      adult: json['adult'],
-      backdropPath: json['backdrop_path'],
-      budget: json['budget'],
-      genres:
-          (json['genres'] as List).map((e) => GenresModel.fromJson(e)).toList(),
-      homepage: json['homepage'],
-      id: json['id'],
-      imdbId: json['imdb_id'],
-      originCountry: List<String>.from(json['origin_country']),
-      originalLanguage: json['original_language'],
-      originalTitle: json['original_title'],
-      overview: json['overview'],
-      popularity: json['popularity'].toDouble(),
-      posterPath: json['poster_path'],
-      productionCompanies: (json['production_companies'] as List)
-          .map((e) => ProductionCompanyModel.fromJson(e))
-          .toList(),
-      productionCountries: (json['production_countries'] as List)
-          .map((e) => ProductionCountryModel.fromJson(e))
-          .toList(),
-      releaseDate: json['release_date'],
-      revenue: json['revenue'],
-      runtime: json['runtime'],
-      spokenLanguages: (json['spoken_languages'] as List)
-          .map((e) => SpokenLanguageModel.fromJson(e))
-          .toList(),
-      status: json['status'],
-      tagline: json['tagline'],
-      title: json['title'],
-      video: json['video'],
-      voteAverage: json['vote_average'].toDouble(),
-      voteCount: json['vote_count'],
+      adult: json['adult'] ?? false,
+      backdropPath: json['backdrop_path'] ?? '',
+      budget: json['budget'] ?? 0,
+      genres: (json['genres'] as List?)
+              ?.map((e) => GenresModel.fromJson(e))
+              .toList() ??
+          [],
+      homepage: json['homepage'] ?? '',
+      id: json['id'] ?? 0,
+      imdbId: json['imdb_id'] ?? '',
+      originCountry: (json['origin_country'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      originalLanguage: json['original_language'] ?? '',
+      originalTitle: json['original_title'] ?? '',
+      overview: json['overview'] ?? '',
+      popularity: (json['popularity'] ?? 0.0).toDouble(),
+      posterPath: json['poster_path'] ?? '',
+      productionCompanies: (json['production_companies'] as List?)
+              ?.map((e) => ProductionCompanyModel.fromJson(e))
+              .toList() ??
+          [],
+      productionCountries: (json['production_countries'] as List?)
+              ?.map((e) => ProductionCountryModel.fromJson(e))
+              .toList() ??
+          [],
+      releaseDate: json['release_date'] ?? '',
+      revenue: json['revenue'] ?? 0,
+      runtime: json['runtime'] ?? 0,
+      spokenLanguages: (json['spoken_languages'] as List?)
+              ?.map((e) => SpokenLanguageModel.fromJson(e))
+              .toList() ??
+          [],
+      status: json['status'] ?? '',
+      tagline: json['tagline'] ?? '',
+      title: json['title'] ?? '',
+      video: json['video'] ?? false,
+      voteAverage: (json['vote_average'] ?? 0.0).toDouble(),
+      voteCount: json['vote_count'] ?? 0,
     );
   }
 }

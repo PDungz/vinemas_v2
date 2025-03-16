@@ -6,7 +6,6 @@ import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:packages/widget/Divider/custom_divider.dart';
 import 'package:packages/widget/Layout/custom_layout_horizontal.dart';
 import 'package:packages/widget/Layout/custom_layout_vertical.dart';
-import 'package:packages/widget/Shimmer/custom_shimmer.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/config/app_router.dart';
@@ -15,6 +14,7 @@ import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_det
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema_band.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_cinema_schedule_movie_loading_widget.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
@@ -125,31 +125,34 @@ class _SessionTitleCinemaMovieState
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               leftWidget: CustomLayoutHorizontal(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  leftWidget: Container(
-                                    height: 36,
-                                    width: 36,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                            color: AppColor.buttonLinerOneColor,
-                                            width: 1.2),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            widget.cinemaBand?.imageUrl ?? '',
-                                          ),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
-                                  rightWidget: CustomLayoutVertical(
-                                      topWidget: Text(cinemas[index].nameCinema,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall),
-                                      bottomWidget: Text(cinemas[index].address,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall))),
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                leftWidget: Container(
+                                  height: 36,
+                                  width: 36,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: AppColor.buttonLinerOneColor,
+                                          width: 1.2),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          widget.cinemaBand?.imageUrl ?? '',
+                                        ),
+                                        fit: BoxFit.cover,
+                                      )),
+                                ),
+                                rightWidget: CustomLayoutVertical(
+                                  topWidget: Text(cinemas[index].nameCinema,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall),
+                                  bottomWidget: Text('Bạn ở gần đây',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall),
+                                ),
+                              ),
                               rightWidget: Padding(
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: CustomIconButton(
@@ -178,76 +181,113 @@ class _SessionTitleCinemaMovieState
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
-                                child: Wrap(
-                                  alignment: WrapAlignment.start, // Căn trái
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ...sessionMovieCinema.map(
-                                      (session) {
-                                        return IntrinsicWidth(
-                                          child: InkWell(
-                                            onTap: () => Get.toNamed(
-                                              ConfigRoute.seatReservationPage,
-                                              arguments: [
-                                                session,
-                                                widget.movieDetail,
-                                                chairConfig,
-                                                cinemas[index],
-                                              ],
-                                            ),
-                                            child: Container(
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 8, vertical: 8),
-                                              padding: EdgeInsets.all(1),
-                                              decoration: BoxDecoration(
-                                                color: AppColor
-                                                    .buttonLinerOneColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Container(
-                                                    padding: EdgeInsets.all(4),
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          AppColor.primaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(8),
-                                                        topRight:
-                                                            Radius.circular(8),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      "${FormatDateTime.formatToHourMinute(session.startDate)} - ${FormatDateTime.formatToHourMinute(session.endDate)}",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodySmall
-                                                          ?.copyWith(
-                                                            color: AppColor
-                                                                .buttonLinerOneColor,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(cinemas[index].address,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall),
+                                        ),
+                                        GestureDetector(
+                                          child: Text('Tìm Đường',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(
+                                                      color: AppColor
+                                                          .buttonLinerOneColor)),
+                                        )
+                                      ],
+                                    ).marginSymmetric(horizontal: 8),
+                                    Wrap(
+                                      alignment:
+                                          WrapAlignment.start, // Căn trái
+                                      children: [
+                                        ...sessionMovieCinema.map(
+                                          (session) {
+                                            return IntrinsicWidth(
+                                              child: GestureDetector(
+                                                onTap: () => Get.toNamed(
+                                                  ConfigRoute
+                                                      .seatReservationPage,
+                                                  arguments: [
+                                                    session,
+                                                    widget.movieDetail,
+                                                    chairConfig,
+                                                    cinemas[index],
+                                                  ],
+                                                ),
+                                                child: Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 8),
+                                                  padding: EdgeInsets.all(1),
+                                                  decoration: BoxDecoration(
+                                                    color: AppColor
+                                                        .buttonLinerOneColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            EdgeInsets.all(4),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: AppColor
+                                                              .primaryColor,
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    8),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    8),
                                                           ),
-                                                    ),
+                                                        ),
+                                                        child: Text(
+                                                          "${FormatDateTime.formatToHourMinute(session.startDate)} - ${FormatDateTime.formatToHourMinute(session.endDate)}",
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodySmall
+                                                                  ?.copyWith(
+                                                                    color: AppColor
+                                                                        .buttonLinerOneColor,
+                                                                  ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Text(
+                                                          '${AppLocalizations.of(context)!.keyword_remaining} ${chairConfig.rowCount * chairConfig.seatsPerRow - session.chairStatuses.length}/${chairConfig.rowCount * chairConfig.seatsPerRow}'
+                                                              .toString(),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodySmall,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      '${AppLocalizations.of(context)!.keyword_remaining} ${chairConfig.rowCount * chairConfig.seatsPerRow - session.chairStatuses.length}/${chairConfig.rowCount * chairConfig.seatsPerRow}'
-                                                          .toString(),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodySmall,
-                                                    ),
-                                                  ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    )
+                                            );
+                                          },
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -286,66 +326,6 @@ class _SessionTitleCinemaMovieState
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class SessionCinemaScheduleMovieLoadingWidget extends StatelessWidget {
-  const SessionCinemaScheduleMovieLoadingWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: 5,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.only(top: 20, left: 16, right: 16),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomShimmer(
-              height: 48,
-              width: 48,
-              borderRadius: 8,
-              baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-              highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomShimmer(
-                    height: 16,
-                    width: 160,
-                    borderRadius: 8,
-                    baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                    highlightColor:
-                        AppColor.buttonLinerOneColor.withOpacity(0.6),
-                  ),
-                  SizedBox(height: 8),
-                  CustomShimmer(
-                    height: 16,
-                    width: 80,
-                    borderRadius: 8,
-                    baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-                    highlightColor:
-                        AppColor.buttonLinerOneColor.withOpacity(0.6),
-                  ),
-                ],
-              ),
-            ),
-            CustomShimmer(
-              height: 32,
-              width: 32,
-              borderRadius: 8,
-              baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-              highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-            ),
-          ],
-        ),
       ),
     );
   }

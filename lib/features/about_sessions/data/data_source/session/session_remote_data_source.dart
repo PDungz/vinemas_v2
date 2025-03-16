@@ -4,6 +4,7 @@ import 'package:vinemas_v1/features/about_sessions/data/model/session/chair_conf
 import 'package:vinemas_v1/features/about_sessions/data/model/session/cinema_band_model.dart';
 import 'package:vinemas_v1/features/about_sessions/data/model/session/cinema_model.dart';
 import 'package:vinemas_v1/features/about_sessions/data/model/session/session_movie_model.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 
 abstract class SessionRemoteDataSource {
   Future<List<CinemaBandModel>> getCinemaBand();
@@ -15,6 +16,8 @@ abstract class SessionRemoteDataSource {
 
   Future<SessionMovieModel?> getSessionMovieDetail(
       {required String sessionMovieId});
+
+  Future<void> createSessionMovie({required SessionMovie sessionMovie});
 }
 
 class SessionRemoteDataSourceImpl implements SessionRemoteDataSource {
@@ -117,6 +120,18 @@ class SessionRemoteDataSourceImpl implements SessionRemoteDataSource {
           await _firestore.collection('sessionMovie').doc(sessionMovieId).get();
       return SessionMovieModel.fromJson(doc.data() as Map<String, dynamic>)
           .copyWith(sessionMovieId: doc.id);
+    } catch (e) {
+      printE("Error in SessionRemoteDataSourceImpl - getSessionMovie: $e");
+      throw Exception("Failed to fetch Session Movies: $e");
+    }
+  }
+
+  @override
+  Future<void> createSessionMovie({required SessionMovie sessionMovie}) async {
+    try {
+      await _firestore
+          .collection('sessionMovie')
+          .add(SessionMovieModel.fromEntity(sessionMovie).toJson());
     } catch (e) {
       printE("Error in SessionRemoteDataSourceImpl - getSessionMovie: $e");
       throw Exception("Failed to fetch Session Movies: $e");

@@ -18,6 +18,24 @@ class SessionCinemaEvent extends SessionEvent {
   List<Object?> get props => [];
 }
 
+class CreatSessionCinemaEvent extends SessionEvent {
+  final Movie movie;
+  CreatSessionCinemaEvent({
+    required this.movie,
+  });
+
+  @override
+  List<Object?> get props => [movie];
+
+  CreatSessionCinemaEvent copyWith({
+    Movie? movie,
+  }) {
+    return CreatSessionCinemaEvent(
+      movie: movie ?? this.movie,
+    );
+  }
+}
+
 class SessionSessionMovieEvent extends SessionEvent {
   final String sessionMovieId;
   SessionSessionMovieEvent({
