@@ -12,6 +12,7 @@ import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/core/utils/currency_formatter.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_config.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/seat_reservation/presentation/widget/seat_reservation_list_title_seat_widget.dart';
@@ -24,7 +25,7 @@ class SeatButtonBookTicketWidget extends StatelessWidget {
     required this.sessionMovie,
     required this.currentPrice,
     required this.currentBooked,
-    required this.cinema,
+    required this.cinema, required this.chairConfig,
   });
 
   final MovieDetail movieDetail;
@@ -32,6 +33,7 @@ class SeatButtonBookTicketWidget extends StatelessWidget {
   final int currentPrice;
   final List<String> currentBooked;
   final Cinema cinema;
+  final ChairConfig chairConfig;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +118,8 @@ class SeatButtonBookTicketWidget extends StatelessWidget {
                         sessionMovie,
                         currentBooked,
                         currentPrice,
-                        cinema
+                        cinema,
+                        chairConfig,
                       ]);
                     }
                   },

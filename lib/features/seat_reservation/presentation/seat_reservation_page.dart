@@ -13,6 +13,7 @@ import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
 import 'package:vinemas_v1/features/seat_reservation/presentation/widget/seat_button_book_ticket_widget.dart';
+import 'package:vinemas_v1/features/seat_reservation/presentation/widget/seat_loading_widget.dart';
 import 'package:vinemas_v1/features/seat_reservation/presentation/widget/seat_reservation_app_bar_widget.dart';
 import 'package:vinemas_v1/features/ticket/presentation/bloc/ticket_bloc.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
@@ -50,6 +51,38 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
     }
   }
 
+  void _toggleSeatSelection(SeatRowEnum row, int seatNumber) {
+    String seatKey = '${row.name}$seatNumber';
+
+    if (!sessionMovie.chairStatuses.containsKey(seatKey)) {
+      setState(() {
+        if (currentBooked.contains(seatKey)) {
+          currentBooked.remove(seatKey);
+          _updatePrice(row, isAdding: false);
+        } else {
+          currentBooked.add(seatKey);
+          _updatePrice(row, isAdding: true);
+        }
+      });
+    }
+  }
+
+  void _updatePrice(SeatRowEnum row, {required bool isAdding}) {
+    int priceChange = 0;
+
+    if (chairConfig.chairTypes['regular']!.contains(row.name)) {
+      priceChange = sessionMovie.seatPrices['regular'] as int;
+    } else if (chairConfig.chairTypes['vip']!.contains(row.name)) {
+      priceChange = sessionMovie.seatPrices['vip'] as int;
+    } else if (chairConfig.chairTypes['sweetBox']!.contains(row.name)) {
+      priceChange = sessionMovie.seatPrices['sweetBox'] as int;
+    }
+
+    setState(() {
+      currentPrice += isAdding ? priceChange : -priceChange;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomLayout(
@@ -70,29 +103,28 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
                   sessionMovieId: sessionMovie.sessionMovieId)),
           )
         ],
-        child: BlocBuilder<TicketBloc, TicketState>(
-          builder: (context, stateTicket) {
-            if (stateTicket is SeatMovieTicketState &&
-                stateTicket.processStatus == ProcessStatus.success) {
-              final bookedSeats = stateTicket.seats ?? [];
-
-              return Column(
-                children: [
-                  Column(
-                    children: [
-                      SvgPicture.asset($AssetsSvgGen().screen),
-                      Text(AppLocalizations.of(context)!.keyword_screen,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(color: AppColor.primaryIconColor)),
-                    ],
-                  ).paddingSymmetric(vertical: 16),
-                  Expanded(
-                    child: InteractiveViewer(
-                      minScale: 0.5,
-                      maxScale: 3.0,
-                      child: GridView.builder(
+        child: Column(
+          children: [
+            Column(
+              children: [
+                SvgPicture.asset($AssetsSvgGen().screen),
+                Text(AppLocalizations.of(context)!.keyword_screen,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(color: AppColor.primaryIconColor)),
+              ],
+            ).paddingSymmetric(vertical: 16),
+            Expanded(
+              child: InteractiveViewer(
+                minScale: 0.5,
+                maxScale: 3.0,
+                child: BlocBuilder<TicketBloc, TicketState>(
+                  builder: (context, stateTicket) {
+                    if (stateTicket is SeatMovieTicketState &&
+                        stateTicket.processStatus == ProcessStatus.success) {
+                      final bookedSeats = stateTicket.seats ?? [];
+                      return GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: chairConfig.seatsPerRow as int,
                         ),
@@ -124,60 +156,7 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
                           }
 
                           return GestureDetector(
-                            onTap: () {
-                              if (!sessionMovie.chairStatuses
-                                  .containsKey('${row.name}$seatNumber')) {
-                                setState(() {
-                                  if (currentBooked
-                                      .contains('${row.name}$seatNumber')) {
-                                    currentBooked
-                                        .remove('${row.name}$seatNumber');
-                                    if (chairConfig.chairTypes['regular']!
-                                        .contains(row.name)) {
-                                      setState(() {
-                                        currentPrice -= sessionMovie
-                                            .seatPrices['regular'] as int;
-                                      });
-                                    } else if (chairConfig.chairTypes['vip']!
-                                        .contains(row.name)) {
-                                      setState(() {
-                                        currentPrice -= sessionMovie
-                                            .seatPrices['vip'] as int;
-                                      });
-                                    } else if (chairConfig
-                                        .chairTypes['sweetBox']!
-                                        .contains(row.name)) {
-                                      setState(() {
-                                        currentPrice -= sessionMovie
-                                            .seatPrices['sweetBox'] as int;
-                                      });
-                                    }
-                                  } else {
-                                    currentBooked.add('${row.name}$seatNumber');
-                                    if (chairConfig.chairTypes['regular']!
-                                        .contains(row.name)) {
-                                      setState(() {
-                                        currentPrice += sessionMovie
-                                            .seatPrices['regular'] as int;
-                                      });
-                                    } else if (chairConfig.chairTypes['vip']!
-                                        .contains(row.name)) {
-                                      setState(() {
-                                        currentPrice += sessionMovie
-                                            .seatPrices['vip'] as int;
-                                      });
-                                    } else if (chairConfig
-                                        .chairTypes['sweetBox']!
-                                        .contains(row.name)) {
-                                      setState(() {
-                                        currentPrice += sessionMovie
-                                            .seatPrices['sweetBox'] as int;
-                                      });
-                                    }
-                                  }
-                                });
-                              }
-                            },
+                            onTap: () => _toggleSeatSelection(row, seatNumber),
                             child: Container(
                               margin: EdgeInsets.all(2.8),
                               padding: EdgeInsets.all(2),
@@ -199,7 +178,8 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
                                       $AssetsIconsGen().iconApp.close,
                                       color: AppColor.accentColor,
                                     )
-                                  : Text('${row.name}$seatNumber',
+                                  : Text(
+                                      '${row.name}$seatNumber',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall
@@ -208,27 +188,27 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
                                                       '${row.name}$seatNumber')
                                                   ? AppColor.primaryTextColor
                                                   : AppColor.primaryIconColor,
-                                              fontSize: 8)),
+                                              fontSize: 8),
+                                    ),
                             ),
                           );
                         },
-                      ).marginSymmetric(horizontal: 16),
-                    ),
-                  ),
-                ],
-              ).marginOnly(top: 128);
-            }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ),
+                      );
+                    }
+                    return SeatLoadingWidget();
+                  },
+                ).marginSymmetric(horizontal: 16),
+              ),
+            ),
+          ],
+        ).marginOnly(top: 128),
       ),
       bottomNavigationBar: SeatButtonBookTicketWidget(
           movieDetail: movieDetail,
           sessionMovie: sessionMovie,
           currentPrice: currentPrice,
           currentBooked: currentBooked,
+          chairConfig: chairConfig,
           cinema: cinema),
     );
   }

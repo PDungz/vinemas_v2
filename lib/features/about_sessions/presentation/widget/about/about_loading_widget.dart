@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:packages/widget/Divider/custom_divider.dart';
 import 'package:packages/widget/Shimmer/custom_shimmer.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
-import 'package:vinemas_v1/features/about_sessions/presentation/widget/about/about_movie_rating.dart';
 
 class AboutLoadingWidget extends StatelessWidget {
   const AboutLoadingWidget({super.key});
@@ -17,21 +17,41 @@ class AboutLoadingWidget extends StatelessWidget {
             color: AppColor.secondaryColor,
           ),
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: AboutMovieRating(
-            widgetLeft: CustomShimmer(
-              height: 16,
-              width: 40,
-              borderRadius: 8,
-              baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-              highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-            ),
-            widgetRight: CustomShimmer(
-              height: 16,
-              width: 40,
-              borderRadius: 8,
-              baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
-              highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
-            ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Center(
+                  child: CustomShimmer(
+                    height: 16,
+                    width: 40,
+                    borderRadius: 8,
+                    baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
+                    highlightColor:
+                        AppColor.buttonLinerOneColor.withOpacity(0.6),
+                  ),
+                ),
+              ),
+              CustomDivider(
+                color: AppColor.secondaryTextColor.withOpacity(0.5),
+                thickness: 1.0,
+                indent: 10.0,
+                endIndent: 10.0,
+                height: 68,
+                isVertical: true,
+              ),
+              Expanded(
+                child: Center(
+                  child: CustomShimmer(
+                    height: 16,
+                    width: 40,
+                    borderRadius: 8,
+                    baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
+                    highlightColor:
+                        AppColor.buttonLinerOneColor.withOpacity(0.6),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
 

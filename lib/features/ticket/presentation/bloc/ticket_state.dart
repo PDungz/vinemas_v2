@@ -41,20 +41,29 @@ class MovieTicketDetailState extends TicketState {
   final SessionMovie? sessionMovie;
   final Payment? payment;
   final MovieDetail? movieDetail;
+  final ChairConfig? chairConfig;
   final String? message;
 
   MovieTicketDetailState({
-    required this.processStatus,
+    this.processStatus = ProcessStatus.idle,
     this.cinema,
     this.sessionMovie,
     this.payment,
     this.movieDetail,
+    this.chairConfig,
     this.message,
   });
 
   @override
-  List<Object?> get props =>
-      [processStatus, cinema, sessionMovie, payment, movieDetail, message];
+  List<Object?> get props => [
+        processStatus,
+        cinema,
+        sessionMovie,
+        payment,
+        movieDetail,
+        chairConfig,
+        message
+      ];
 
   MovieTicketDetailState copyWith({
     ProcessStatus? processStatus,
@@ -62,6 +71,7 @@ class MovieTicketDetailState extends TicketState {
     SessionMovie? sessionMovie,
     Payment? payment,
     MovieDetail? movieDetail,
+    ChairConfig? chairConfig,
     String? message,
   }) {
     return MovieTicketDetailState(
@@ -70,6 +80,7 @@ class MovieTicketDetailState extends TicketState {
       sessionMovie: sessionMovie ?? this.sessionMovie,
       payment: payment ?? this.payment,
       movieDetail: movieDetail ?? this.movieDetail,
+      chairConfig: chairConfig ?? this.chairConfig,
       message: message ?? this.message,
     );
   }

@@ -31,17 +31,19 @@ class TicketItemDetailWidget extends StatelessWidget {
             final movieDetail = state.movieDetail;
             final sessionMovie = state.sessionMovie;
             final cinema = state.cinema;
+            final chairConfig = state.chairConfig;
             final configuration =
                 context.read<GlobalBloc>().state.configuration;
             return GestureDetector(
-              onTap: () => Get.toNamed(ConfigRoute.ticketDetailPage,
-                  arguments: [
-                    movieDetail,
-                    sessionMovie,
-                    ticket.seats,
-                    ticket.totalPrice,
-                    cinema
-                  ]),
+              onTap: () =>
+                  Get.toNamed(ConfigRoute.ticketDetailPage, arguments: [
+                movieDetail,
+                sessionMovie,
+                ticket.seats,
+                ticket.totalPrice,
+                cinema,
+                chairConfig,
+              ]),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                 margin: EdgeInsets.only(top: 12),

@@ -4,6 +4,7 @@ import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema_band.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/about_bloc/about_bloc.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
+import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_cinema_schedule_movie_loading_widget.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_cinema_schedule_movie_widget.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_cinema_widget.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/widget/session/session_filter_day_widget.dart';
@@ -91,7 +92,7 @@ class _SessionsPageState extends State<SessionsPage> {
                       );
                     }
                   }
-                  return SizedBox();
+                  return SessionCinemaScheduleMovieLoadingWidget();
                 },
               ),
             )

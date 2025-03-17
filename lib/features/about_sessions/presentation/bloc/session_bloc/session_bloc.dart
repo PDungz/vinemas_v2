@@ -165,8 +165,9 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
       final runtime = movieDetail?.runtime ??
           120; // Nếu không có runtime, mặc định là 120 phút
 
-      final startDate = DateTime(now.year, now.month, now.day, 10, 0);
-      final endDate = startDate.add(Duration(minutes: runtime));
+      final startDate = DateTime(now.year, now.month, now.day, now.hour, 0);
+      final endDate =
+          startDate.add(Duration(minutes: ((runtime + 29) ~/ 30) * 30));
 
       for (var cinemaBand in cinemaBands) {
         for (var cinema in cinemas) {

@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_config.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/pay/presentation/widget/pay_tear_line_widget.dart';
@@ -28,6 +29,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   late SessionMovie sessionMovie;
   late MovieDetail movieDetail;
   late Cinema cinema;
+  late ChairConfig chairConfig;
 
   @override
   void initState() {
@@ -37,12 +39,13 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
   void _getArguments() {
     final args = Get.arguments;
-    if (args != null && args.length >= 5) {
+    if (args != null && args.length >= 6) {
       movieDetail = args[0] as MovieDetail;
-      cinema = args[4] as Cinema;
       sessionMovie = args[1] as SessionMovie;
       currentBooked = args[2] as List<String>;
       currentPrice = args[3] as int;
+      cinema = args[4] as Cinema;
+      chairConfig = args[5] as ChairConfig;
     }
   }
 
@@ -51,6 +54,10 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
     return CustomLayout(
       appBar: TicketAppBarWidget(
         title: movieDetail.title,
+        sessionMovie: sessionMovie,
+        chairConfig: chairConfig,
+        cinema: cinema,
+        movieDetail: movieDetail,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),

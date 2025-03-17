@@ -12,6 +12,7 @@ import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/core/config/app_url.dart';
 import 'package:vinemas_v1/core/utils/currency_formatter.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_config.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/pay/domain/enum/pay_enum.dart';
@@ -39,6 +40,7 @@ class _PayPageState extends State<PayPage> {
   late SessionMovie sessionMovie;
   late MovieDetail movieDetail;
   late Cinema cinema;
+  late ChairConfig chairConfig;
   void onSelectedMethod(dynamic paymentMethod) {
     setState(() {
       selectedMethod = paymentMethod;
@@ -54,12 +56,13 @@ class _PayPageState extends State<PayPage> {
 
   void _getArguments() {
     final args = Get.arguments;
-    if (args != null && args.length >= 5) {
+    if (args != null && args.length >= 6) {
       movieDetail = args[0] as MovieDetail;
-      cinema = args[4] as Cinema;
       sessionMovie = args[1] as SessionMovie;
       currentBooked = args[2] as List<String>;
       currentPrice = args[3] as int;
+      cinema = args[4] as Cinema;
+      chairConfig = args[5] as ChairConfig;
     }
   }
 
@@ -115,7 +118,8 @@ class _PayPageState extends State<PayPage> {
                       sessionMovie,
                       currentBooked,
                       currentPrice,
-                      cinema
+                      cinema,
+                      chairConfig,
                     ]);
                   }
                 },
@@ -154,5 +158,12 @@ class _PayPageState extends State<PayPage> {
         ).marginOnly(top: 60),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _getArguments(); // Load lại dữ liệu khi có sự thay đổi trong context
+    setState(() {}); // Cập nhật giao diện
   }
 }

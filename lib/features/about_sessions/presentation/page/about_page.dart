@@ -282,7 +282,7 @@ class AboutPage extends StatelessWidget {
     return Stack(
       children: [
         CustomShimmer(
-          height: 180,
+          height: 200,
           width: double.infinity,
           borderRadius: 0,
           baseColor: AppColor.secondaryTextColor.withOpacity(0.3),

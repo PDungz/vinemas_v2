@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
+import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_config.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/movie_detail_use_case.dart';
@@ -62,6 +63,13 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     try {
       emit(MovieTicketDetailState(processStatus: ProcessStatus.loading));
 
+      List<ChairConfig> chairConfigs = [];
+      await getIt<SessionUseCase>().getChairConfig(
+        onPressed: ({required chairConfig, required message, required status}) {
+          chairConfigs = chairConfig ?? [];
+        },
+      );
+
       // Lấy danh sách payment, đảm bảo không null
       final payment = await getIt<PaymentUseCase>()
           .getPayment(paymentId: event.ticket.paymentId);
@@ -81,6 +89,9 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
           movieDetail: movieDetail,
           sessionMovie: sessionMovie,
           processStatus: ProcessStatus.success,
+          chairConfig: chairConfigs.firstWhere(
+            (element) => element.chairConfigId == cinema?.chairConfigId,
+          ),
           message: 'Successful Ticket Detail'));
     } catch (e) {
       emit(MovieTicketDetailState(
