@@ -2,7 +2,6 @@ import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 
 abstract class Ticket {
   final String ticketId;
-  final String paymentId;
   final String sessionId;
   final List<String> seats;
   final int totalPrice;
@@ -11,7 +10,6 @@ abstract class Ticket {
 
   Ticket({
     required this.ticketId,
-    required this.paymentId,
     required this.sessionId,
     required this.seats,
     required this.totalPrice,

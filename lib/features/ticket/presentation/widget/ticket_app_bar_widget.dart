@@ -18,6 +18,7 @@ class TicketAppBarWidget extends StatelessWidget {
     this.movieDetail,
     this.chairConfig,
     this.cinema,
+    this.paymentPass = false,
   });
 
   final String title;
@@ -27,6 +28,7 @@ class TicketAppBarWidget extends StatelessWidget {
   final MovieDetail? movieDetail;
   final ChairConfig? chairConfig;
   final Cinema? cinema;
+  final bool paymentPass;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class TicketAppBarWidget extends StatelessWidget {
         svgPathUp: $AssetsIconsGen().iconApp.back,
         onPressed: () {
           Get.back();
-          if (showIconTicket) {
+          if (paymentPass) {
             Get.offNamed(ConfigRoute.seatReservationPage, arguments: [
               sessionMovie,
               movieDetail,

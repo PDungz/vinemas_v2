@@ -9,15 +9,35 @@ class TicketUseCase {
     required this.ticketRepository,
   });
 
-  Future<void> bookTicket(
+  Future<Ticket?> bookTicket(
       {required Ticket ticket,
       required Function(
               {required String message, required ProcessStatus status})
           onPressed}) async {
-    await ticketRepository.bookTicket(ticket: ticket, onPressed: onPressed);
+    return await ticketRepository.bookTicket(
+        ticket: ticket, onPressed: onPressed);
   }
 
   Future<List<Ticket>?> getTickets() async {
     return ticketRepository.getTickets();
+  }
+
+  Future<void> updateBookTicket({
+    required Ticket ticket,
+    required Function({
+      required String message,
+      required ProcessStatus status,
+    }) onPressed,
+  }) async {
+    try {
+      await ticketRepository.updateBookTicket(ticket: ticket);
+      onPressed(
+          message: "Ticket updated successfully",
+          status: ProcessStatus.success);
+    } catch (e) {
+      onPressed(
+          message: "Failed to update ticket: ${e.toString()}",
+          status: ProcessStatus.failure);
+    }
   }
 }

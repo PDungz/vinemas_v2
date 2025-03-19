@@ -120,6 +120,7 @@ class _PayPageState extends State<PayPage> {
                       currentPrice,
                       cinema,
                       chairConfig,
+                      true,
                     ]);
                   }
                 },
@@ -145,7 +146,6 @@ class _PayPageState extends State<PayPage> {
                                 totalPrice: currentPrice,
                                 status: TicketStatus.active,
                                 bookedTime: DateTime.now(),
-                                paymentId: '',
                               ),
                             ));
                       },

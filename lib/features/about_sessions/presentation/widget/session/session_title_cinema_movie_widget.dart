@@ -18,7 +18,7 @@ class SessionTitleCinemaMovieWidget extends StatefulWidget {
     required this.selectedDate,
     required this.selectedTimeInterval,
     required this.movieDetail,
-  });
+  });  
   final CinemaBand? cinemaBand;
   final DateTime selectedDate;
   final String selectedTimeInterval;

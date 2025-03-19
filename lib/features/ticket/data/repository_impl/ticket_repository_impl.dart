@@ -12,17 +12,22 @@ class TicketRepositoryImpl implements TicketRepository {
   });
 
   @override
-  Future<void> bookTicket(
+  Future<Ticket?> bookTicket(
       {required Ticket ticket,
       required Function(
               {required String message, required ProcessStatus status})
           onPressed}) async {
-    await ticketRemoteDataSource.bookTicket(
+    return await ticketRemoteDataSource.bookTicket(
         ticket: ticket, onPressed: onPressed);
   }
 
   @override
   Future<List<Ticket>?> getTickets() async {
     return ticketRemoteDataSource.getTickets();
+  }
+
+  @override
+  Future<void> updateBookTicket({required Ticket ticket}) async {
+    return await ticketRemoteDataSource.updateBookTicket(ticket: ticket);
   }
 }

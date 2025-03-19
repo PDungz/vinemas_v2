@@ -30,6 +30,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   late MovieDetail movieDetail;
   late Cinema cinema;
   late ChairConfig chairConfig;
+  late bool paymentPass;
 
   @override
   void initState() {
@@ -39,13 +40,14 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
   void _getArguments() {
     final args = Get.arguments;
-    if (args != null && args.length >= 6) {
+    if (args != null && args.length >= 7) {
       movieDetail = args[0] as MovieDetail;
       sessionMovie = args[1] as SessionMovie;
       currentBooked = args[2] as List<String>;
       currentPrice = args[3] as int;
       cinema = args[4] as Cinema;
       chairConfig = args[5] as ChairConfig;
+      paymentPass = args[6] as bool;
     }
   }
 
@@ -58,6 +60,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         chairConfig: chairConfig,
         cinema: cinema,
         movieDetail: movieDetail,
+        paymentPass: paymentPass,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),

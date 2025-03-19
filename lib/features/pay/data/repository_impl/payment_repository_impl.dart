@@ -3,6 +3,7 @@ import 'package:vinemas_v1/features/pay/data/data_source/payment_remote_data_sou
 import 'package:vinemas_v1/features/pay/domain/entity/payment.dart';
 import 'package:vinemas_v1/features/pay/domain/enum/pay_enum.dart';
 import 'package:vinemas_v1/features/pay/domain/repository/payment_repository.dart';
+import 'package:vinemas_v1/features/ticket/domain/entity/ticket.dart';
 
 class PaymentRepositoryImpl implements PaymentRepository {
   final PaymentRemoteDataSource paymentRemoteDataSource;
@@ -15,9 +16,13 @@ class PaymentRepositoryImpl implements PaymentRepository {
     required int amount,
     required String currency,
     required PayMethodEnum paymentMethod,
+    required Ticket ticket,
   }) async {
     return paymentRemoteDataSource.paymentTicket(
-        amount: amount, currency: currency, paymentMethod: paymentMethod);
+        amount: amount,
+        currency: currency,
+        paymentMethod: paymentMethod,
+        ticket: ticket);
   }
 
   @override

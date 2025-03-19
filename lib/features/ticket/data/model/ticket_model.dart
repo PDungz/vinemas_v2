@@ -6,7 +6,6 @@ import 'package:vinemas_v1/features/ticket/domain/extension/ticket_status_extens
 class TicketModel extends Ticket {
   TicketModel(
       {required super.ticketId,
-      required super.paymentId,
       required super.sessionId,
       required super.seats,
       required super.totalPrice,
@@ -15,7 +14,6 @@ class TicketModel extends Ticket {
 
   TicketModel copyWith({
     String? ticketId,
-    String? paymentId,
     String? sessionId,
     List<String>? seats,
     int? totalPrice,
@@ -24,7 +22,6 @@ class TicketModel extends Ticket {
   }) {
     return TicketModel(
       ticketId: ticketId ?? this.ticketId,
-      paymentId: paymentId ?? this.paymentId,
       sessionId: sessionId ?? this.sessionId,
       seats: seats ?? this.seats,
       totalPrice: totalPrice ?? this.totalPrice,
@@ -36,7 +33,6 @@ class TicketModel extends Ticket {
   factory TicketModel.fromEntity(Ticket ticket) {
     return TicketModel(
         ticketId: ticket.ticketId,
-        paymentId: ticket.paymentId,
         sessionId: ticket.sessionId,
         seats: ticket.seats,
         totalPrice: ticket.totalPrice,
@@ -47,7 +43,6 @@ class TicketModel extends Ticket {
   factory TicketModel.fromJson(Map<String, dynamic> json) {
     return TicketModel(
       ticketId: json['ticketId'] ?? '',
-      paymentId: json['paymentId'] ?? '',
       sessionId: json['sessionMovieId'] ?? '',
       seats: List<String>.from(json['seatInfo']),
       totalPrice: json['total'],
@@ -59,7 +54,6 @@ class TicketModel extends Ticket {
   Map<String, dynamic> toJson() {
     return {
       // 'ticketId': ticketId,
-      'paymentId': paymentId,
       'sessionMovieId': sessionId,
       'seatInfo': seats,
       'total': totalPrice,

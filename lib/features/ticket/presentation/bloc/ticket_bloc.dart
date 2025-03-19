@@ -8,7 +8,6 @@ import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/movie_detail_use_case.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/use_case/session/session_use_case.dart';
-import 'package:vinemas_v1/features/pay/domain/entity/payment.dart';
 import 'package:vinemas_v1/features/pay/domain/use_case/payment_use_case.dart';
 import 'package:vinemas_v1/features/ticket/domain/entity/ticket.dart';
 import 'package:vinemas_v1/features/ticket/domain/use_case/ticket_use_case.dart';
@@ -35,16 +34,15 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       final ticketMovies = await getIt<TicketUseCase>().getTickets() ?? [];
 
       // Lấy danh sách paymentId từ giao dịch đã thanh toán
-      final List<String> paidPaymentIds = payment
+      final List<String> bookTicketId = payment
           .where((p) =>
-              p?.paymentId != null) // Loại bỏ phần tử null hoặc paymentId null
-          .map((p) => p!.paymentId) // Lấy paymentId
+              p?.ticketId != null) // Loại bỏ phần tử null hoặc ticketId null
+          .map((p) => p!.ticketId) // Lấy ticketId
           .toList();
 
       // Lọc danh sách ticket theo paymentId và sessionMovieId
       final List<Ticket> filteredTickets = ticketMovies
-          .where(
-              (t) => paidPaymentIds.contains(t.paymentId)) // Kiểm tra sessionId
+          .where((t) => bookTicketId.contains(t.ticketId)) // Kiểm tra sessionId
           .toList();
 
       emit(TicketMovieState(
@@ -70,10 +68,6 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         },
       );
 
-      // Lấy danh sách payment, đảm bảo không null
-      final payment = await getIt<PaymentUseCase>()
-          .getPayment(paymentId: event.ticket.paymentId);
-
       final sessionMovie = await getIt<SessionUseCase>()
           .getSessionMovieDetail(sessionMovieId: event.ticket.sessionId);
 
@@ -84,7 +78,6 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
           .getMovieDetail(movieId: sessionMovie?.movieId ?? -1);
 
       emit(MovieTicketDetailState(
-          payment: payment,
           cinema: cinema,
           movieDetail: movieDetail,
           sessionMovie: sessionMovie,
@@ -112,16 +105,16 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       final ticketMovies = await getIt<TicketUseCase>().getTickets() ?? [];
 
       // Lấy danh sách paymentId từ giao dịch đã thanh toán
-      final List<String> paidPaymentIds = payment
+      final List<String> bookTicketId = payment
           .where((p) =>
-              p?.paymentId != null) // Loại bỏ phần tử null hoặc paymentId null
-          .map((p) => p!.paymentId) // Lấy paymentId
+              p?.ticketId != null) // Loại bỏ phần tử null hoặc paymentId null
+          .map((p) => p!.ticketId) // Lấy paymentId
           .toList();
 
       // Lọc danh sách ticket theo paymentId và sessionMovieId
       final List<Ticket> filteredTickets = ticketMovies
           .where((t) =>
-              paidPaymentIds.contains(t.paymentId) &&
+              bookTicketId.contains(t.ticketId) &&
               t.sessionId == event.sessionMovieId) // Kiểm tra sessionId
           .toList();
 

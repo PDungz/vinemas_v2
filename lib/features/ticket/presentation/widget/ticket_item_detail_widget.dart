@@ -43,6 +43,7 @@ class TicketItemDetailWidget extends StatelessWidget {
                 ticket.totalPrice,
                 cinema,
                 chairConfig,
+                false,
               ]),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
@@ -75,9 +76,12 @@ class TicketItemDetailWidget extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                movieDetail?.title ?? '',
-                                style: Theme.of(context).textTheme.titleSmall,
+                              Expanded(
+                                child: Text(
+                                  movieDetail?.title ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
                               ),
                               Card(
                                 color: ticket.status.toColor(),

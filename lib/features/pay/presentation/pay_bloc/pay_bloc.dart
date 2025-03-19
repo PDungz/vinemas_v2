@@ -6,10 +6,10 @@ import 'package:vinemas_v1/core/service/injection_container.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/use_case/session/session_use_case.dart';
-import 'package:vinemas_v1/features/pay/domain/entity/payment.dart';
 import 'package:vinemas_v1/features/pay/domain/enum/pay_enum.dart';
 import 'package:vinemas_v1/features/pay/domain/use_case/payment_use_case.dart';
 import 'package:vinemas_v1/features/ticket/data/model/ticket_model.dart';
+import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 import 'package:vinemas_v1/features/ticket/domain/use_case/ticket_use_case.dart';
 
 part 'pay_event.dart';
@@ -26,21 +26,33 @@ class PayBloc extends Bloc<PayEvent, PayState> {
     try {
       emit(PaymentTicketState(processStatus: ProcessStatus.loading));
 
-      Payment payment = await getIt<PaymentUseCase>().paymentTicket(
-          amount: event.amount,
-          currency: event.currency,
-          paymentMethod: event.payMethodEnum);
-
       TicketModel ticketModel = event.ticketModel.copyWith(
-          paymentId: payment.paymentId,
           sessionId: event.ticketModel.sessionId,
           seats: event.ticketModel.seats,
           totalPrice: event.ticketModel.totalPrice,
-          status: event.ticketModel.status,
+          status: TicketStatus.pending,
           bookedTime: event.ticketModel.bookedTime);
 
-      await getIt<TicketUseCase>().bookTicket(
+      final ticket = await getIt<TicketUseCase>().bookTicket(
         ticket: ticketModel,
+        onPressed: ({required message, required status}) {
+          // emit(PaymentTicketState(
+          //     processStatus: ProcessStatus.success, message: message));
+        },
+      );
+
+      await getIt<PaymentUseCase>().paymentTicket(
+        amount: event.amount,
+        currency: event.currency,
+        paymentMethod: event.payMethodEnum,
+        ticket: ticket!,
+      );
+
+      await getIt<TicketUseCase>().updateBookTicket(
+        ticket: ticketModel.copyWith(
+          ticketId: ticket.ticketId,
+          status: TicketStatus.active,
+        ),
         onPressed: ({required message, required status}) {
           emit(PaymentTicketState(
               processStatus: ProcessStatus.success, message: message));

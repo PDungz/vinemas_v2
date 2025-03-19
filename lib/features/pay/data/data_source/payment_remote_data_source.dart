@@ -7,12 +7,14 @@ import 'package:vinemas_v1/core/config/app_url.dart';
 import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/pay/data/model/payment_model.dart';
 import 'package:vinemas_v1/features/pay/domain/enum/pay_enum.dart';
+import 'package:vinemas_v1/features/ticket/domain/entity/ticket.dart';
 
 abstract class PaymentRemoteDataSource {
   Future<PaymentModel> paymentTicket({
     required int amount,
     required String currency,
     required PayMethodEnum paymentMethod,
+    required Ticket ticket,
   });
 
   Future<PaymentModel?> getPayment({required String paymentId});
@@ -39,6 +41,7 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
     required int amount,
     required String currency,
     required PayMethodEnum paymentMethod,
+    required Ticket ticket,
   }) async {
     try {
       final response = await _dio.post(
@@ -82,8 +85,10 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
       PaymentModel paymentModel = PaymentModel(
         paymentId: '', // Firebase sẽ cập nhật ID sau
         userAuthId: userAuthId,
+        ticketId: ticket.ticketId,
         paymentMethod: paymentMethod,
         paymentStatus: PayStatusEnum.completed,
+        updateAt: Timestamp.now().toDate(),
         createdAt: Timestamp.now().toDate(),
       );
 

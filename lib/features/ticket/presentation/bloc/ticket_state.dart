@@ -39,7 +39,6 @@ class MovieTicketDetailState extends TicketState {
   final ProcessStatus processStatus;
   final Cinema? cinema;
   final SessionMovie? sessionMovie;
-  final Payment? payment;
   final MovieDetail? movieDetail;
   final ChairConfig? chairConfig;
   final String? message;
@@ -48,7 +47,6 @@ class MovieTicketDetailState extends TicketState {
     this.processStatus = ProcessStatus.idle,
     this.cinema,
     this.sessionMovie,
-    this.payment,
     this.movieDetail,
     this.chairConfig,
     this.message,
@@ -59,7 +57,6 @@ class MovieTicketDetailState extends TicketState {
         processStatus,
         cinema,
         sessionMovie,
-        payment,
         movieDetail,
         chairConfig,
         message
@@ -69,7 +66,6 @@ class MovieTicketDetailState extends TicketState {
     ProcessStatus? processStatus,
     Cinema? cinema,
     SessionMovie? sessionMovie,
-    Payment? payment,
     MovieDetail? movieDetail,
     ChairConfig? chairConfig,
     String? message,
@@ -78,7 +74,6 @@ class MovieTicketDetailState extends TicketState {
       processStatus: processStatus ?? this.processStatus,
       cinema: cinema ?? this.cinema,
       sessionMovie: sessionMovie ?? this.sessionMovie,
-      payment: payment ?? this.payment,
       movieDetail: movieDetail ?? this.movieDetail,
       chairConfig: chairConfig ?? this.chairConfig,
       message: message ?? this.message,
