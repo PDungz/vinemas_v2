@@ -36,7 +36,7 @@ class PaymentModel extends Payment {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'paymentId': paymentId,
+      // 'paymentId': paymentId,
       'userAuthId': userAuthId,
       'ticketId': ticketId,
       'paymentMethod': paymentMethod.toInt(), // Lưu số

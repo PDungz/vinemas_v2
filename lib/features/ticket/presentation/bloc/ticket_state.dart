@@ -8,6 +8,28 @@ class TicketInitial extends TicketState {
   List<Object?> get props => [];
 }
 
+class TicketMovieNotificationState extends TicketState {
+  final ProcessStatus processStatus;
+  final String? message;
+
+  TicketMovieNotificationState({
+    this.processStatus = ProcessStatus.idle,
+    this.message,
+  });
+  @override
+  List<Object?> get props => [];
+
+  TicketMovieNotificationState copyWith({
+    ProcessStatus? processStatus,
+    String? message,
+  }) {
+    return TicketMovieNotificationState(
+      processStatus: processStatus ?? this.processStatus,
+      message: message ?? this.message,
+    );
+  }
+}
+
 class TicketMovieState extends TicketState {
   final ProcessStatus processStatus;
   final List<Ticket>? tickets;
@@ -53,14 +75,8 @@ class MovieTicketDetailState extends TicketState {
   });
 
   @override
-  List<Object?> get props => [
-        processStatus,
-        cinema,
-        sessionMovie,
-        movieDetail,
-        chairConfig,
-        message
-      ];
+  List<Object?> get props =>
+      [processStatus, cinema, sessionMovie, movieDetail, chairConfig, message];
 
   MovieTicketDetailState copyWith({
     ProcessStatus? processStatus,

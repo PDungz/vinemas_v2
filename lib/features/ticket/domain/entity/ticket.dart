@@ -6,7 +6,9 @@ abstract class Ticket {
   final List<String> seats;
   final int totalPrice;
   final DateTime bookedTime;
+  final DateTime updateTime;
   final TicketStatus status;
+  final String content;
 
   Ticket({
     required this.ticketId,
@@ -14,6 +16,8 @@ abstract class Ticket {
     required this.seats,
     required this.totalPrice,
     required this.bookedTime,
+    required this.updateTime,
     required this.status,
+    required this.content,
   });
 }

@@ -121,6 +121,7 @@ class _PayPageState extends State<PayPage> {
                       cinema,
                       chairConfig,
                       true,
+                      state.ticket
                     ]);
                   }
                 },
@@ -140,13 +141,14 @@ class _PayPageState extends State<PayPage> {
                               payMethodEnum: selectedMethod,
                               sessionMovie: sessionMovie,
                               ticketModel: TicketModel(
-                                ticketId: '',
-                                sessionId: sessionMovie.sessionMovieId,
-                                seats: currentBooked,
-                                totalPrice: currentPrice,
-                                status: TicketStatus.active,
-                                bookedTime: DateTime.now(),
-                              ),
+                                  ticketId: '',
+                                  sessionId: sessionMovie.sessionMovieId,
+                                  seats: currentBooked,
+                                  totalPrice: currentPrice,
+                                  status: TicketStatus.active,
+                                  bookedTime: DateTime.now(),
+                                  updateTime: DateTime.now(),
+                                  content: ''),
                             ));
                       },
                     ),

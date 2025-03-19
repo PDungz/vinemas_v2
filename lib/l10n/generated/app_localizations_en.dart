@@ -364,6 +364,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_change_session => 'Change Session';
 
   @override
+  String get keyword_refund_cancel_ticket => 'Do you want to refund and cancel the ticket?';
+
+  @override
+  String get keyword_show_date => 'Show Date';
+
+  @override
+  String get keyword_booking_time => 'Booking Time';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

@@ -18,7 +18,7 @@ class SessionTitleCinemaMovieWidget extends StatefulWidget {
     required this.selectedDate,
     required this.selectedTimeInterval,
     required this.movieDetail,
-  });  
+  });
   final CinemaBand? cinemaBand;
   final DateTime selectedDate;
   final String selectedTimeInterval;
@@ -97,12 +97,15 @@ class _SessionTitleCinemaMovieState
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: cinemas.length,
                     itemBuilder: (context, index) {
-                      List<SessionMovie> sessionMovieCinema =
-                          listSessionMovie.where(
-                        (element) {
-                          return cinemas[index].cinemaId == element.cinemaId;
-                        },
-                      ).toList();
+                      List<SessionMovie> sessionMovieCinema = listSessionMovie
+                          .where((element) =>
+                              cinemas[index].cinemaId == element.cinemaId &&
+                              element.endDate.isAfter(
+                                  DateTime.now())) // Lọc bỏ suất chiếu đã qua
+                          .toList()
+                        ..sort((a, b) =>
+                            a.endDate.compareTo(b.endDate)); // Sắp xếp theo giờ
+
                       final chairConfig = state.chairConfigs?.firstWhere(
                         (element) =>
                             element.chairConfigId ==

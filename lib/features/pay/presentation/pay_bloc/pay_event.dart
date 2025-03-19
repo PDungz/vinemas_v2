@@ -37,3 +37,38 @@ class PaymentTicketEvent extends PayEvent {
     );
   }
 }
+
+class RefundTicketEvent extends PayEvent {
+  final int amount;
+  final String currency;
+  final PayMethodEnum payMethodEnum;
+  final TicketModel ticketModel;
+  final SessionMovie sessionMovie;
+  RefundTicketEvent({
+    required this.amount,
+    required this.currency,
+    required this.payMethodEnum,
+    required this.ticketModel,
+    required this.sessionMovie,
+  });
+
+  @override
+  List<Object?> get props =>
+      [amount, currency, payMethodEnum, ticketModel, sessionMovie];
+
+  RefundTicketEvent copyWith({
+    int? amount,
+    String? currency,
+    PayMethodEnum? payMethodEnum,
+    TicketModel? ticketModel,
+    SessionMovie? sessionMovie,
+  }) {
+    return RefundTicketEvent(
+      amount: amount ?? this.amount,
+      currency: currency ?? this.currency,
+      payMethodEnum: payMethodEnum ?? this.payMethodEnum,
+      ticketModel: ticketModel ?? this.ticketModel,
+      sessionMovie: sessionMovie ?? this.sessionMovie,
+    );
+  }
+}

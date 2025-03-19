@@ -364,6 +364,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_change_session => 'Đổi xuất chiếu';
 
   @override
+  String get keyword_refund_cancel_ticket => 'Bạn muốn hoàn tiền và hủy vé?';
+
+  @override
+  String get keyword_show_date => 'Ngày chiếu';
+
+  @override
+  String get keyword_booking_time => 'Thời gian đặt';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

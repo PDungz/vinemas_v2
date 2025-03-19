@@ -34,4 +34,18 @@ class PaymentRepositoryImpl implements PaymentRepository {
   Future<Payment?> getPayment({required String paymentId}) async {
     return await paymentRemoteDataSource.getPayment(paymentId: paymentId);
   }
+
+  @override
+  Future<Payment> refundTicket({
+    required int amount,
+    required String currency,
+    required PayMethodEnum paymentMethod,
+    required Ticket ticket,
+  }) async {
+    return await paymentRemoteDataSource.refundTicket(
+        amount: amount,
+        currency: currency,
+        paymentMethod: paymentMethod,
+        ticket: ticket);
+  }
 }

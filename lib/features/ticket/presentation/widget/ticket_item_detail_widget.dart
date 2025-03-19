@@ -44,6 +44,7 @@ class TicketItemDetailWidget extends StatelessWidget {
                 cinema,
                 chairConfig,
                 false,
+                ticket,
               ]),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
@@ -52,7 +53,7 @@ class TicketItemDetailWidget extends StatelessWidget {
                     color: AppColor.secondaryColor,
                     borderRadius: BorderRadius.circular(12)),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       width: 68,
@@ -93,10 +94,10 @@ class TicketItemDetailWidget extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           CustomLayoutLabelValue(
-                            labelWidth: 54,
+                            labelWidth: 80,
                             padding: EdgeInsets.zero,
                             widgetLeft: Text(
-                              AppLocalizations.of(context)!.keyword_date,
+                              AppLocalizations.of(context)!.keyword_show_date,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
@@ -104,7 +105,7 @@ class TicketItemDetailWidget extends StatelessWidget {
                                       color: AppColor.secondaryTextColor),
                             ),
                             widgetRight: Text(
-                              "${FormatDateTime.formatToHourMinute(sessionMovie!.startDate)} - ${FormatDateTime.formatToReadable(sessionMovie.startDate)}",
+                              "${FormatDateTime.formatToHourMinute(sessionMovie!.startDate)} - ${FormatDateTime.formatToAbbreviated(sessionMovie.startDate)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
@@ -112,7 +113,7 @@ class TicketItemDetailWidget extends StatelessWidget {
                             ),
                           ),
                           CustomLayoutLabelValue(
-                            labelWidth: 54,
+                            labelWidth: 80,
                             padding: EdgeInsets.zero,
                             widgetLeft: Text(
                               AppLocalizations.of(context)!.keyword_seats,
@@ -124,6 +125,7 @@ class TicketItemDetailWidget extends StatelessWidget {
                             ),
                             widgetRight: Text(
                               ticket.seats.map((e) => e).toList().join(', '),
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
@@ -131,7 +133,7 @@ class TicketItemDetailWidget extends StatelessWidget {
                             ),
                           ),
                           CustomLayoutLabelValue(
-                            labelWidth: 54,
+                            labelWidth: 80,
                             padding: EdgeInsets.zero,
                             widgetLeft: Text(
                               AppLocalizations.of(context)!.keyword_cinema,
@@ -143,6 +145,27 @@ class TicketItemDetailWidget extends StatelessWidget {
                             ),
                             widgetRight: Text(
                               cinema?.nameCinema ?? '',
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(color: AppColor.primaryIconColor),
+                            ),
+                          ),
+                          CustomLayoutLabelValue(
+                            labelWidth: 80,
+                            padding: EdgeInsets.zero,
+                            widgetLeft: Text(
+                              AppLocalizations.of(context)!
+                                  .keyword_booking_time,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      color: AppColor.secondaryTextColor),
+                            ),
+                            widgetRight: Text(
+                              "${FormatDateTime.formatToHourMinute(ticket.bookedTime)} - ${FormatDateTime.formatToAbbreviated(ticket.bookedTime)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall

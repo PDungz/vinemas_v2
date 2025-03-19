@@ -31,4 +31,17 @@ class PaymentUseCase {
   Future<Payment?> getPayment({required String paymentId}) async {
     return await paymentRepository.getPayment(paymentId: paymentId);
   }
+
+  Future<Payment> refundTicket({
+    required int amount,
+    required String currency,
+    required PayMethodEnum paymentMethod,
+    required Ticket ticket,
+  }) async {
+    return await paymentRepository.refundTicket(
+        amount: amount,
+        currency: currency,
+        paymentMethod: paymentMethod,
+        ticket: ticket);
+  }
 }

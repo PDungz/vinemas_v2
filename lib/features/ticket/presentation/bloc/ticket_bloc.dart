@@ -10,6 +10,7 @@ import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/movie_d
 import 'package:vinemas_v1/features/about_sessions/domain/use_case/session/session_use_case.dart';
 import 'package:vinemas_v1/features/pay/domain/use_case/payment_use_case.dart';
 import 'package:vinemas_v1/features/ticket/domain/entity/ticket.dart';
+import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 import 'package:vinemas_v1/features/ticket/domain/use_case/ticket_use_case.dart';
 
 part 'ticket_event.dart';
@@ -43,7 +44,10 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       // Lọc danh sách ticket theo paymentId và sessionMovieId
       final List<Ticket> filteredTickets = ticketMovies
           .where((t) => bookTicketId.contains(t.ticketId)) // Kiểm tra sessionId
-          .toList();
+          .toList()
+        ..sort(
+          (a, b) => b.bookedTime.compareTo(a.bookedTime),
+        );
 
       emit(TicketMovieState(
           tickets: filteredTickets,
@@ -115,7 +119,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       final List<Ticket> filteredTickets = ticketMovies
           .where((t) =>
               bookTicketId.contains(t.ticketId) &&
-              t.sessionId == event.sessionMovieId) // Kiểm tra sessionId
+              t.sessionId == event.sessionMovieId &&
+              t.status == TicketStatus.active) // Kiểm tra sessionId
           .toList();
 
       // Lấy danh sách ghế đã đặt

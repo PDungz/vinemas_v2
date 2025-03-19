@@ -10,22 +10,28 @@ class PayInitial extends PayState {
 
 class PaymentTicketState extends PayState {
   final ProcessStatus processStatus;
+  final Ticket? ticket;
   final String? message;
 
   PaymentTicketState({
     this.processStatus = ProcessStatus.idle,
-     this.message,
+    this.ticket,
+    this.message,
   });
 
   @override
   List<Object?> get props => [processStatus, message];
 
+
+
   PaymentTicketState copyWith({
     ProcessStatus? processStatus,
+    Ticket? ticket,
     String? message,
   }) {
     return PaymentTicketState(
       processStatus: processStatus ?? this.processStatus,
+      ticket: ticket ?? this.ticket,
       message: message ?? this.message,
     );
   }

@@ -20,6 +20,13 @@ abstract class PaymentRemoteDataSource {
   Future<PaymentModel?> getPayment({required String paymentId});
 
   Future<List<PaymentModel?>> getUserPaymentTicket();
+
+  Future<PaymentModel> refundTicket({
+    required int amount,
+    required String currency,
+    required PayMethodEnum paymentMethod,
+    required Ticket ticket,
+  });
 }
 
 class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
@@ -99,9 +106,6 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
       // Cập nhật ID vào model
       PaymentModel savedPayment = paymentModel.copyWith(paymentId: docRef.id);
 
-      // Cập nhật Firestore với ID mới
-      await docRef.update({'paymentId': docRef.id});
-
       printS(
           "Payment successful and saved to Firestore: ${savedPayment.paymentId}");
 
@@ -159,6 +163,48 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
     } catch (e) {
       printE("Error fetching user's payment tickets: $e");
       return [];
+    }
+  }
+
+  @override
+  Future<PaymentModel> refundTicket(
+      {required int amount,
+      required String currency,
+      required PayMethodEnum paymentMethod,
+      required Ticket ticket}) async {
+    try {
+      // Lấy thông tin user
+      final String userAuthId = _auth.currentUser?.uid ?? '';
+      if (userAuthId.isEmpty) {
+        printE("Error: User not authenticated.");
+        throw Exception("User authentication failed.");
+      }
+
+      // Tạo bill hoàn tiền sau khi hoàn tất
+      PaymentModel paymentModel = PaymentModel(
+        paymentId: '', // Firebase sẽ cập nhật ID sau
+        userAuthId: userAuthId,
+        ticketId: ticket.ticketId,
+        paymentMethod: paymentMethod,
+        paymentStatus: PayStatusEnum.refunded,
+        updateAt: Timestamp.now().toDate(),
+        createdAt: Timestamp.now().toDate(),
+      );
+
+      // Lưu vào Firestore và lấy Document ID
+      DocumentReference docRef =
+          await _firestore.collection('payment').add(paymentModel.toMap());
+
+      // Cập nhật ID vào model
+      PaymentModel savedPayment = paymentModel.copyWith(paymentId: docRef.id);
+
+      printS(
+          "Payment successful and saved to Firestore: ${savedPayment.paymentId}");
+
+      return savedPayment; // Trả về đối tượng PaymentModel đã được lưu
+    } catch (e) {
+      printE("Unexpected Error: $e");
+      throw Exception("Unexpected payment error: $e");
     }
   }
 }

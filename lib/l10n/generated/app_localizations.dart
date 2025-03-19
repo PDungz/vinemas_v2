@@ -809,6 +809,24 @@ abstract class AppLocalizations {
   /// **'Change Session'**
   String get keyword_change_session;
 
+  /// No description provided for @keyword_refund_cancel_ticket.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to refund and cancel the ticket?'**
+  String get keyword_refund_cancel_ticket;
+
+  /// No description provided for @keyword_show_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Date'**
+  String get keyword_show_date;
+
+  /// No description provided for @keyword_booking_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Time'**
+  String get keyword_booking_time;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

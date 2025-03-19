@@ -13,4 +13,11 @@ abstract class PaymentRepository {
   Future<List<Payment?>> getUserPaymentTicket();
 
   Future<Payment?> getPayment({required String paymentId});
+
+  Future<Payment> refundTicket({
+    required int amount,
+    required String currency,
+    required PayMethodEnum paymentMethod,
+    required Ticket ticket,
+  });
 }
