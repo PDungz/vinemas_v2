@@ -3,29 +3,21 @@ import 'package:vinemas_v1/features/pay/domain/enum/pay_enum.dart';
 extension PayMethodExtension on PayMethodEnum {
   int toInt() {
     switch (this) {
-      case PayMethodEnum.visa:
+      case PayMethodEnum.card:
         return 0;
-      case PayMethodEnum.masterCard:
+      case PayMethodEnum.eWallet:
         return 1;
-      case PayMethodEnum.moMo:
-        return 2;
-      case PayMethodEnum.vnPay:
-        return 3;
       case PayMethodEnum.cod:
-        return 4;
+        return 2;
     }
   }
 
   static PayMethodEnum fromInt(int value) {
     switch (value) {
       case 0:
-        return PayMethodEnum.visa;
+        return PayMethodEnum.card;
       case 1:
-        return PayMethodEnum.masterCard;
-      case 2:
-        return PayMethodEnum.moMo;
-      case 3:
-        return PayMethodEnum.vnPay;
+        return PayMethodEnum.eWallet;
       default:
         return PayMethodEnum.cod;
     }

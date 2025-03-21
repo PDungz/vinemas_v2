@@ -175,7 +175,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                                                     .keyword_currency_format
                                                     .toLowerCase(),
                                                 payMethodEnum:
-                                                    PayMethodEnum.visa,
+                                                    PayMethodEnum.card,
                                                 ticketModel: TicketModel(
                                                     ticketId: ticket.ticketId,
                                                     sessionId: sessionMovie

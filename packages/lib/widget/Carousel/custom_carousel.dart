@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:packages/widget/Shimmer/custom_shimmer.dart';
+import 'package:flutter/material.dart';
 import 'package:packages/Core/config/app_color.dart';
+import 'package:packages/widget/Shimmer/custom_shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CustomCarousel<T> extends StatefulWidget {
@@ -81,7 +81,9 @@ class _CustomCarouselState<T> extends State<CustomCarousel<T>> {
               enlargeStrategy: CenterPageEnlargeStrategy.height,
               scrollDirection: Axis.horizontal,
               onPageChanged: (index, reason) {
-                final actualIndex = index % widget.listItem.length;
+                final actualIndex = widget.listItem.isNotEmpty
+                    ? index % widget.listItem.length
+                    : 0;
                 setState(() => _currentIndex = actualIndex);
                 if (widget.onPageChanged != null) {
                   widget.onPageChanged!(actualIndex);

@@ -35,7 +35,7 @@ class PayPage extends StatefulWidget {
 class _PayPageState extends State<PayPage> {
   late List<String> currentBooked;
   late int currentPrice;
-  PayMethodEnum selectedMethod = PayMethodEnum.visa;
+  PayMethodEnum selectedMethod = PayMethodEnum.card;
 
   late SessionMovie sessionMovie;
   late MovieDetail movieDetail;

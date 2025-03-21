@@ -50,136 +50,142 @@ class TicketItemDetailWidget extends StatelessWidget {
                   ]);
                 }
               },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                margin: EdgeInsets.only(top: 12),
-                decoration: BoxDecoration(
-                    color: AppColor.secondaryColor,
+              child: Card(
+                shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 68,
-                      height: 108,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            "${configuration?.getPosterUrl(movieDetail?.posterPath, size: PosterSize.w500)}",
+                color: AppColor.secondaryColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 68,
+                        height: 108,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              "${configuration?.getPosterUrl(movieDetail?.posterPath, size: PosterSize.w500)}",
+                            ),
+                            fit: BoxFit.cover,
                           ),
-                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    // Ticket Info
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  movieDetail?.title ?? '',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.titleSmall,
+                      const SizedBox(width: 10),
+                      // Ticket Info
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    movieDetail?.title ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
                                 ),
+                                Card(
+                                  color: ticket.status.toColor(),
+                                  child: Text(ticket.status.name)
+                                      .paddingSymmetric(
+                                          horizontal: 8, vertical: 2),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            CustomLayoutLabelValue(
+                              labelWidth: 80,
+                              padding: EdgeInsets.zero,
+                              widgetLeft: Text(
+                                AppLocalizations.of(context)!.keyword_show_date,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.secondaryTextColor),
                               ),
-                              Card(
-                                color: ticket.status.toColor(),
-                                child: Text(ticket.status.name)
-                                    .paddingSymmetric(
-                                        horizontal: 8, vertical: 2),
+                              widgetRight: Text(
+                                "${FormatDateTime.formatToHourMinute(sessionMovie!.startDate)} - ${FormatDateTime.formatToAbbreviated(sessionMovie.startDate)}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.primaryIconColor),
                               ),
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          CustomLayoutLabelValue(
-                            labelWidth: 80,
-                            padding: EdgeInsets.zero,
-                            widgetLeft: Text(
-                              AppLocalizations.of(context)!.keyword_show_date,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: AppColor.secondaryTextColor),
                             ),
-                            widgetRight: Text(
-                              "${FormatDateTime.formatToHourMinute(sessionMovie!.startDate)} - ${FormatDateTime.formatToAbbreviated(sessionMovie.startDate)}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: AppColor.primaryIconColor),
+                            CustomLayoutLabelValue(
+                              labelWidth: 80,
+                              padding: EdgeInsets.zero,
+                              widgetLeft: Text(
+                                AppLocalizations.of(context)!.keyword_seats,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.secondaryTextColor),
+                              ),
+                              widgetRight: Text(
+                                ticket.seats.map((e) => e).toList().join(', '),
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.primaryIconColor),
+                              ),
                             ),
-                          ),
-                          CustomLayoutLabelValue(
-                            labelWidth: 80,
-                            padding: EdgeInsets.zero,
-                            widgetLeft: Text(
-                              AppLocalizations.of(context)!.keyword_seats,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: AppColor.secondaryTextColor),
+                            CustomLayoutLabelValue(
+                              labelWidth: 80,
+                              padding: EdgeInsets.zero,
+                              widgetLeft: Text(
+                                AppLocalizations.of(context)!.keyword_cinema,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.secondaryTextColor),
+                              ),
+                              widgetRight: Text(
+                                cinema?.nameCinema ?? '',
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.primaryIconColor),
+                              ),
                             ),
-                            widgetRight: Text(
-                              ticket.seats.map((e) => e).toList().join(', '),
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: AppColor.primaryIconColor),
+                            CustomLayoutLabelValue(
+                              labelWidth: 80,
+                              padding: EdgeInsets.zero,
+                              widgetLeft: Text(
+                                AppLocalizations.of(context)!
+                                    .keyword_booking_time,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.secondaryTextColor),
+                              ),
+                              widgetRight: Text(
+                                "${FormatDateTime.formatToHourMinute(ticket.bookedTime)} - ${FormatDateTime.formatToAbbreviated(ticket.bookedTime)}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: AppColor.primaryIconColor),
+                              ),
                             ),
-                          ),
-                          CustomLayoutLabelValue(
-                            labelWidth: 80,
-                            padding: EdgeInsets.zero,
-                            widgetLeft: Text(
-                              AppLocalizations.of(context)!.keyword_cinema,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: AppColor.secondaryTextColor),
-                            ),
-                            widgetRight: Text(
-                              cinema?.nameCinema ?? '',
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: AppColor.primaryIconColor),
-                            ),
-                          ),
-                          CustomLayoutLabelValue(
-                            labelWidth: 80,
-                            padding: EdgeInsets.zero,
-                            widgetLeft: Text(
-                              AppLocalizations.of(context)!
-                                  .keyword_booking_time,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: AppColor.secondaryTextColor),
-                            ),
-                            widgetRight: Text(
-                              "${FormatDateTime.formatToHourMinute(ticket.bookedTime)} - ${FormatDateTime.formatToAbbreviated(ticket.bookedTime)}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: AppColor.primaryIconColor),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

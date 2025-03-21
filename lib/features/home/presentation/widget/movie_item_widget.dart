@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/config/app_router.dart';
+import 'package:vinemas_v1/core/container/widget/network_image_empty_widget.dart';
 import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_bloc/session_bloc.dart';
 import 'package:vinemas_v1/features/home/domain/entity/movie.dart';
 
@@ -34,15 +35,9 @@ class MovieItemWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.all(4),
-            constraints: const BoxConstraints(minHeight: 230),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(posterImgPath), fit: BoxFit.cover),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Align(
+          NetworkImageEmptyWidget(
+            posterImgPath: posterImgPath,
+            widgetChild: Align(
               alignment: Alignment.topRight,
               child: ScoreBadge(score: score),
             ),

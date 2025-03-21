@@ -5,7 +5,10 @@ import 'package:vinemas_v1/features/pay/domain/enum/pay_enum.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 
 class PayMethodWidget extends StatefulWidget {
-  const PayMethodWidget({super.key, required this.onSelectedMethod, required this.selectedMethod});
+  const PayMethodWidget(
+      {super.key,
+      required this.onSelectedMethod,
+      required this.selectedMethod});
 
   final Function(dynamic) onSelectedMethod;
   final PayMethodEnum selectedMethod;
@@ -15,8 +18,6 @@ class PayMethodWidget extends StatefulWidget {
 }
 
 class _PayMethodWidgetState extends State<PayMethodWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,9 +33,9 @@ class _PayMethodWidgetState extends State<PayMethodWidget> {
         const SizedBox(height: 12),
         // Visa
         CustomRadio<PayMethodEnum>(
-          value: PayMethodEnum.visa,
+          value: PayMethodEnum.card,
           groupValue: widget.selectedMethod,
-          label: "Visa Card",
+          label: "Card",
           iconPath: $AssetsIconsLogoPayGen().visaLogo,
           iconColor: AppColor.primaryIconColor,
           activeColor: AppColor.buttonLinerOneColor,
@@ -44,9 +45,9 @@ class _PayMethodWidgetState extends State<PayMethodWidget> {
         ),
         // MasterCard
         CustomRadio<PayMethodEnum>(
-          value: PayMethodEnum.masterCard,
+          value: PayMethodEnum.eWallet,
           groupValue: widget.selectedMethod,
-          label: "Master Card",
+          label: "VN pay",
           iconPath: $AssetsIconsLogoPayGen().masterCardLogo,
           iconColor: AppColor.primaryIconColor,
           activeColor: AppColor.buttonLinerOneColor,

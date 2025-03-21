@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:packages/Core/common/enum/text_form_field.dart';
 import 'package:packages/widget/Button/custom_button.dart';
 import 'package:packages/widget/Shadow/custom_shadow.dart';
+import 'package:packages/widget/Snackbar/custom_snackbar.dart';
 import 'package:packages/widget/Text_field/custom_text_field.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
@@ -43,6 +44,21 @@ class _FormForgotPasswordWidgetState extends State<FormForgotPasswordWidget> {
       listener: (context, state) {
         if (state is resetPasswordState &&
             state.processStatus == ProcessStatus.success) {
+          CustomSnackbar.show(
+            title: 'Notification',
+            message: state.message ?? "",
+            iconPath: $AssetsIconsGen().iconApp.bell,
+            iconColor: AppColor.primaryTextColor,
+            backgroundColor: state.processStatus == ProcessStatus.success
+                ? Colors.green
+                : Colors.red,
+            snackPosition: SnackPosition.TOP, // Hiển thị từ trên xuống
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            borderRadius: 10,
+            duration: const Duration(seconds: 2),
+            isDismissible: true,
+            forwardAnimationCurve: Curves.easeOutBack,
+          );
           Get.toNamed(ConfigRoute.loginPage);
         }
       },

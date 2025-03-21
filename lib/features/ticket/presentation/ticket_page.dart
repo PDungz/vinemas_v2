@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:packages/widget/Layout/custom_layout.dart';
+import 'package:packages/widget/Shimmer/custom_shimmer.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
+import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/features/ticket/presentation/bloc/ticket_bloc.dart';
 import 'package:vinemas_v1/features/ticket/presentation/widget/ticket_app_bar_widget.dart';
 import 'package:vinemas_v1/features/ticket/presentation/widget/ticket_item_detail_widget.dart';
@@ -26,7 +28,7 @@ class TicketPage extends StatelessWidget {
               if (state is TicketMovieState) {
                 switch (state.processStatus) {
                   case ProcessStatus.loading:
-                    return const Center(child: CircularProgressIndicator());
+                    return TicketListItemLoadingWidget();
                   case ProcessStatus.success:
                     final tickets = state.tickets ?? [];
                     return ListView.builder(
@@ -36,11 +38,88 @@ class TicketPage extends StatelessWidget {
                       },
                     );
                   default:
-                    return const SizedBox();
+                    return const TicketListItemLoadingWidget();
                 }
               }
-              return const SizedBox();
+              return TicketListItemLoadingWidget();
             },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TicketListItemLoadingWidget extends StatelessWidget {
+  const TicketListItemLoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context, index) => Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: AppColor.secondaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            children: [
+              CustomShimmer(
+                width: 68,
+                height: 108,
+                borderRadius: 8,
+                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
+                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomShimmer(
+                          width: 100,
+                          height: 20,
+                          borderRadius: 8,
+                          baseColor:
+                              AppColor.secondaryTextColor.withOpacity(0.3),
+                          highlightColor:
+                              AppColor.buttonLinerOneColor.withOpacity(0.6),
+                        ),
+                        CustomShimmer(
+                          width: 54,
+                          height: 24,
+                          borderRadius: 8,
+                          baseColor:
+                              AppColor.secondaryTextColor.withOpacity(0.3),
+                          highlightColor:
+                              AppColor.buttonLinerOneColor.withOpacity(0.6),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    CustomShimmer(
+                      width: 160,
+                      height: 20,
+                      borderRadius: 8,
+                      baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
+                      highlightColor:
+                          AppColor.buttonLinerOneColor.withOpacity(0.6),
+                    ),
+                    const SizedBox(height: 10),
+                    CustomShimmer(
+                      width: 200,
+                      height: 20,
+                      borderRadius: 8,
+                      baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
+                      highlightColor:
+                          AppColor.buttonLinerOneColor.withOpacity(0.6),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

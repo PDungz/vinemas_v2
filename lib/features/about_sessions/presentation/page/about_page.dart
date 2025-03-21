@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:packages/widget/Button/custom_button.dart';
 import 'package:packages/widget/Card/custom_card.dart';
@@ -67,7 +68,17 @@ class AboutPage extends StatelessWidget {
                               aspectRatio: 16 / 9,
                             );
                           }
-                          return SizedBox();
+                          return SizedBox(
+                            height: 200,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: SvgPicture.asset(
+                                $AssetsSvgGen().popcorn,
+                                fit: BoxFit.contain,
+                                width: 42.0,
+                              ),
+                            ),
+                          );
                         case ProcessStatus.failure:
                           return Center(
                               child: Text("Error: ${aboutState.state}"));

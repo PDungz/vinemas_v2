@@ -8,6 +8,7 @@ import 'package:vinemas_v1/core/common/extension/configuration_extension.dart';
 import 'package:vinemas_v1/core/common/extension/genres_extension.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/config/app_router.dart';
+import 'package:vinemas_v1/core/container/widget/network_image_empty_widget.dart';
 import 'package:vinemas_v1/core/global/api/configuration/domain/entity/configuration.dart';
 import 'package:vinemas_v1/core/global/api/genres/domain/entity/genres.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
@@ -48,18 +49,12 @@ class SearchListNowPlayingWidget extends StatelessWidget {
             children: [
               Flexible(
                 flex: 2,
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  constraints:
-                      const BoxConstraints(minHeight: 100, maxWidth: 80),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "${configuration.getPosterUrl(nowPlaying[index].posterPath, size: PosterSize.w500)}"),
-                        fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+                child: NetworkImageEmptyWidget(
+                  posterImgPath:
+                      "${configuration.getPosterUrl(nowPlaying[index].posterPath, size: PosterSize.w500)}",
+                  minHeight: 100,
+                  maxWidth: 80,
+                ).marginSymmetric(vertical: 4),
               ),
               const SizedBox(width: 8),
               Expanded(

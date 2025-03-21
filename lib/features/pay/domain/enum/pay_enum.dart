@@ -1,3 +1,3 @@
-enum PayMethodEnum { visa, masterCard, moMo, vnPay, cod }
+enum PayMethodEnum { card, eWallet, cod }
 
 enum PayStatusEnum { pending, completed, failed, refunded }

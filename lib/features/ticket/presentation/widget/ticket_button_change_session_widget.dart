@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:packages/widget/Bottom_sheet/custom_bottom_sheet.dart';
 import 'package:packages/widget/Button/custom_button.dart';
 import 'package:packages/widget/Divider/custom_divider.dart';
+import 'package:packages/widget/Shimmer/custom_shimmer.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/config/app_color.dart';
 import 'package:vinemas_v1/core/config/app_router.dart';
@@ -52,9 +53,7 @@ class TicketButtonChangeSessionWidget extends StatelessWidget {
                 if (state is SessionCinemaAndSessionMovieState) {
                   switch (state.state) {
                     case ProcessStatus.loading:
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return TicketListItemChangeShowTimeLoadingWidget();
                     case ProcessStatus.success:
                       final chairConfigs = state.chairConfigs;
                       final cinemas = state.cinemas;
@@ -143,19 +142,52 @@ class TicketButtonChangeSessionWidget extends StatelessWidget {
                         ).marginOnly(bottom: 16);
                       }
                     default:
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return TicketListItemChangeShowTimeLoadingWidget();
                   }
                 }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return TicketListItemChangeShowTimeLoadingWidget();
               },
             ),
           ),
         );
       },
+    );
+  }
+}
+
+class TicketListItemChangeShowTimeLoadingWidget extends StatelessWidget {
+  const TicketListItemChangeShowTimeLoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context, index) => Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: AppColor.secondaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomShimmer(
+                width: 120,
+                height: 16,
+                borderRadius: 8,
+                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
+                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
+              ),
+              const SizedBox(height: 10),
+              CustomShimmer(
+                width: 200,
+                height: 16,
+                borderRadius: 8,
+                baseColor: AppColor.secondaryTextColor.withOpacity(0.3),
+                highlightColor: AppColor.buttonLinerOneColor.withOpacity(0.6),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
