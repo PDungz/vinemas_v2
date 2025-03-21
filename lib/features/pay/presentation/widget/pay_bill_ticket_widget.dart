@@ -16,12 +16,16 @@ class PayBillTicketWidget extends StatelessWidget {
     required this.cinema,
     required this.sessionMovie,
     required this.currentBooked,
+    required this.contentPayment,
+    required this.isChangeShowTime,
   });
 
   final MovieDetail movieDetail;
   final Cinema cinema;
   final SessionMovie sessionMovie;
   final List currentBooked;
+  final String contentPayment;
+  final bool isChangeShowTime;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +93,18 @@ class PayBillTicketWidget extends StatelessWidget {
                   ?.copyWith(color: AppColor.secondaryTextColor),
             ),
             widgetRight: Text(FormatDateTime.formatWithTime(DateTime.now()))),
+        if (isChangeShowTime)
+          CustomLayoutLabelValue(
+              labelWidth: 120,
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+              widgetLeft: Text(
+                AppLocalizations.of(context)!.keyword_content,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall
+                    ?.copyWith(color: AppColor.secondaryTextColor),
+              ),
+              widgetRight: Text(contentPayment)),
         CustomDivider(
           color: AppColor.accentColor,
         ).paddingOnly(top: 12, bottom: 8),

@@ -7,6 +7,7 @@ abstract class Payment {
   final String ticketId;
   final PayMethodEnum paymentMethod;
   final PayStatusEnum paymentStatus;
+  final String content;
   final DateTime updateAt;
   final DateTime createdAt; // Thêm thời gian tạo giao dịch
 
@@ -16,6 +17,7 @@ abstract class Payment {
     required this.ticketId,
     required this.paymentMethod,
     required this.paymentStatus,
+    required this.content,
     required this.updateAt,
     required this.createdAt,
   });

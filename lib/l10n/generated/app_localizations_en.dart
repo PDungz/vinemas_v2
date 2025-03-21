@@ -373,6 +373,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_booking_time => 'Booking Time';
 
   @override
+  String get keyword_select => 'Select';
+
+  @override
+  String get keyword_amount_paid => 'Amount Paid';
+
+  @override
+  String get keyword_no_refund_change_session => 'No refund is supported when changing the session';
+
+  @override
+  String get keyword_content => 'Content';
+
+  @override
+  String get keyword_payment_change_fee => 'Pay Change Fee';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

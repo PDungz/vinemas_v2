@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get/get.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
 import 'package:vinemas_v1/core/common/enum/seat_enum.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
@@ -21,6 +22,7 @@ class PayBloc extends Bloc<PayEvent, PayState> {
     on<PayEvent>((event, emit) {});
     on<PaymentTicketEvent>(paymentTicket);
     on<RefundTicketEvent>(refundTicket);
+    on<PaymentTicketChangeShowTimeEvent>(paymentTicketChangeShowTime);
   }
 
   Future<void> paymentTicket(
@@ -125,5 +127,85 @@ class PayBloc extends Bloc<PayEvent, PayState> {
       emit(PaymentTicketState(
           processStatus: ProcessStatus.failure, message: e.toString()));
     }
+  }
+
+  Future<void> paymentTicketChangeShowTime(
+      PaymentTicketChangeShowTimeEvent event, Emitter<PayState> emit) async {
+    try {
+      emit(PaymentTicketState(processStatus: ProcessStatus.loading));
+
+      // Lấy danh sách session movie
+      List<SessionMovie> sessionMovies = [];
+      await getIt<SessionUseCase>().getSessionMovie(
+        onPressed: (
+            {required message, required sessionMovie, required status}) {
+          sessionMovies = sessionMovie ?? [];
+        },
+      );
+
+      // Tìm session cũ
+      final sessionOld = sessionMovies.firstWhereOrNull(
+          (element) => element.sessionMovieId == event.ticketModel.sessionId);
+      if (sessionOld == null) {
+        throw Exception("Không tìm thấy session cũ.");
+      }
+
+      // Cập nhật trạng thái ghế trong session cũ (xoá ghế đã đặt)
+      final updatedOldChairStatuses = Map<String, ChairStatus>.from(
+          sessionOld.chairStatuses)
+        ..removeWhere((key, value) => event.ticketModel.seats.contains(key));
+
+      await _updateSessionMovie(sessionOld, updatedOldChairStatuses);
+
+      // Tạo TicketModel mới với session mới
+      final updatedTicket = event.ticketModel.copyWith(
+        sessionId: event.sessionMovie.sessionMovieId,
+        seats: event.seats,
+        totalPrice: event.ticketModel.totalPrice,
+        status: TicketStatus.active,
+        bookedTime: DateTime.now(),
+        updateTime: DateTime.now(),
+      );
+
+      // Thanh toán vé mới
+      await getIt<PaymentUseCase>().paymentTicket(
+        amount: event.amount,
+        currency: event.currency,
+        paymentMethod: event.payMethodEnum,
+        ticket: updatedTicket,
+      );
+
+      // Cập nhật thông tin vé mới
+      await getIt<TicketUseCase>().updateBookTicket(
+        ticket: updatedTicket,
+        onPressed: ({required message, required status}) {
+          emit(PaymentTicketState(
+              processStatus: ProcessStatus.success,
+              ticket: updatedTicket,
+              message: message));
+        },
+      );
+
+      // Cập nhật trạng thái ghế trong session mới (đánh dấu ghế đã đặt)
+      final updatedNewChairStatuses =
+          Map<String, ChairStatus>.from(event.sessionMovie.chairStatuses);
+      for (String seat in event.seats) {
+        updatedNewChairStatuses[seat] = ChairStatus.booked;
+      }
+
+      await _updateSessionMovie(event.sessionMovie, updatedNewChairStatuses);
+    } catch (e, stacktrace) {
+      printE("Error: $e\nStacktrace: $stacktrace");
+      emit(PaymentTicketState(
+          processStatus: ProcessStatus.failure, message: e.toString()));
+    }
+  }
+
+  /// Hàm cập nhật session movie
+  Future<void> _updateSessionMovie(
+      SessionMovie session, Map<String, ChairStatus> chairStatuses) async {
+    final updatedSession = session.copyWith(chairStatuses: chairStatuses);
+    await getIt<SessionUseCase>()
+        .updateSessionMovie(sessionMovie: updatedSession);
   }
 }

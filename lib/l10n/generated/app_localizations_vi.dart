@@ -373,6 +373,21 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_booking_time => 'Thời gian đặt';
 
   @override
+  String get keyword_select => 'Chọn';
+
+  @override
+  String get keyword_amount_paid => 'Tiền đã đặt';
+
+  @override
+  String get keyword_no_refund_change_session => 'Không hỗ trợ hoàn tiền khi đổi xuất chiếu';
+
+  @override
+  String get keyword_content => 'Nội dung';
+
+  @override
+  String get keyword_payment_change_fee => 'Thanh toán phí thay đổi';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

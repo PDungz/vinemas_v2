@@ -10,6 +10,7 @@ import 'package:vinemas_v1/core/config/app_router.dart';
 import 'package:vinemas_v1/core/global/global_bloc/global_bloc.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
 import 'package:vinemas_v1/features/ticket/domain/entity/ticket.dart';
+import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 import 'package:vinemas_v1/features/ticket/domain/extension/ticket_status_extension.dart';
 import 'package:vinemas_v1/features/ticket/presentation/bloc/ticket_bloc.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
@@ -35,17 +36,20 @@ class TicketItemDetailWidget extends StatelessWidget {
             final configuration =
                 context.read<GlobalBloc>().state.configuration;
             return GestureDetector(
-              onTap: () =>
+              onTap: () {
+                if (ticket.status == TicketStatus.active) {
                   Get.toNamed(ConfigRoute.ticketDetailPage, arguments: [
-                movieDetail,
-                sessionMovie,
-                ticket.seats,
-                ticket.totalPrice,
-                cinema,
-                chairConfig,
-                false,
-                ticket,
-              ]),
+                    movieDetail,
+                    sessionMovie,
+                    ticket.seats,
+                    ticket.totalPrice,
+                    cinema,
+                    chairConfig,
+                    false,
+                    ticket,
+                  ]);
+                }
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                 margin: EdgeInsets.only(top: 12),

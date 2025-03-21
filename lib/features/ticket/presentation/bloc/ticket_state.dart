@@ -123,3 +123,26 @@ class SeatMovieTicketState extends TicketState {
     );
   }
 }
+
+class ChangeTicketState extends TicketState {
+  final ProcessStatus processStatus;
+  final String? message;
+
+  ChangeTicketState({
+    this.processStatus = ProcessStatus.idle,
+    this.message,
+  });
+
+  @override
+  List<Object?> get props => [processStatus, message];
+
+  ChangeTicketState copyWith({
+    ProcessStatus? processStatus,
+    String? message,
+  }) {
+    return ChangeTicketState(
+      processStatus: processStatus ?? this.processStatus,
+      message: message ?? this.message,
+    );
+  }
+}

@@ -41,6 +41,10 @@ class _PayPageState extends State<PayPage> {
   late MovieDetail movieDetail;
   late Cinema cinema;
   late ChairConfig chairConfig;
+  late String contentPayment;
+  late bool isChangeShowTime;
+  late TicketModel ticketModel;
+
   void onSelectedMethod(dynamic paymentMethod) {
     setState(() {
       selectedMethod = paymentMethod;
@@ -56,13 +60,16 @@ class _PayPageState extends State<PayPage> {
 
   void _getArguments() {
     final args = Get.arguments;
-    if (args != null && args.length >= 6) {
+    if (args != null && args.length >= 9) {
       movieDetail = args[0] as MovieDetail;
       sessionMovie = args[1] as SessionMovie;
       currentBooked = args[2] as List<String>;
       currentPrice = args[3] as int;
       cinema = args[4] as Cinema;
       chairConfig = args[5] as ChairConfig;
+      contentPayment = args[6] as String;
+      isChangeShowTime = args[7] as bool;
+      ticketModel = args[8] as TicketModel;
     }
   }
 
@@ -85,11 +92,13 @@ class _PayPageState extends State<PayPage> {
             shrinkWrap: true,
             children: [
               PayBillTicketWidget(
-                      movieDetail: movieDetail,
-                      cinema: cinema,
-                      sessionMovie: sessionMovie,
-                      currentBooked: currentBooked)
-                  .paddingSymmetric(horizontal: 12),
+                movieDetail: movieDetail,
+                cinema: cinema,
+                sessionMovie: sessionMovie,
+                currentBooked: currentBooked,
+                contentPayment: contentPayment,
+                isChangeShowTime: isChangeShowTime,
+              ).paddingSymmetric(horizontal: 12),
               CustomLayoutLabelValue(
                       labelWidth: 120,
                       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
@@ -133,23 +142,39 @@ class _PayPageState extends State<PayPage> {
                           ? state.processStatus == ProcessStatus.loading
                           : false,
                       onPressed: () {
-                        context.read<PayBloc>().add(PaymentTicketEvent(
-                              amount: currentPrice,
-                              currency: AppLocalizations.of(context)!
-                                  .keyword_currency_format
-                                  .toLowerCase(),
-                              payMethodEnum: selectedMethod,
-                              sessionMovie: sessionMovie,
-                              ticketModel: TicketModel(
-                                  ticketId: '',
-                                  sessionId: sessionMovie.sessionMovieId,
-                                  seats: currentBooked,
-                                  totalPrice: currentPrice,
-                                  status: TicketStatus.active,
-                                  bookedTime: DateTime.now(),
-                                  updateTime: DateTime.now(),
-                                  content: ''),
-                            ));
+                        if (!isChangeShowTime) {
+                          context.read<PayBloc>().add(PaymentTicketEvent(
+                                amount: currentPrice,
+                                currency: AppLocalizations.of(context)!
+                                    .keyword_currency_format
+                                    .toLowerCase(),
+                                payMethodEnum: selectedMethod,
+                                sessionMovie: sessionMovie,
+                                ticketModel: TicketModel(
+                                    ticketId: '',
+                                    sessionId: sessionMovie.sessionMovieId,
+                                    seats: currentBooked,
+                                    totalPrice: currentPrice,
+                                    status: TicketStatus.active,
+                                    bookedTime: DateTime.now(),
+                                    updateTime: DateTime.now(),
+                                    content: ''),
+                              ));
+                        } else {
+                          context
+                              .read<PayBloc>()
+                              .add(PaymentTicketChangeShowTimeEvent(
+                                amount: currentPrice,
+                                currency: AppLocalizations.of(context)!
+                                    .keyword_currency_format
+                                    .toLowerCase(),
+                                payMethodEnum: selectedMethod,
+                                sessionMovie: sessionMovie,
+                                content: contentPayment,
+                                ticketModel: ticketModel,
+                                seats: currentBooked,
+                              ));
+                        }
                       },
                     ),
                   );

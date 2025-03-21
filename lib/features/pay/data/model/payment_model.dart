@@ -12,6 +12,7 @@ class PaymentModel extends Payment {
     required super.paymentStatus,
     required super.updateAt,
     required super.createdAt,
+    required super.content,
   });
 
   PaymentModel copyWith({
@@ -20,6 +21,7 @@ class PaymentModel extends Payment {
     String? ticketId,
     PayMethodEnum? paymentMethod,
     PayStatusEnum? paymentStatus,
+    String? content,
     DateTime? updateAt,
     DateTime? createdAt,
   }) {
@@ -29,6 +31,7 @@ class PaymentModel extends Payment {
       ticketId: ticketId ?? this.ticketId,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       paymentStatus: paymentStatus ?? this.paymentStatus,
+      content: content ?? this.content,
       updateAt: updateAt ?? this.updateAt,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -39,8 +42,9 @@ class PaymentModel extends Payment {
       // 'paymentId': paymentId,
       'userAuthId': userAuthId,
       'ticketId': ticketId,
-      'paymentMethod': paymentMethod.toInt(), // Lưu số
-      'paymentStatus': paymentStatus.toInt(), // Lưu số
+      'paymentMethod': paymentMethod.toInt(),
+      'paymentStatus': paymentStatus.toInt(),
+      'content': content,
       'updateAt': Timestamp.fromDate(updateAt),
       'createdAt': Timestamp.fromDate(createdAt),
     };
@@ -54,6 +58,7 @@ class PaymentModel extends Payment {
       paymentMethod: PayMethodExtension.fromInt(json['paymentMethod'] as int),
       paymentStatus:
           PayStatusEnumExtension.fromInt(json['paymentStatus'] as int),
+      content: json['content'] as String,
       updateAt: (json['updateAt'] as Timestamp).toDate(),
       createdAt: (json['createdAt'] as Timestamp).toDate(),
     );

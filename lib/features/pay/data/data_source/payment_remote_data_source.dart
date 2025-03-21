@@ -95,6 +95,8 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
         ticketId: ticket.ticketId,
         paymentMethod: paymentMethod,
         paymentStatus: PayStatusEnum.completed,
+        content: 'Payment successful',
+        // Nội dung thanh toán
         updateAt: Timestamp.now().toDate(),
         createdAt: Timestamp.now().toDate(),
       );
@@ -187,6 +189,8 @@ class PaymentRemoteDataSourceImpl implements PaymentRemoteDataSource {
         ticketId: ticket.ticketId,
         paymentMethod: paymentMethod,
         paymentStatus: PayStatusEnum.refunded,
+        content: 'Refund successful',
+        // Nội dung hoàn tiền
         updateAt: Timestamp.now().toDate(),
         createdAt: Timestamp.now().toDate(),
       );

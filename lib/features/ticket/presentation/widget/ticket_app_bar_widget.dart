@@ -7,6 +7,8 @@ import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_det
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_config.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
+import 'package:vinemas_v1/features/ticket/data/model/ticket_model.dart';
+import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 
 class TicketAppBarWidget extends StatelessWidget {
@@ -43,6 +45,16 @@ class TicketAppBarWidget extends StatelessWidget {
               movieDetail,
               chairConfig,
               cinema,
+              TicketModel(
+                  ticketId: '',
+                  sessionId: '',
+                  seats: [],
+                  totalPrice: 0,
+                  bookedTime: DateTime.now(),
+                  updateTime: DateTime.now(),
+                  status: TicketStatus.active,
+                  content: ''),
+              false,
             ]);
           }
         },

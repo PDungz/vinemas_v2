@@ -12,6 +12,8 @@ import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_c
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema_band.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
+import 'package:vinemas_v1/features/ticket/data/model/ticket_model.dart';
+import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
 
@@ -133,6 +135,16 @@ class _SessionCinemaRecommendWidgetState
                                 widget.movieDetail,
                                 widget.chairConfig,
                                 widget.cinema,
+                                TicketModel(
+                                    ticketId: '',
+                                    sessionId: '',
+                                    seats: [],
+                                    totalPrice: 0,
+                                    bookedTime: DateTime.now(),
+                                    updateTime: DateTime.now(),
+                                    status: TicketStatus.active,
+                                    content: ''),
+                                false,
                               ],
                             ),
                             child: Container(

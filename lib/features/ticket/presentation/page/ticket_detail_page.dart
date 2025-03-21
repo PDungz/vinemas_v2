@@ -20,6 +20,7 @@ import 'package:vinemas_v1/features/ticket/data/model/ticket_model.dart';
 import 'package:vinemas_v1/features/ticket/domain/entity/ticket.dart';
 import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 import 'package:vinemas_v1/features/ticket/presentation/widget/ticket_app_bar_widget.dart';
+import 'package:vinemas_v1/features/ticket/presentation/widget/ticket_button_change_session_widget.dart';
 import 'package:vinemas_v1/features/ticket/presentation/widget/ticket_info_detail_widget.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
@@ -196,10 +197,9 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                           ),
                           const SizedBox(width: 12),
                           Expanded(
-                            child: CustomButton(
-                              label: AppLocalizations.of(context)!
-                                  .keyword_change_session,
-                              onPressed: () {},
+                            child: TicketButtonChangeSessionWidget(
+                              movieDetail: movieDetail,
+                              ticket: ticket,
                             ),
                           ),
                         ],

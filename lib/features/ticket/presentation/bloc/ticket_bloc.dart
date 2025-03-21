@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vinemas_v1/core/common/enum/process_status.dart';
+import 'package:vinemas_v1/core/common/enum/seat_enum.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
+import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/about/movie_detail.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/chair_config.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
@@ -9,6 +11,7 @@ import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session
 import 'package:vinemas_v1/features/about_sessions/domain/use_case/about/movie_detail_use_case.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/use_case/session/session_use_case.dart';
 import 'package:vinemas_v1/features/pay/domain/use_case/payment_use_case.dart';
+import 'package:vinemas_v1/features/ticket/data/model/ticket_model.dart';
 import 'package:vinemas_v1/features/ticket/domain/entity/ticket.dart';
 import 'package:vinemas_v1/features/ticket/domain/enum/ticket_status_enum.dart';
 import 'package:vinemas_v1/features/ticket/domain/use_case/ticket_use_case.dart';
@@ -21,6 +24,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     on<TicketMovieEvent>(getTicketMoves);
     on<UserMovieTicketEvent>(getUserTicketMoveSeat);
     on<TicketMovieDetailEvent>(getTicketDetailMoves);
+    on<ChangeTichetEvent>(changeTicket);
   }
 
   Future<void> getTicketMoves(
@@ -136,6 +140,65 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       emit(SeatMovieTicketState(
           processStatus: ProcessStatus.failure,
           message: 'Failure TicketMovies'));
+    }
+  }
+
+  Future<void> changeTicket(
+      ChangeTichetEvent event, Emitter<TicketState> emit) async {
+    try {
+      emit(ChangeTicketState(processStatus: ProcessStatus.loading));
+
+      List<SessionMovie> sessionMovies = [];
+      await getIt<SessionUseCase>().getSessionMovie(
+        onPressed: (
+            {required message, required sessionMovie, required status}) {
+          sessionMovies = sessionMovie ?? [];
+        },
+      );
+
+      final sessionOld = sessionMovies.firstWhere(
+          (element) => element.sessionMovieId == event.ticketModel.sessionId);
+
+      Map<String, ChairStatus> chairStatus = Map.from(sessionOld.chairStatuses)
+        ..removeWhere((key, value) => event.ticketModel.seats.contains(key));
+
+      SessionMovie sessionMovieOld =
+          sessionOld.copyWith(chairStatuses: chairStatus);
+
+      await getIt<SessionUseCase>()
+          .updateSessionMovie(sessionMovie: sessionMovieOld);
+
+      TicketModel ticketModel = event.ticketModel.copyWith(
+        sessionId: event.sessionMovie.sessionMovieId,
+        seats: event.seats,
+        totalPrice: event.ticketModel.totalPrice,
+        status: TicketStatus.active,
+        bookedTime: DateTime.now(),
+        updateTime: DateTime.now(),
+      );
+
+      await getIt<TicketUseCase>().updateBookTicket(
+        ticket: ticketModel,
+        onPressed: ({required message, required status}) {
+          emit(ChangeTicketState(
+              processStatus: ProcessStatus.success, message: message));
+        },
+      );
+
+      Map<String, ChairStatus> chairStatusNew =
+          Map.from(event.sessionMovie.chairStatuses);
+      for (String seat in event.seats) {
+        chairStatusNew[seat] = ChairStatus.booked;
+      }
+
+      SessionMovie sessionMovieNew =
+          event.sessionMovie.copyWith(chairStatuses: chairStatusNew);
+      await getIt<SessionUseCase>()
+          .updateSessionMovie(sessionMovie: sessionMovieNew);
+    } catch (e) {
+      printE("Error: $e");
+      emit(ChangeTicketState(
+          processStatus: ProcessStatus.failure, message: e.toString()));
     }
   }
 }

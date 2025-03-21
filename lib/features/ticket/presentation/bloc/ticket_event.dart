@@ -35,3 +35,29 @@ class UserMovieTicketEvent extends TicketEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ChangeTichetEvent extends TicketEvent {
+  final TicketModel ticketModel;
+  final SessionMovie sessionMovie;
+  final List<String> seats;
+  ChangeTichetEvent({
+    required this.ticketModel,
+    required this.sessionMovie,
+    required this.seats,
+  });
+
+  @override
+  List<Object?> get props => [ticketModel, sessionMovie, seats];
+
+  ChangeTichetEvent copyWith({
+    TicketModel? ticketModel,
+    SessionMovie? sessionMovie,
+    List<String>? seats,
+  }) {
+    return ChangeTichetEvent(
+      ticketModel: ticketModel ?? this.ticketModel,
+      sessionMovie: sessionMovie ?? this.sessionMovie,
+      seats: seats ?? this.seats,
+    );
+  }
+}

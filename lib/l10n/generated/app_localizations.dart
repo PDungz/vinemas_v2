@@ -827,6 +827,36 @@ abstract class AppLocalizations {
   /// **'Booking Time'**
   String get keyword_booking_time;
 
+  /// No description provided for @keyword_select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get keyword_select;
+
+  /// No description provided for @keyword_amount_paid.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount Paid'**
+  String get keyword_amount_paid;
+
+  /// No description provided for @keyword_no_refund_change_session.
+  ///
+  /// In en, this message translates to:
+  /// **'No refund is supported when changing the session'**
+  String get keyword_no_refund_change_session;
+
+  /// No description provided for @keyword_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get keyword_content;
+
+  /// No description provided for @keyword_payment_change_fee.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay Change Fee'**
+  String get keyword_payment_change_fee;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

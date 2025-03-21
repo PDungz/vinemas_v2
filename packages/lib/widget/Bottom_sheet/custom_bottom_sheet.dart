@@ -66,61 +66,57 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
       maxChildSize: widget.maxHeight,
       expand: false,
       builder: (context, scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-            color: widget.backgroundColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.primaryColor.withOpacity(0.7),
-                blurRadius: 10,
-                offset: const Offset(0, -5),
+        return Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: widget.backgroundColor,
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(16)),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.primaryColor.withOpacity(0.7),
+                    blurRadius: 10,
+                    offset: const Offset(0, -5),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Header
-              if (widget.header != null)
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: widget.header,
-                )
-              else
-                Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.circular(2),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[400],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
-                ),
-
-              // Nút đóng
-              if (widget.onClose != null)
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      widget.onClose?.call();
-                    },
+                  // Header
+                  if (widget.header != null) widget.header ?? const SizedBox(),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: widget.body,
+                    ),
                   ),
-                ),
-
-              // Nội dung chính (scrollable)
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: widget.body,
+                ],
+              ),
+            ),
+            if (widget.onClose != null)
+              Positioned(
+                top: 8,
+                right: 12,
+                child: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    widget.onClose?.call();
+                  },
                 ),
               ),
-            ],
-          ),
+          ],
         );
       },
     );

@@ -15,6 +15,7 @@ import 'package:vinemas_v1/features/about_sessions/presentation/bloc/session_blo
 import 'package:vinemas_v1/features/seat_reservation/presentation/widget/seat_button_book_ticket_widget.dart';
 import 'package:vinemas_v1/features/seat_reservation/presentation/widget/seat_loading_widget.dart';
 import 'package:vinemas_v1/features/seat_reservation/presentation/widget/seat_reservation_app_bar_widget.dart';
+import 'package:vinemas_v1/features/ticket/data/model/ticket_model.dart';
 import 'package:vinemas_v1/features/ticket/presentation/bloc/ticket_bloc.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
 import 'package:vinemas_v1/l10n/generated/app_localizations.dart';
@@ -34,6 +35,8 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
   late MovieDetail movieDetail;
   late ChairConfig chairConfig;
   late Cinema cinema;
+  late TicketModel ticketModel;
+  late bool isChangeShowTime;
 
   @override
   void initState() {
@@ -43,11 +46,13 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
 
   void _getArguments() {
     final args = Get.arguments;
-    if (args != null && args.length >= 4) {
+    if (args != null && args.length >= 6) {
       sessionMovie = args[0] as SessionMovie;
       movieDetail = args[1] as MovieDetail;
       chairConfig = args[2] as ChairConfig;
       cinema = args[3] as Cinema;
+      ticketModel = args[4] as TicketModel;
+      isChangeShowTime = args[5] as bool;
     }
   }
 
@@ -204,12 +209,15 @@ class _SeatReservationPageState extends State<SeatReservationPage> {
         ).marginOnly(top: 128),
       ),
       bottomNavigationBar: SeatButtonBookTicketWidget(
-          movieDetail: movieDetail,
-          sessionMovie: sessionMovie,
-          currentPrice: currentPrice,
-          currentBooked: currentBooked,
-          chairConfig: chairConfig,
-          cinema: cinema),
+        movieDetail: movieDetail,
+        sessionMovie: sessionMovie,
+        currentPrice: currentPrice,
+        currentBooked: currentBooked,
+        chairConfig: chairConfig,
+        cinema: cinema,
+        ticketModel: ticketModel,
+        isChangeShowTime: isChangeShowTime,
+      ),
     );
   }
 }
