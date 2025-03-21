@@ -27,7 +27,7 @@ class _SettingWidgetState extends State<SettingWidget> {
             AppLocalizations.of(context)!.keyword_settings,
             style: Theme.of(context)
                 .textTheme
-                .titleLarge
+                .titleMedium
                 ?.copyWith(color: AppColor.secondaryTextColor),
           ),
           bottomWidget: CustomLayoutHorizontal(
@@ -36,7 +36,7 @@ class _SettingWidgetState extends State<SettingWidget> {
             horizontalPadding: 8,
             leftWidget: Text(
               AppLocalizations.of(context)!.keyword_language,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.labelLarge,
             ),
             rightWidget: BlocBuilder<GlobalBloc, GlobalState>(
               builder: (context, state) {
@@ -60,7 +60,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                         ),
                         child: Image.asset(
                           $AssetsImagesFlagGen().vietNam.path,
-                          height: 32,
+                          height: 28,
                         ),
                       ),
                     ),
@@ -82,7 +82,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                         ),
                         child: Image.asset(
                           $AssetsImagesFlagGen().england.path,
-                          height: 32,
+                          height: 28,
                         ),
                       ),
                     )

@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:packages/widget/Layout/custom_layout.dart';
 import 'package:vinemas_v1/features/login/presentation/bloc/bloc/user_bloc.dart';
 import 'package:vinemas_v1/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:vinemas_v1/features/profile/presentation/widget/history_ticket_widget.dart';
 import 'package:vinemas_v1/features/profile/presentation/widget/profile_app_bar_widget.dart';
-import 'package:vinemas_v1/features/profile/presentation/widget/profile_form_info_widget.dart';
 import 'package:vinemas_v1/features/profile/presentation/widget/profile_avatar_widget.dart';
+import 'package:vinemas_v1/features/profile/presentation/widget/profile_form_info_widget.dart';
 import 'package:vinemas_v1/features/profile/presentation/widget/setting_widget.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -24,10 +25,12 @@ class ProfilePage extends StatelessWidget {
             child: ListView(
               children: [
                 ProfileAvatarWidget(),
-                SizedBox(height: 24),
+                SizedBox(height: 20),
                 ProfileFormInfoWidget(),
-                SizedBox(height: 12),
+                SizedBox(height: 8),
                 SettingWidget(),
+                  SizedBox(height: 8),
+                HistoryTicketWidget(),
                 SizedBox(height: 32),
               ],
             ),

@@ -77,7 +77,7 @@ class _ProfileFormInfoWidgetState extends State<ProfileFormInfoWidget> {
                 AppLocalizations.of(context)!.keyword_information,
                 style: Theme.of(context)
                     .textTheme
-                    .titleLarge
+                    .titleMedium
                     ?.copyWith(color: AppColor.secondaryTextColor),
               ),
               BlocListener<ProfileBloc, ProfileState>(
@@ -183,8 +183,7 @@ class _ProfileFormInfoWidgetState extends State<ProfileFormInfoWidget> {
                                 padding: const EdgeInsets.only(right: 24),
                                 child: Text(
                                   AppLocalizations.of(context)!.keyword_gender,
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                               ),
                               rightWidget: Expanded(
@@ -209,7 +208,7 @@ class _ProfileFormInfoWidgetState extends State<ProfileFormInfoWidget> {
                                     horizontal: 4,
                                     vertical: 4), // Padding tùy chỉnh
                                 textStyle:
-                                    Theme.of(context).textTheme.titleSmall,
+                                    Theme.of(context).textTheme.labelMedium,
                               )),
                             ),
                           _buildInput(
@@ -231,7 +230,7 @@ class _ProfileFormInfoWidgetState extends State<ProfileFormInfoWidget> {
                   },
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -270,7 +269,7 @@ class _ProfileFormInfoWidgetState extends State<ProfileFormInfoWidget> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 8),
             ],
           ),
         ),
@@ -294,7 +293,7 @@ class _ProfileFormInfoWidgetState extends State<ProfileFormInfoWidget> {
           padding: const EdgeInsets.only(right: 24),
           child: Text(
             title,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.labelLarge,
           ),
         ),
         rightWidget: Expanded(
@@ -308,6 +307,7 @@ class _ProfileFormInfoWidgetState extends State<ProfileFormInfoWidget> {
             primaryColor: AppColor.buttonLinerOneColor,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
+            textStyle: Theme.of(context).textTheme.bodyMedium,
             validator: validator,
           ),
         ),

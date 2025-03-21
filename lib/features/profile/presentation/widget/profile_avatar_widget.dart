@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:packages/widget/Button/custom_icon_button.dart';
 import 'package:vinemas_v1/features/login/domain/entity/user.dart';
 import 'package:vinemas_v1/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:vinemas_v1/gen/assets.gen.dart';
-import 'package:packages/widget/Button/custom_icon_button.dart';
 
 class ProfileAvatarWidget extends StatelessWidget {
   const ProfileAvatarWidget({super.key});
@@ -29,8 +29,8 @@ class ProfileAvatarWidget extends StatelessWidget {
 
                 return Container(
                   margin: const EdgeInsets.only(top: 80),
-                  width: 100,
-                  height: 100,
+                  width: 86,
+                  height: 86,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.grey,
@@ -70,7 +70,7 @@ class ProfileAvatarWidget extends StatelessWidget {
             }
             return Text(
               user?.fullName ?? 'Vinemas',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             );
           },
         ),
