@@ -18,7 +18,7 @@ void main() async {
   await Firebase.initializeApp();
   await dotenv.load(fileName: '.env');
   await initDI();
-  Gemini.init(apiKey: AppUrl.apiKeyGemini);
+  Gemini.init(apiKey: AppUrl.apiKeyGemini    );
   runApp(
     MultiBlocProvider(
       providers: [

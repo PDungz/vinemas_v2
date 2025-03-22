@@ -869,6 +869,42 @@ abstract class AppLocalizations {
   /// **'Enter message...'**
   String get keyword_chatbot_input_placeholder;
 
+  /// No description provided for @keyword_chatbot_suggestion_showtimes_today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s showtimes?'**
+  String get keyword_chatbot_suggestion_showtimes_today;
+
+  /// No description provided for @keyword_chatbot_suggestion_nearest_cinema.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearest cinema?'**
+  String get keyword_chatbot_suggestion_nearest_cinema;
+
+  /// No description provided for @keyword_chatbot_suggestion_ticket_price_promo.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket prices & promotions?'**
+  String get keyword_chatbot_suggestion_ticket_price_promo;
+
+  /// No description provided for @keyword_chatbot_suggestion_fast_booking.
+  ///
+  /// In en, this message translates to:
+  /// **'How to book quickly?'**
+  String get keyword_chatbot_suggestion_fast_booking;
+
+  /// No description provided for @keyword_chatbot_suggestion_payment_methods.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment methods?'**
+  String get keyword_chatbot_suggestion_payment_methods;
+
+  /// No description provided for @keyword_chatbot_typing.
+  ///
+  /// In en, this message translates to:
+  /// **'Gemini is responding...'**
+  String get keyword_chatbot_typing;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

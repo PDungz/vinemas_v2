@@ -12,8 +12,7 @@ class ChatBotInitial extends ChatBotState {
 }
 
 class ChatBotLoaded extends ChatBotState {
-  ChatBotLoaded({required List<ChatMessage> messages, required bool isShowQuickReply})
-      : super(messages: messages, isShowQuickReply: isShowQuickReply);
+  ChatBotLoaded({required super.messages, required super.isShowQuickReply});
 }
 
 class ChatBotError extends ChatBotState {

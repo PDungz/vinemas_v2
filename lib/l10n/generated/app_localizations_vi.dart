@@ -394,6 +394,24 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_chatbot_input_placeholder => 'Nhập nội dung...';
 
   @override
+  String get keyword_chatbot_suggestion_showtimes_today => 'Lịch chiếu hôm nay?';
+
+  @override
+  String get keyword_chatbot_suggestion_nearest_cinema => 'Rạp gần nhất?';
+
+  @override
+  String get keyword_chatbot_suggestion_ticket_price_promo => 'Giá vé & khuyến mãi?';
+
+  @override
+  String get keyword_chatbot_suggestion_fast_booking => 'Cách đặt vé nhanh?';
+
+  @override
+  String get keyword_chatbot_suggestion_payment_methods => 'Phương thức thanh toán?';
+
+  @override
+  String get keyword_chatbot_typing => 'Gemini đang phản hồi...';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

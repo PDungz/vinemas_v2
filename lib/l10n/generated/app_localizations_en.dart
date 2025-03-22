@@ -394,6 +394,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_chatbot_input_placeholder => 'Enter message...';
 
   @override
+  String get keyword_chatbot_suggestion_showtimes_today => 'Today\'s showtimes?';
+
+  @override
+  String get keyword_chatbot_suggestion_nearest_cinema => 'Nearest cinema?';
+
+  @override
+  String get keyword_chatbot_suggestion_ticket_price_promo => 'Ticket prices & promotions?';
+
+  @override
+  String get keyword_chatbot_suggestion_fast_booking => 'How to book quickly?';
+
+  @override
+  String get keyword_chatbot_suggestion_payment_methods => 'Payment methods?';
+
+  @override
+  String get keyword_chatbot_typing => 'Gemini is responding...';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override
