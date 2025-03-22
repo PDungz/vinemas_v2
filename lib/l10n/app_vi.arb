@@ -127,6 +127,8 @@
   "keyword_no_refund_change_session": "Không hỗ trợ hoàn tiền khi đổi xuất chiếu",
   "keyword_content": "Nội dung",
   "keyword_payment_change_fee": "Thanh toán phí thay đổi",
+  "keyword_chatbot_appbar_title": "Chatbot",
+  "keyword_chatbot_input_placeholder": "Nhập nội dung...",
   "error_validate": "LỖI_XÁC_THỰC",
   "error_email_required": "Email không được để trống",
   "error_email_invalid": "Vui lòng nhập địa chỉ email hợp lệ",

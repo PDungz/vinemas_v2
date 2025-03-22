@@ -1,6 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppUrl {
+  // API KEY GEMINI
+  static String get apiKeyGemini => dotenv.env['API_KEY_GEMINI'] ?? '';
+
+  // API PAY
   static String get urlPay => dotenv.env['URL_PAY'] ?? '';
   static String get publishableKey => dotenv.env['PUBLISHABLE_KEY'] ?? '';
   static String get secretKey => dotenv.env['SECRET_KEY'] ?? '';

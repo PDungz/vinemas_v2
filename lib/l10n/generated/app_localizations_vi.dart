@@ -388,6 +388,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_payment_change_fee => 'Thanh toán phí thay đổi';
 
   @override
+  String get keyword_chatbot_appbar_title => 'Chatbot';
+
+  @override
+  String get keyword_chatbot_input_placeholder => 'Nhập nội dung...';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

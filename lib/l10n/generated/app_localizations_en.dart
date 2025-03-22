@@ -388,6 +388,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_payment_change_fee => 'Pay Change Fee';
 
   @override
+  String get keyword_chatbot_appbar_title => 'Chatbot';
+
+  @override
+  String get keyword_chatbot_input_placeholder => 'Enter message...';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

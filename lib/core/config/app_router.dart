@@ -27,4 +27,7 @@ class ConfigRoute {
 
   // <---- Profile ---->
   static const String profilePage = '/profile';
+
+  // <---- Chat Bot ---->
+  static const String chatBotPage = '/chat_bot';
 }

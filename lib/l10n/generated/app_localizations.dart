@@ -857,6 +857,18 @@ abstract class AppLocalizations {
   /// **'Pay Change Fee'**
   String get keyword_payment_change_fee;
 
+  /// No description provided for @keyword_chatbot_appbar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Chatbot'**
+  String get keyword_chatbot_appbar_title;
+
+  /// No description provided for @keyword_chatbot_input_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter message...'**
+  String get keyword_chatbot_input_placeholder;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

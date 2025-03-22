@@ -127,6 +127,8 @@
   "keyword_no_refund_change_session": "No refund is supported when changing the session",
   "keyword_content": "Content",
   "keyword_payment_change_fee": "Pay Change Fee",
+  "keyword_chatbot_appbar_title": "Chatbot",
+  "keyword_chatbot_input_placeholder": "Enter message...",
   "error_validate": "ERROR_validate",
   "error_email_required": "Email cannot be empty",
   "error_email_invalid": "Please enter a valid email address",

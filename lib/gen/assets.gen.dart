@@ -177,6 +177,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/camera.svg
   String get camera => 'assets/icons/icon_app/camera.svg';
 
+  /// File path: assets/icons/icon_app/chat.svg
+  String get chat => 'assets/icons/icon_app/chat.svg';
+
   /// File path: assets/icons/icon_app/circle_xmark.svg
   String get circleXmark => 'assets/icons/icon_app/circle_xmark.svg';
 
@@ -223,6 +226,9 @@ class $AssetsIconsIconAppGen {
   /// File path: assets/icons/icon_app/home.svg
   String get home => 'assets/icons/icon_app/home.svg';
 
+  /// File path: assets/icons/icon_app/image.svg
+  String get image => 'assets/icons/icon_app/image.svg';
+
   /// File path: assets/icons/icon_app/language.svg
   String get language => 'assets/icons/icon_app/language.svg';
 
@@ -262,6 +268,7 @@ class $AssetsIconsIconAppGen {
         bell,
         calendar,
         camera,
+        chat,
         circleXmark,
         clock,
         close,
@@ -277,6 +284,7 @@ class $AssetsIconsIconAppGen {
         forwardArrow,
         forward,
         home,
+        image,
         language,
         location,
         locationCrosshairs,
