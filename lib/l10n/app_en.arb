@@ -135,6 +135,7 @@
   "keyword_chatbot_suggestion_fast_booking": "How to book quickly?",
   "keyword_chatbot_suggestion_payment_methods": "Payment methods?",
   "keyword_chatbot_typing": "Gemini is responding...",
+  "keyword_chatbot_movie_info_by_image": "Identify movie from image and display movie details, including title, genre, duration, release date, cast, director, and synopsis.",
   "error_validate": "ERROR_validate",
   "error_email_required": "Email cannot be empty",
   "error_email_invalid": "Please enter a valid email address",

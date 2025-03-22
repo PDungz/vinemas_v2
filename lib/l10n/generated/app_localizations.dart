@@ -905,6 +905,12 @@ abstract class AppLocalizations {
   /// **'Gemini is responding...'**
   String get keyword_chatbot_typing;
 
+  /// No description provided for @keyword_chatbot_movie_info_by_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Identify movie from image and display movie details, including title, genre, duration, release date, cast, director, and synopsis.'**
+  String get keyword_chatbot_movie_info_by_image;
+
   /// No description provided for @error_validate.
   ///
   /// In en, this message translates to:

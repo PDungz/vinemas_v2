@@ -44,12 +44,16 @@ class SendMediaMessageEvent extends ChatBotEvent {
   final ChatUser currentUser;
   final BuildContext? context;
   final ChatUser geminiUser;
+  final MessageChatEnum messageChatEnum;
+  final MessageChatSystemEnum? messageChatSystemEnum;
   final String? messageLoading;
 
   SendMediaMessageEvent({
     required this.currentUser,
     this.context,
     required this.geminiUser,
+    required this.messageChatEnum,
+    this.messageChatSystemEnum,
     this.messageLoading,
   });
 
@@ -57,12 +61,17 @@ class SendMediaMessageEvent extends ChatBotEvent {
     ChatUser? currentUser,
     BuildContext? context,
     ChatUser? geminiUser,
+    MessageChatEnum? messageChatEnum,
+    MessageChatSystemEnum? messageChatSystemEnum,
     String? messageLoading,
   }) {
     return SendMediaMessageEvent(
       currentUser: currentUser ?? this.currentUser,
       context: context ?? this.context,
       geminiUser: geminiUser ?? this.geminiUser,
+      messageChatEnum: messageChatEnum ?? this.messageChatEnum,
+      messageChatSystemEnum:
+          messageChatSystemEnum ?? this.messageChatSystemEnum,
       messageLoading: messageLoading ?? this.messageLoading,
     );
   }

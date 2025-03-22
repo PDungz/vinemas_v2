@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vinemas_v1/core/service/injection_container.dart';
+import 'package:vinemas_v1/core/service/logger_service.dart';
 import 'package:vinemas_v1/core/utils/format_datetime.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/cinema.dart';
 import 'package:vinemas_v1/features/about_sessions/domain/entity/session/session_movie.dart';
@@ -63,12 +64,11 @@ class ChatBotBloc extends Bloc<ChatBotEvent, ChatBotState> {
           ..insert(
             0,
             ChatMessage(
-              text: fullResponse,
+              text: fullResponse.replaceAll('*', ''),
               user: event.geminiUser,
               createdAt: DateTime.now(),
             ),
           );
-
         emit(ChatBotLoaded(messages: newMessages, isShowQuickReply: false));
       }
     } catch (e) {
@@ -119,12 +119,17 @@ class ChatBotBloc extends Bloc<ChatBotEvent, ChatBotState> {
             'nameCinema': cinema.nameCinema,
             'addressCinema': cinema.address,
             'movieName': movieDetail?.title ?? "Unknown",
+            'genre':
+                movieDetail?.genres.map((genre) => genre.name).join(', ') ??
+                    "Unknown",
+            'runtime': movieDetail?.runtime ?? "Unknown",
+            'releaseDate': movieDetail?.releaseDate ?? "Unknown",
             'startDate': FormatDateTime.formatWithTime(session.startDate),
             'endDate': FormatDateTime.formatWithTime(session.endDate),
             'toDay': '${DateTime.now()}'
           };
         } catch (e) {
-          print("Error processing session: $e");
+          printE("Error processing session: $e");
           return {};
         }
       }),
@@ -137,31 +142,41 @@ class ChatBotBloc extends Bloc<ChatBotEvent, ChatBotState> {
     String selectedLanguage = event.context != null
         ? AppLocalizations.of(event.context!)!.keyword_locale
         : "en";
+    String searchImage = AppLocalizations.of(event.context!)!
+        .keyword_chatbot_movie_info_by_image;
 
     if (event.message.medias != null && event.message.medias!.isNotEmpty) {
       File imageFile = File(event.message.medias!.first.url);
       final imageBytes = await imageFile.readAsBytes();
+      final sessionMovieData =
+          await _fetchSessionMovieData(cinemas, sessionMovies);
+      String jsonResult = jsonEncode(sessionMovieData);
       chatHistory.add(
         Content(role: "user", parts: [
           Part.text("Language: $selectedLanguage"),
+          Part.text("Question: $searchImage"),
+          Part.text(
+              "Find the nearest showtime and cinema for this movie: $jsonResult"),
           Part.uint8List(imageBytes),
         ]),
       );
     } else {
       if (event.messageChatEnum == MessageChatEnum.system) {
-        final sessionMovieData =
-            await _fetchSessionMovieData(cinemas, sessionMovies);
-        String jsonResult = jsonEncode(sessionMovieData);
-
         String extraInfo = "";
         if (event.messageChatSystemEnum ==
             MessageChatSystemEnum.paymentMethods) {
           extraInfo = "Payment Method: Card, VNPay, Momo, cod";
         } else if (event.messageChatSystemEnum ==
             MessageChatSystemEnum.showtimesToday) {
+          final sessionMovieData =
+              await _fetchSessionMovieData(cinemas, sessionMovies);
+          String jsonResult = jsonEncode(sessionMovieData);
           extraInfo = "Show times today: $jsonResult";
         } else if (event.messageChatSystemEnum ==
             MessageChatSystemEnum.nearestCinema) {
+          final sessionMovieData =
+              await _fetchSessionMovieData(cinemas, sessionMovies);
+          String jsonResult = jsonEncode(sessionMovieData);
           extraInfo = "Nearest Cinema: $jsonResult";
         }
 
@@ -205,6 +220,7 @@ class ChatBotBloc extends Bloc<ChatBotEvent, ChatBotState> {
           message: imageMessage,
           context: event.context,
           geminiUser: event.geminiUser,
+          messageChatEnum: event.messageChatEnum,
           messageLoading: event.messageLoading));
     }
   }

@@ -412,6 +412,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keyword_chatbot_typing => 'Gemini is responding...';
 
   @override
+  String get keyword_chatbot_movie_info_by_image => 'Identify movie from image and display movie details, including title, genre, duration, release date, cast, director, and synopsis.';
+
+  @override
   String get error_validate => 'ERROR_validate';
 
   @override

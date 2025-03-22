@@ -412,6 +412,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get keyword_chatbot_typing => 'Gemini đang phản hồi...';
 
   @override
+  String get keyword_chatbot_movie_info_by_image => 'Nhận diện phim qua hình ảnh và hiển thị thông tin phim, bao gồm tên, thể loại, thời lượng, ngày phát hành, diễn viên, đạo diễn và tóm tắt nội dung.';
+
+  @override
   String get error_validate => 'LỖI_XÁC_THỰC';
 
   @override

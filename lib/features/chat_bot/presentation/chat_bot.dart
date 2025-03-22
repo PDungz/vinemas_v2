@@ -86,6 +86,7 @@ class ChatBot extends StatelessWidget {
                                   geminiUser: geminiUser,
                                   messageLoading: AppLocalizations.of(context)!
                                       .keyword_chatbot_typing,
+                                  messageChatEnum: MessageChatEnum.image,
                                 ),
                               );
                             },

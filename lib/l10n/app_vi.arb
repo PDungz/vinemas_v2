@@ -135,6 +135,7 @@
   "keyword_chatbot_suggestion_fast_booking": "Cách đặt vé nhanh?",
   "keyword_chatbot_suggestion_payment_methods": "Phương thức thanh toán?",
   "keyword_chatbot_typing": "Gemini đang phản hồi...",
+  "keyword_chatbot_movie_info_by_image": "Nhận diện phim qua hình ảnh và hiển thị thông tin phim, bao gồm tên, thể loại, thời lượng, ngày phát hành, diễn viên, đạo diễn và tóm tắt nội dung.",
   "error_validate": "LỖI_XÁC_THỰC",
   "error_email_required": "Email không được để trống",
   "error_email_invalid": "Vui lòng nhập địa chỉ email hợp lệ",
