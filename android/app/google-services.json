@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "428538709237-l4r9m1kkqbj0f1dds1968ecncav3k9gu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vinemas_v1",
+            "certificate_hash": "714aaa1eaee46bbb838cea8414087910d2a0166a"
+          }
+        },
+        {
           "client_id": "428538709237-ofgpeetsools8h978ltevb9f2vdummut.apps.googleusercontent.com",
           "client_type": 3
         }

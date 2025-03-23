@@ -68,7 +68,8 @@ class UserModel extends UserEntity {
       avatarUrl: json['avatarUrl'] != null ? json['avatarUrl'] as String : null,
       fullName: json['fullName'] != null ? json['fullName'] as String : null,
       dateOfBirth: json['dateOfBirth'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(json['dateOfBirth'] as int)
+          ? DateTime.fromMillisecondsSinceEpoch(
+              int.tryParse(json['dateOfBirth'].toString()) ?? 0)
           : null,
       phoneNumber: json['phoneNumber'] as String,
       email: json['email'] != null ? json['email'] as String : '',
